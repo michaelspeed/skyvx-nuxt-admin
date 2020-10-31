@@ -1,0 +1,15 @@
+mutation CreateCountry($code: String, $name: String, $enabled: Boolean){
+  createCountry(
+    input:{
+      data: {
+        code: $code,
+        name: $name,
+        enabled: $enabled
+      }
+    }
+  ) {
+    country {
+      id
+    }
+  }
+}

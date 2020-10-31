@@ -1,0 +1,11 @@
+overwrite: true
+schema: "http://45.118.132.119:9689/graphql"
+documents: "gql/*.graphql"
+generates:
+  gql/index.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-vue-apollo
+    config:
+      withCompositionFunctions: false

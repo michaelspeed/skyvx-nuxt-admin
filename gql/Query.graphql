@@ -1,0 +1,15 @@
+query GetAllCountries($limit: Int, $start: Int, $search: String){
+  countries(
+    limit: $limit,
+    start: $start,
+    where: {
+      name_contains: $search
+    }
+  ){
+    id
+    created_at
+    code
+    name
+    enabled
+  }
+}

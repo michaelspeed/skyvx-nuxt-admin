@@ -1,89 +1,55 @@
 <template>
-  <v-row justify="center" align="center">
-    <v-col cols="12" sm="8" md="6">
-      <div class="text-center">
-        <logo />
-        <vuetify-logo />
-      </div>
-      <v-card>
-        <v-card-title class="headline">
-          Welcome to the Vuetify + Nuxt.js template
-        </v-card-title>
-        <v-card-text>
-          <p>Vuetify is a progressive Material Design component framework for Vue.js. It was designed to empower developers to create amazing applications.</p>
-          <p>
-            For more information on Vuetify, check out the <a
-              href="https://vuetifyjs.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              documentation
-            </a>.
-          </p>
-          <p>
-            If you have questions, please join the official <a
-              href="https://chat.vuetifyjs.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="chat"
-            >
-              discord
-            </a>.
-          </p>
-          <p>
-            Find a bug? Report it on the github <a
-              href="https://github.com/vuetifyjs/vuetify/issues"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="contribute"
-            >
-              issue board
-            </a>.
-          </p>
-          <p>Thank you for developing with Vuetify and I look forward to bringing more exciting features in the future.</p>
-          <div class="text-xs-right">
-            <em><small>&mdash; John Leider</small></em>
+  <div class="d-flex flex-column flex-root" style="height: 100vh">
+    <!--begin::Login-->
+    <div class="login login-5 login-signin-on d-flex flex-row-fluid" id="kt_login">
+      <div class="d-flex flex-center bgi-size-cover bgi-no-repeat flex-row-fluid" style="background-image: url(/media/bg/bg-2.jpg);">
+        <div class="login-form text-center text-white p-7 position-relative overflow-hidden">
+          <!--begin::Login Header-->
+          <div class="d-flex flex-center mb-15">
+            <a href="#">
+              <img src="/logo/logo.png" class="max-h-75px" alt=""/>
+            </a>
           </div>
-          <hr class="my-3">
-          <a
-            href="https://nuxtjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Nuxt Documentation
-          </a>
-          <br>
-          <a
-            href="https://github.com/nuxt/nuxt.js"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Nuxt GitHub
-          </a>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn
-            color="primary"
-            nuxt
-            to="/inspire"
-          >
-            Continue
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-col>
-  </v-row>
+          <!--end::Login Header-->
+
+          <!--begin::Login Sign in form-->
+          <div class="login-signin">
+            <div class="mb-20">
+              <h3 class="opacity-40 font-weight-normal">Sign In To Admin</h3>
+              <p class="opacity-40">Enter your details to login to your account:</p>
+            </div>
+            <div class="form" id="kt_login_signin_form">
+              <div class="form-group">
+                <input class="form-control h-auto text-white bg-white-o-5 rounded-pill border-0 py-4 px-8" type="text" placeholder="Email" name="username" autocomplete="off"/>
+              </div>
+              <div class="form-group">
+                <input class="form-control h-auto text-white bg-white-o-5 rounded-pill border-0 py-4 px-8" type="password" placeholder="Password" name="password"/>
+              </div>
+              <div class="form-group text-center mt-10">
+                <button class="btn btn-pill btn-primary opacity-90 px-15 py-3" @click="$router.push('/app/dashboard')">Sign In</button>
+              </div>
+            </div>
+          </div>
+          <!--end::Login Sign in form-->
+
+        </div>
+      </div>
+    </div>
+    <!--end::Login-->
+  </div>
 </template>
 
-<script>
-import Logo from '~/components/Logo.vue'
-import VuetifyLogo from '~/components/VuetifyLogo.vue'
+<script lang="ts" >
+import {Component, Vue} from "nuxt-property-decorator";
 
-export default {
-  components: {
-    Logo,
-    VuetifyLogo
+@Component({
+  head: {
+    script: [
+      {src: '/js/pages/custom/login/login-general.js?v=7.0.6', body: true},
+    ]
   }
+})
+export default class Index extends Vue {
+
 }
 </script>
