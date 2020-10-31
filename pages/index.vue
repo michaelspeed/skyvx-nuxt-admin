@@ -20,13 +20,13 @@
             </div>
             <div class="form" id="kt_login_signin_form">
               <div class="form-group">
-                <input class="form-control h-auto text-white bg-white-o-5 rounded-pill border-0 py-4 px-8" type="text" placeholder="Email" name="username" autocomplete="off"/>
+                <input class="form-control h-auto text-white bg-white-o-5 rounded-pill border-0 py-4 px-8" type="text" placeholder="Email" name="username" autocomplete="off" v-model="email"/>
               </div>
               <div class="form-group">
-                <input class="form-control h-auto text-white bg-white-o-5 rounded-pill border-0 py-4 px-8" type="password" placeholder="Password" name="password"/>
+                <input class="form-control h-auto text-white bg-white-o-5 rounded-pill border-0 py-4 px-8" type="password" placeholder="Password" name="password" v-model="password"/>
               </div>
               <div class="form-group text-center mt-10">
-                <button class="btn btn-pill btn-primary opacity-90 px-15 py-3" @click="$router.push('/app/dashboard')">Sign In</button>
+                <button class="btn btn-pill btn-primary opacity-90 px-15 py-3" @click="onLogin">Sign In</button>
               </div>
             </div>
           </div>
@@ -41,6 +41,7 @@
 
 <script lang="ts" >
 import {Component, Vue} from "nuxt-property-decorator";
+import {CreateLoginDocument} from "~/gql";
 
 @Component({
   head: {
@@ -50,6 +51,30 @@ import {Component, Vue} from "nuxt-property-decorator";
   }
 })
 export default class Index extends Vue {
+  private email = '';
+  private password = '';
+  private loading = false;
+
+  onLogin() {
+    this.loading = true;
+    this.$apollo.mutate({
+      mutation: CreateLoginDocument,
+      variables: {
+        identifier: this.email,
+        password: this.password
+      }
+    })
+    .then(value => {
+      this.loading = false;
+      this.$apolloHelpers.onLogin(value!.data!.login.jwt)
+      this.$store.dispatch('user/setLogin', value!.data!.login.user.id)
+      this.$router.push('/app/dashboard');
+    })
+    .catch(e => {
+      this.loading = false;
+      this.$message.error(e.message);
+    })
+  }
 
 }
 </script>

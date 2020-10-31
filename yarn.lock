@@ -11146,7 +11146,7 @@ primeicons@^4.0.0:
   resolved "https://registry.yarnpkg.com/primeicons/-/primeicons-4.0.0.tgz#a3594b3af213dcf8c4c3d6fc99eea05b7c92f57c"
   integrity sha512-JQBIswGSItn8I0Pq21RchENpKJxSi1MjfBDfggMQpXtoKNKblJoHmol/7tCV3CAV2Dlb94ht8TD8qdIAW01pGg==
 
-primevue@^3.0.0:
+primevue@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/primevue/-/primevue-3.0.1.tgz#e009b867d6252a6d1b864622c08556f496a2c362"
   integrity sha512-Y2UC5bLnypO1V7gdLRMcToamuwXB+ZwaPMtansVs+6hx9FA3hK2iDHdphPeZ5CN3g+eQvnqCtfNBr0dgbk2PFw==

@@ -633,15 +633,15 @@
           <!--end::Notifications-->
 
           <!--begin::User-->
-          <div class="topbar-item">
+          <div class="topbar-item" v-if="getUser()" @click="onLogout">
             <div class="btn btn-icon btn-hover-transparent-white w-auto d-flex align-items-center btn-lg px-2"
                  id="kt_quick_user_toggle">
               <div class="d-flex flex-column text-right pr-3">
-                <span class="text-white opacity-50 font-weight-bold font-size-sm d-none d-md-inline">Sean</span>
-                <span class="text-white font-weight-bolder font-size-sm d-none d-md-inline">UX Designer</span>
+                <span class="text-white opacity-50 font-weight-bold font-size-sm d-none d-md-inline">{{getUser().firstName}} {{getUser().lastName}}</span>
+                <span class="text-white font-weight-bolder font-size-sm d-none d-md-inline">Click To Logout</span>
               </div>
               <span class="symbol symbol-35">
-									<span class="symbol-label font-size-h5 font-weight-bold text-white bg-white-o-30">S</span>
+									<span class="symbol-label font-size-h5 font-weight-bold text-white bg-white-o-30">{{getUser().firstName.substring(0, 1)}}</span>
 								</span>
             </div>
           </div>
@@ -855,12 +855,43 @@
 </template>
 
 <script lang="ts">
-import {Component, Vue} from "nuxt-property-decorator";
+import {Component, Vue, Watch} from "nuxt-property-decorator";
 import {KTAppSettings} from "~/utils/theme";
+import {GetSingleUserDocument} from "~/gql";
 
-@Component
+@Component({
+  apollo: {
+    user: {
+      query: GetSingleUserDocument,
+      variables() {
+        return {
+          id: this.$store.state.user.user
+        }
+      }
+    }
+  }
+})
 export default class Header extends Vue {
   private theme = KTAppSettings
+  private user
+
+  @Watch('user')
+  onChangeUser() {
+    if (this.user) {
+      this.$store.dispatch('user/setUserData', this.user)
+    }
+  }
+
+  getUser() {
+    return this.$store.state.user.userdata
+  }
+
+  onLogout() {
+    this.$store.dispatch('user/logoutUser')
+    this.$apolloHelpers.onLogout().then(value => {
+      this.$router.push('/')
+    })
+  }
 }
 </script>
 

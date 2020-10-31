@@ -1804,6 +1804,28 @@ export type CreateCountryMutation = (
   )> }
 );
 
+export type CreateLoginMutationVariables = Exact<{
+  identifier: Scalars['String'];
+  password: Scalars['String'];
+}>;
+
+
+export type CreateLoginMutation = (
+  { __typename?: 'Mutation' }
+  & { login: (
+    { __typename?: 'UsersPermissionsLoginPayload' }
+    & Pick<UsersPermissionsLoginPayload, 'jwt'>
+    & { user: (
+      { __typename?: 'UsersPermissionsMe' }
+      & Pick<UsersPermissionsMe, 'id' | 'email'>
+      & { role?: Maybe<(
+        { __typename?: 'UsersPermissionsMeRole' }
+        & Pick<UsersPermissionsMeRole, 'id' | 'name' | 'type'>
+      )> }
+    ) }
+  ) }
+);
+
 export type GetAllCountriesQueryVariables = Exact<{
   limit?: Maybe<Scalars['Int']>;
   start?: Maybe<Scalars['Int']>;
@@ -1819,6 +1841,23 @@ export type GetAllCountriesQuery = (
   )>>> }
 );
 
+export type GetSingleUserQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type GetSingleUserQuery = (
+  { __typename?: 'Query' }
+  & { user?: Maybe<(
+    { __typename?: 'UsersPermissionsUser' }
+    & Pick<UsersPermissionsUser, 'id' | 'created_at' | 'updated_at' | 'username' | 'email' | 'provider' | 'confirmed' | 'firstName' | 'lastName' | 'phone'>
+    & { role?: Maybe<(
+      { __typename?: 'UsersPermissionsRole' }
+      & Pick<UsersPermissionsRole, 'id' | 'type' | 'name'>
+    )> }
+  )> }
+);
+
 
 export const CreateCountryDocument = gql`
     mutation CreateCountry($code: String, $name: String, $enabled: Boolean) {
@@ -1826,6 +1865,22 @@ export const CreateCountryDocument = gql`
     country {
       id
     }
+  }
+}
+    `;
+export const CreateLoginDocument = gql`
+    mutation CreateLogin($identifier: String!, $password: String!) {
+  login(input: {identifier: $identifier, password: $password}) {
+    user {
+      id
+      email
+      role {
+        id
+        name
+        type
+      }
+    }
+    jwt
   }
 }
     `;
@@ -1837,6 +1892,27 @@ export const GetAllCountriesDocument = gql`
     code
     name
     enabled
+  }
+}
+    `;
+export const GetSingleUserDocument = gql`
+    query GetSingleUser($id: ID!) {
+  user(id: $id) {
+    id
+    created_at
+    updated_at
+    username
+    email
+    provider
+    confirmed
+    role {
+      id
+      type
+      name
+    }
+    firstName
+    lastName
+    phone
   }
 }
     `;

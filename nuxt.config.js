@@ -44,7 +44,7 @@ export default {
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
-    '~/plugins/antd-vue-plugin.ts',
+    '~/plugins/antd-vue-plugin.ts'
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
@@ -74,7 +74,7 @@ export default {
     cookieAttributes: {
       secure: false,
     },
-    authenticationType: 'Basic',
+    authenticationType: 'Bearer',
     clientConfigs: {
       default: {
         httpEndpoint: 'http://45.118.132.119:9689/graphql'
@@ -101,7 +101,7 @@ export default {
         light: {
           primary: '#0BB783',
           accent: '#8950FC',
-          secondary: '#E5EAEE',
+          secondary: '#F3F6F9',
           info: colors.teal.lighten1,
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,

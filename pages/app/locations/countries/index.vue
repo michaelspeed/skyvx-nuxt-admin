@@ -46,6 +46,7 @@
               placeholder="Country Name"
               filled
               rounded
+              v-model="name"
             ></v-text-field>
           </div>
           <div class="col-md-6">
@@ -54,15 +55,22 @@
               placeholder="Country Code"
               filled
               rounded
+              v-model="code"
             ></v-text-field>
           </div>
         </div>
       </v-card-text>
+      <v-progress-linear
+        color="lime"
+        indeterminate
+        v-if="loading"
+      ></v-progress-linear>
       <v-card-actions class="bg-white">
         <v-spacer></v-spacer>
         <v-btn
           color="primary"
           text
+          @click="onSaveCountry"
         >Add</v-btn>
         <v-btn
           color="error"
@@ -76,12 +84,60 @@
 
 <script lang="ts">
 
-import {Component, Vue} from "nuxt-property-decorator";
+import {Component, Vue, Watch} from "nuxt-property-decorator";
+import {Country, CreateCountryDocument, GetAllCountriesDocument} from "~/gql";
 
 @Component({
-  layout: 'console'
+  layout: 'console',
+  apollo: {
+    countries: {
+      query: GetAllCountriesDocument,
+      variables() {
+        return {
+          limit: 10,
+          start: this.page * 10,
+          search: this.search
+        }
+      }
+    }
+  }
 })
 export default class Countries extends Vue {
   private add = false;
+  private name = ''
+  private code = ''
+  private loading = false;
+
+  private page = 1
+  private search = ''
+
+  private countries: Country[]
+
+  @Watch('countries')
+  onGetCountries() {
+    console.log(this.countries)
+  }
+
+  onSaveCountry(){
+    this.loading = true;
+    this.$apollo.mutate({
+      mutation: CreateCountryDocument,
+      variables: {
+        name: this.name,
+        code: this.code,
+        enabled: true
+      },
+    })
+    .then(() => {
+      this.loading = false;
+      this.add = false;
+      this.name = '';
+      this.code = '';
+    })
+    .catch(e => {
+      this.loading = false;
+      this.$message.error(e.message);
+    })
+  }
 }
 </script>
