@@ -6,7 +6,7 @@
         <div class="d-flex align-items-center flex-wrap mr-2">
 
           <!--begin::Title-->
-          <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Dashboard</h5>
+          <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Pricing</h5>
           <!--end::Title-->
 
           <!--begin::Separator-->
@@ -25,7 +25,7 @@
           <!--end::Button-->
 
           <!--begin::Button-->
-          <a href="custom/apps/projects/add-project.html" class="btn btn-light-primary font-weight-bold ml-2">Add Project</a>
+          <a href="javascript:;" class="btn btn-light-primary font-weight-bold ml-2">Add Pricing</a>
           <!--end::Button-->
         </div>
         <!--end::Toolbar-->
@@ -41,5 +41,8 @@ import {Component, Vue} from "nuxt-property-decorator";
 @Component({
   layout: 'console'
 })
-export default class Pricing extends Vue {}
+export default class Pricing extends Vue {
+  private loading = false;
+  private add = false;
+}
 </script>

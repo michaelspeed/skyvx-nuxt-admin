@@ -20,6 +20,7 @@ export default {
       {src: '/plugins/custom/prismjs/prismjs.bundle.js?v=7.0.6', body: true},
       {src: '/plugins/custom/fullcalendar/fullcalendar.bundle.js?v=7.0.6', body: true},
       {src: '/js/pages/widgets.js?v=7.0.6', body: true},
+      {src: 'https://maps.googleapis.com/maps/api/js?key=AIzaSyDZ1Mfaz3_KL0hBHtr3KMAnr1ahuCD3-gI&libraries=places,geometry,drawing', body: true},
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },

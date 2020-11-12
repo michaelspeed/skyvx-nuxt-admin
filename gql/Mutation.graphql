@@ -31,3 +31,129 @@ mutation CreateLogin($identifier: String!, $password: String!){
     jwt
   }
 }
+
+mutation CreateCurrency($name: String, $key: String, $value: Float, $base: Boolean, $unicode: String){
+  createCurrency(
+    input: {
+      data: {
+        name: $name,
+        key: $key,
+        value: $value,
+        base: $base,
+        unicode: $unicode
+      }
+    }
+  ){
+    currency {
+      id
+    }
+  }
+}
+
+
+mutation CreateLocation($format: String, $geoJSON: JSON, $placeId: String){
+  createLocation(
+    input: {
+      data: {
+        fomat: $format,
+        geoJSON: $geoJSON,
+        placeId: $placeId
+      }
+    }
+  ) {
+    location {
+      id
+    }
+  }
+}
+
+mutation CreateCity(
+  $name: String,
+  $cmapping: String,
+  $label: String,
+  $location: ID,
+  $hotel: Boolean,
+  $intercity: Boolean,
+  $tour: Boolean,
+  $hourly: Boolean
+){
+  createCity(input:{
+    data: {
+      name: $name,
+      cmapping: $cmapping,
+      label: $label,
+      location: $location,
+      hotel:$hotel,
+      intercity:$intercity,
+      tours: $tour,
+      hourly:$hourly
+    }
+  }) {
+    city {
+      id
+    }
+  }
+}
+
+mutation UpdateCity(
+  $id: ID!,
+  $name: String,
+  $label: String,
+  $hotel: Boolean,
+  $intercity: Boolean,
+  $tour: Boolean,
+  $hourly: Boolean
+){
+  updateCity(input:{
+    where:{
+      id: $id
+    },
+    data: {
+      name: $name,
+      label: $label,
+      hotel:$hotel,
+      intercity:$intercity,
+      tours: $tour,
+      hourly:$hourly
+    }
+  }) {
+    city {
+      id
+    }
+  }
+}
+
+mutation CreateAirport($name: String, $location: ID, $city: ID){
+  createAirport(input:{
+    data: {
+      name: $name,
+      location: $location,
+      city: $city
+    }
+  }) {
+    airport {
+      id
+    }
+  }
+}
+
+mutation CreateVehicle($class: String, $title: String, $tag: String, $operations: String, $icon: ID, $luggage: Boolean, $max: Int, $occ: String){
+  createVehicle(
+    input: {
+      data: {
+        vehicleClass: $class,
+        title: $title,
+        tagLiine: $tag,
+        operations: $operations,
+        icon: $icon,
+        luggage: $luggage,
+        max: $max,
+        occupancy_log: $occ
+      }
+    }
+  ){
+    vehicle {
+      id
+    }
+  }
+}

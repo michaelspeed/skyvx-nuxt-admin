@@ -14,6 +14,23 @@ query GetAllCountries($limit: Int, $start: Int, $search: String){
   }
 }
 
+query GetAllCurrency($limit: Int, $start: Int, $search: String){
+  currencies(
+    limit: $limit,
+    start: $start,
+    where: {
+      name_contains: $search
+    }
+  ) {
+    id
+    created_at
+    updated_at
+    name
+    key
+    value
+  }
+}
+
 query GetSingleUser($id: ID!){
   user(id: $id) {
     id
@@ -31,5 +48,81 @@ query GetSingleUser($id: ID!){
     firstName
     lastName
     phone
+  }
+}
+
+query GetAllCountriesConnection {
+  countriesConnection {
+    aggregate {
+      count
+      totalCount
+    }
+  }
+}
+
+query GetAllCurrenciesConnection{
+  currenciesConnection {
+    aggregate {
+      count
+      totalCount
+    }
+  }
+}
+
+query GetAllCities($limit: Int, $start: Int, $search: String){
+  cities(
+    limit: $limit,
+    start: $start,
+    where: {
+      name_contains: $search
+    }
+  ) {
+    id
+    name
+    cmapping
+    label
+    hotel
+    intercity
+    tours
+    hourly
+    location {
+      id
+      fomat
+      geoJSON
+      placeId
+    }
+    airports {
+      id
+      name
+      location {
+        id
+        fomat
+        geoJSON
+        placeId
+      }
+    }
+  }
+}
+
+query GetAllVehicles($limit: Int, $start: Int, $search: String){
+  vehicles(
+    limit: $limit,
+    start: $start,
+    where: {
+      title_contains: $search
+    }
+  ) {
+    id
+    vehicleClass
+    title
+    tagLiine
+    operations
+    icon {
+      id
+      url
+    }
+    luggage
+    max
+    occupancy_log
   }
 }
