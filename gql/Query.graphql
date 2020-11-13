@@ -126,3 +126,16 @@ query GetAllVehicles($limit: Int, $start: Int, $search: String){
     occupancy_log
   }
 }
+
+query SearchLocationById($id: String){
+  locations(
+    where: {
+      placeId: $id
+    }
+  ) {
+    id
+    hotel {
+      id
+    }
+  }
+}

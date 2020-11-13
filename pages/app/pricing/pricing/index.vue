@@ -25,7 +25,7 @@
           <!--end::Button-->
 
           <!--begin::Button-->
-          <a href="javascript:;" class="btn btn-light-primary font-weight-bold ml-2">Add Pricing</a>
+          <CreatePricing/>
           <!--end::Button-->
         </div>
         <!--end::Toolbar-->
@@ -37,8 +37,10 @@
 <script lang="ts">
 
 import {Component, Vue} from "nuxt-property-decorator";
+import CreatePricing from "~/components/pricing/CreatePricing.vue";
 
 @Component({
+  components: {CreatePricing},
   layout: 'console'
 })
 export default class Pricing extends Vue {

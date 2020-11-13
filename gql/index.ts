@@ -136,12 +136,33 @@ export type Cities = {
   intercity?: Maybe<Scalars['Boolean']>;
   tours?: Maybe<Scalars['Boolean']>;
   hourly?: Maybe<Scalars['Boolean']>;
+  interoriginpricing?: Maybe<Pricing>;
+  interdestinationpricing?: Maybe<Pricing>;
+  hourlypricing?: Maybe<Pricing>;
   published_at?: Maybe<Scalars['DateTime']>;
   airports?: Maybe<Array<Maybe<Airports>>>;
+  hotels?: Maybe<Array<Maybe<Hotels>>>;
+  hotelpricings?: Maybe<Array<Maybe<Pricing>>>;
 };
 
 
 export type CitiesAirportsArgs = {
+  sort?: Maybe<Scalars['String']>;
+  limit?: Maybe<Scalars['Int']>;
+  start?: Maybe<Scalars['Int']>;
+  where?: Maybe<Scalars['JSON']>;
+};
+
+
+export type CitiesHotelsArgs = {
+  sort?: Maybe<Scalars['String']>;
+  limit?: Maybe<Scalars['Int']>;
+  start?: Maybe<Scalars['Int']>;
+  where?: Maybe<Scalars['JSON']>;
+};
+
+
+export type CitiesHotelpricingsArgs = {
   sort?: Maybe<Scalars['String']>;
   limit?: Maybe<Scalars['Int']>;
   start?: Maybe<Scalars['Int']>;
@@ -197,6 +218,12 @@ export type CitiesConnectionHourly = {
   connection?: Maybe<CitiesConnection>;
 };
 
+export type CitiesConnectionHourlypricing = {
+  __typename?: 'CitiesConnectionHourlypricing';
+  key?: Maybe<Scalars['ID']>;
+  connection?: Maybe<CitiesConnection>;
+};
+
 export type CitiesConnectionId = {
   __typename?: 'CitiesConnectionId';
   key?: Maybe<Scalars['ID']>;
@@ -206,6 +233,18 @@ export type CitiesConnectionId = {
 export type CitiesConnectionIntercity = {
   __typename?: 'CitiesConnectionIntercity';
   key?: Maybe<Scalars['Boolean']>;
+  connection?: Maybe<CitiesConnection>;
+};
+
+export type CitiesConnectionInterdestinationpricing = {
+  __typename?: 'CitiesConnectionInterdestinationpricing';
+  key?: Maybe<Scalars['ID']>;
+  connection?: Maybe<CitiesConnection>;
+};
+
+export type CitiesConnectionInteroriginpricing = {
+  __typename?: 'CitiesConnectionInteroriginpricing';
+  key?: Maybe<Scalars['ID']>;
   connection?: Maybe<CitiesConnection>;
 };
 
@@ -260,6 +299,9 @@ export type CitiesGroupBy = {
   intercity?: Maybe<Array<Maybe<CitiesConnectionIntercity>>>;
   tours?: Maybe<Array<Maybe<CitiesConnectionTours>>>;
   hourly?: Maybe<Array<Maybe<CitiesConnectionHourly>>>;
+  interoriginpricing?: Maybe<Array<Maybe<CitiesConnectionInteroriginpricing>>>;
+  interdestinationpricing?: Maybe<Array<Maybe<CitiesConnectionInterdestinationpricing>>>;
+  hourlypricing?: Maybe<Array<Maybe<CitiesConnectionHourlypricing>>>;
   published_at?: Maybe<Array<Maybe<CitiesConnectionPublished_At>>>;
 };
 
@@ -275,6 +317,11 @@ export type CityInput = {
   intercity?: Maybe<Scalars['Boolean']>;
   tours?: Maybe<Scalars['Boolean']>;
   hourly?: Maybe<Scalars['Boolean']>;
+  interoriginpricing?: Maybe<Scalars['ID']>;
+  interdestinationpricing?: Maybe<Scalars['ID']>;
+  hotels?: Maybe<Array<Maybe<Scalars['ID']>>>;
+  hotelpricings?: Maybe<Array<Maybe<Scalars['ID']>>>;
+  hourlypricing?: Maybe<Scalars['ID']>;
   published_at?: Maybe<Scalars['DateTime']>;
   created_by?: Maybe<Scalars['ID']>;
   updated_by?: Maybe<Scalars['ID']>;
@@ -422,6 +469,15 @@ export type CreateCurrencyPayload = {
   currency?: Maybe<Currency>;
 };
 
+export type CreateHotelInput = {
+  data?: Maybe<HotelInput>;
+};
+
+export type CreateHotelPayload = {
+  __typename?: 'createHotelPayload';
+  hotel?: Maybe<Hotels>;
+};
+
 export type CreateLocationInput = {
   data?: Maybe<LocationInput>;
 };
@@ -429,6 +485,15 @@ export type CreateLocationInput = {
 export type CreateLocationPayload = {
   __typename?: 'createLocationPayload';
   location?: Maybe<Locations>;
+};
+
+export type CreatePricingInput = {
+  data?: Maybe<PricingInput>;
+};
+
+export type CreatePricingPayload = {
+  __typename?: 'createPricingPayload';
+  pricing?: Maybe<Pricing>;
 };
 
 export type CreateRoleInput = {
@@ -652,6 +717,15 @@ export type DeleteFilePayload = {
   file?: Maybe<UploadFile>;
 };
 
+export type DeleteHotelInput = {
+  where?: Maybe<InputId>;
+};
+
+export type DeleteHotelPayload = {
+  __typename?: 'deleteHotelPayload';
+  hotel?: Maybe<Hotels>;
+};
+
 export type DeleteLocationInput = {
   where?: Maybe<InputId>;
 };
@@ -659,6 +733,15 @@ export type DeleteLocationInput = {
 export type DeleteLocationPayload = {
   __typename?: 'deleteLocationPayload';
   location?: Maybe<Locations>;
+};
+
+export type DeletePricingInput = {
+  where?: Maybe<InputId>;
+};
+
+export type DeletePricingPayload = {
+  __typename?: 'deletePricingPayload';
+  pricing?: Maybe<Pricing>;
 };
 
 export type DeleteRoleInput = {
@@ -709,6 +792,11 @@ export type EditCityInput = {
   intercity?: Maybe<Scalars['Boolean']>;
   tours?: Maybe<Scalars['Boolean']>;
   hourly?: Maybe<Scalars['Boolean']>;
+  interoriginpricing?: Maybe<Scalars['ID']>;
+  interdestinationpricing?: Maybe<Scalars['ID']>;
+  hotels?: Maybe<Array<Maybe<Scalars['ID']>>>;
+  hotelpricings?: Maybe<Array<Maybe<Scalars['ID']>>>;
+  hourlypricing?: Maybe<Scalars['ID']>;
   published_at?: Maybe<Scalars['DateTime']>;
   created_by?: Maybe<Scalars['ID']>;
   updated_by?: Maybe<Scalars['ID']>;
@@ -758,12 +846,52 @@ export type EditFileInput = {
   updated_by?: Maybe<Scalars['ID']>;
 };
 
+export type EditHotelInput = {
+  name?: Maybe<Scalars['String']>;
+  locations?: Maybe<Array<Maybe<Scalars['ID']>>>;
+  cities?: Maybe<Array<Maybe<Scalars['ID']>>>;
+  published_at?: Maybe<Scalars['DateTime']>;
+  created_by?: Maybe<Scalars['ID']>;
+  updated_by?: Maybe<Scalars['ID']>;
+};
+
 export type EditLocationInput = {
   fomat?: Maybe<Scalars['String']>;
   geoJSON?: Maybe<Scalars['JSON']>;
   placeId?: Maybe<Scalars['String']>;
   city?: Maybe<Scalars['ID']>;
   airport?: Maybe<Scalars['ID']>;
+  hotel?: Maybe<Scalars['ID']>;
+  hoteloriginpricings?: Maybe<Array<Maybe<Scalars['ID']>>>;
+  hoteldestpricings?: Maybe<Array<Maybe<Scalars['ID']>>>;
+  published_at?: Maybe<Scalars['DateTime']>;
+  created_by?: Maybe<Scalars['ID']>;
+  updated_by?: Maybe<Scalars['ID']>;
+};
+
+export type EditPricingInput = {
+  nameSlug?: Maybe<Scalars['String']>;
+  type?: Maybe<Enum_Pricing_Type>;
+  base?: Maybe<Scalars['Float']>;
+  tax?: Maybe<Scalars['Float']>;
+  flat?: Maybe<Scalars['Float']>;
+  toll?: Maybe<Scalars['Float']>;
+  origincity?: Maybe<Scalars['ID']>;
+  destinationcity?: Maybe<Scalars['ID']>;
+  vehicle?: Maybe<Scalars['ID']>;
+  originlocation?: Maybe<Scalars['ID']>;
+  destinationlocation?: Maybe<Scalars['ID']>;
+  hotelcity?: Maybe<Scalars['ID']>;
+  trip?: Maybe<Enum_Pricing_Trip>;
+  hourlycity?: Maybe<Scalars['ID']>;
+  horulyUnits?: Maybe<Enum_Pricing_Horulyunits>;
+  tripJumps?: Maybe<Scalars['Float']>;
+  distance?: Maybe<Enum_Pricing_Distance>;
+  unitjumps?: Maybe<Scalars['Int']>;
+  addBase?: Maybe<Scalars['Float']>;
+  distanceBundle?: Maybe<Scalars['Int']>;
+  minDuration?: Maybe<Scalars['Int']>;
+  maxDuration?: Maybe<Scalars['Int']>;
   published_at?: Maybe<Scalars['DateTime']>;
   created_by?: Maybe<Scalars['ID']>;
   updated_by?: Maybe<Scalars['ID']>;
@@ -806,10 +934,36 @@ export type EditVehicleInput = {
   luggage?: Maybe<Scalars['Boolean']>;
   max?: Maybe<Scalars['Int']>;
   occupancy_log?: Maybe<Scalars['String']>;
+  pricings?: Maybe<Array<Maybe<Scalars['ID']>>>;
   published_at?: Maybe<Scalars['DateTime']>;
   created_by?: Maybe<Scalars['ID']>;
   updated_by?: Maybe<Scalars['ID']>;
 };
+
+export enum Enum_Pricing_Distance {
+  Km = 'KM',
+  Miles = 'MILES'
+}
+
+export enum Enum_Pricing_Horulyunits {
+  Hours = 'HOURS',
+  Minutes = 'MINUTES',
+  Days = 'DAYS'
+}
+
+export enum Enum_Pricing_Trip {
+  Airport = 'AIRPORT',
+  Bus = 'BUS',
+  Railway = 'RAILWAY',
+  General = 'GENERAL'
+}
+
+export enum Enum_Pricing_Type {
+  Inter = 'INTER',
+  Hour = 'HOUR',
+  Hotel = 'HOTEL',
+  Tour = 'TOUR'
+}
 
 export type FileInfoInput = {
   name?: Maybe<Scalars['String']>;
@@ -837,6 +991,94 @@ export type FileInput = {
   updated_by?: Maybe<Scalars['ID']>;
 };
 
+export type HotelInput = {
+  name?: Maybe<Scalars['String']>;
+  locations?: Maybe<Array<Maybe<Scalars['ID']>>>;
+  cities?: Maybe<Array<Maybe<Scalars['ID']>>>;
+  published_at?: Maybe<Scalars['DateTime']>;
+  created_by?: Maybe<Scalars['ID']>;
+  updated_by?: Maybe<Scalars['ID']>;
+};
+
+export type Hotels = {
+  __typename?: 'Hotels';
+  id: Scalars['ID'];
+  created_at: Scalars['DateTime'];
+  updated_at: Scalars['DateTime'];
+  name?: Maybe<Scalars['String']>;
+  published_at?: Maybe<Scalars['DateTime']>;
+  locations?: Maybe<Array<Maybe<Locations>>>;
+  cities?: Maybe<Array<Maybe<Cities>>>;
+};
+
+
+export type HotelsLocationsArgs = {
+  sort?: Maybe<Scalars['String']>;
+  limit?: Maybe<Scalars['Int']>;
+  start?: Maybe<Scalars['Int']>;
+  where?: Maybe<Scalars['JSON']>;
+};
+
+
+export type HotelsCitiesArgs = {
+  sort?: Maybe<Scalars['String']>;
+  limit?: Maybe<Scalars['Int']>;
+  start?: Maybe<Scalars['Int']>;
+  where?: Maybe<Scalars['JSON']>;
+};
+
+export type HotelsAggregator = {
+  __typename?: 'HotelsAggregator';
+  count?: Maybe<Scalars['Int']>;
+  totalCount?: Maybe<Scalars['Int']>;
+};
+
+export type HotelsConnection = {
+  __typename?: 'HotelsConnection';
+  values?: Maybe<Array<Maybe<Hotels>>>;
+  groupBy?: Maybe<HotelsGroupBy>;
+  aggregate?: Maybe<HotelsAggregator>;
+};
+
+export type HotelsConnectionCreated_At = {
+  __typename?: 'HotelsConnectionCreated_at';
+  key?: Maybe<Scalars['DateTime']>;
+  connection?: Maybe<HotelsConnection>;
+};
+
+export type HotelsConnectionId = {
+  __typename?: 'HotelsConnectionId';
+  key?: Maybe<Scalars['ID']>;
+  connection?: Maybe<HotelsConnection>;
+};
+
+export type HotelsConnectionName = {
+  __typename?: 'HotelsConnectionName';
+  key?: Maybe<Scalars['String']>;
+  connection?: Maybe<HotelsConnection>;
+};
+
+export type HotelsConnectionPublished_At = {
+  __typename?: 'HotelsConnectionPublished_at';
+  key?: Maybe<Scalars['DateTime']>;
+  connection?: Maybe<HotelsConnection>;
+};
+
+export type HotelsConnectionUpdated_At = {
+  __typename?: 'HotelsConnectionUpdated_at';
+  key?: Maybe<Scalars['DateTime']>;
+  connection?: Maybe<HotelsConnection>;
+};
+
+export type HotelsGroupBy = {
+  __typename?: 'HotelsGroupBy';
+  id?: Maybe<Array<Maybe<HotelsConnectionId>>>;
+  created_at?: Maybe<Array<Maybe<HotelsConnectionCreated_At>>>;
+  updated_at?: Maybe<Array<Maybe<HotelsConnectionUpdated_At>>>;
+  name?: Maybe<Array<Maybe<HotelsConnectionName>>>;
+  published_at?: Maybe<Array<Maybe<HotelsConnectionPublished_At>>>;
+};
+
 export type InputId = {
   id: Scalars['ID'];
 };
@@ -848,6 +1090,9 @@ export type LocationInput = {
   placeId?: Maybe<Scalars['String']>;
   city?: Maybe<Scalars['ID']>;
   airport?: Maybe<Scalars['ID']>;
+  hotel?: Maybe<Scalars['ID']>;
+  hoteloriginpricings?: Maybe<Array<Maybe<Scalars['ID']>>>;
+  hoteldestpricings?: Maybe<Array<Maybe<Scalars['ID']>>>;
   published_at?: Maybe<Scalars['DateTime']>;
   created_by?: Maybe<Scalars['ID']>;
   updated_by?: Maybe<Scalars['ID']>;
@@ -863,7 +1108,26 @@ export type Locations = {
   placeId?: Maybe<Scalars['String']>;
   city?: Maybe<Cities>;
   airport?: Maybe<Airports>;
+  hotel?: Maybe<Hotels>;
   published_at?: Maybe<Scalars['DateTime']>;
+  hoteloriginpricings?: Maybe<Array<Maybe<Pricing>>>;
+  hoteldestpricings?: Maybe<Array<Maybe<Pricing>>>;
+};
+
+
+export type LocationsHoteloriginpricingsArgs = {
+  sort?: Maybe<Scalars['String']>;
+  limit?: Maybe<Scalars['Int']>;
+  start?: Maybe<Scalars['Int']>;
+  where?: Maybe<Scalars['JSON']>;
+};
+
+
+export type LocationsHoteldestpricingsArgs = {
+  sort?: Maybe<Scalars['String']>;
+  limit?: Maybe<Scalars['Int']>;
+  start?: Maybe<Scalars['Int']>;
+  where?: Maybe<Scalars['JSON']>;
 };
 
 export type LocationsAggregator = {
@@ -909,6 +1173,12 @@ export type LocationsConnectionGeoJson = {
   connection?: Maybe<LocationsConnection>;
 };
 
+export type LocationsConnectionHotel = {
+  __typename?: 'LocationsConnectionHotel';
+  key?: Maybe<Scalars['ID']>;
+  connection?: Maybe<LocationsConnection>;
+};
+
 export type LocationsConnectionId = {
   __typename?: 'LocationsConnectionId';
   key?: Maybe<Scalars['ID']>;
@@ -943,11 +1213,12 @@ export type LocationsGroupBy = {
   placeId?: Maybe<Array<Maybe<LocationsConnectionPlaceId>>>;
   city?: Maybe<Array<Maybe<LocationsConnectionCity>>>;
   airport?: Maybe<Array<Maybe<LocationsConnectionAirport>>>;
+  hotel?: Maybe<Array<Maybe<LocationsConnectionHotel>>>;
   published_at?: Maybe<Array<Maybe<LocationsConnectionPublished_At>>>;
 };
 
 
-export type Morph = UsersPermissionsMe | UsersPermissionsMeRole | UsersPermissionsLoginPayload | UserPermissionsPasswordPayload | Airports | AirportsConnection | AirportsAggregator | AirportsGroupBy | AirportsConnectionId | AirportsConnectionCreated_At | AirportsConnectionUpdated_At | AirportsConnectionName | AirportsConnectionLocation | AirportsConnectionCity | AirportsConnectionPublished_At | CreateAirportPayload | UpdateAirportPayload | DeleteAirportPayload | Cities | CitiesConnection | CitiesAggregator | CitiesGroupBy | CitiesConnectionId | CitiesConnectionCreated_At | CitiesConnectionUpdated_At | CitiesConnectionName | CitiesConnectionCmapping | CitiesConnectionLabel | CitiesConnectionLocation | CitiesConnectionCurrency | CitiesConnectionCountry | CitiesConnectionHotel | CitiesConnectionIntercity | CitiesConnectionTours | CitiesConnectionHourly | CitiesConnectionPublished_At | CreateCityPayload | UpdateCityPayload | DeleteCityPayload | Country | CountryConnection | CountryAggregator | CountryGroupBy | CountryConnectionId | CountryConnectionCreated_At | CountryConnectionUpdated_At | CountryConnectionName | CountryConnectionCode | CountryConnectionEnabled | CountryConnectionPublished_At | CreateCountryPayload | UpdateCountryPayload | DeleteCountryPayload | Currency | CurrencyConnection | CurrencyAggregator | CurrencyAggregatorSum | CurrencyAggregatorAvg | CurrencyAggregatorMin | CurrencyAggregatorMax | CurrencyGroupBy | CurrencyConnectionId | CurrencyConnectionCreated_At | CurrencyConnectionUpdated_At | CurrencyConnectionName | CurrencyConnectionKey | CurrencyConnectionValue | CurrencyConnectionBase | CurrencyConnectionCountry | CurrencyConnectionUnicode | CurrencyConnectionPublished_At | CreateCurrencyPayload | UpdateCurrencyPayload | DeleteCurrencyPayload | Locations | LocationsConnection | LocationsAggregator | LocationsGroupBy | LocationsConnectionId | LocationsConnectionCreated_At | LocationsConnectionUpdated_At | LocationsConnectionFomat | LocationsConnectionGeoJson | LocationsConnectionPlaceId | LocationsConnectionCity | LocationsConnectionAirport | LocationsConnectionPublished_At | CreateLocationPayload | UpdateLocationPayload | DeleteLocationPayload | Vehicles | VehiclesConnection | VehiclesAggregator | VehiclesAggregatorSum | VehiclesAggregatorAvg | VehiclesAggregatorMin | VehiclesAggregatorMax | VehiclesGroupBy | VehiclesConnectionId | VehiclesConnectionCreated_At | VehiclesConnectionUpdated_At | VehiclesConnectionVehicleClass | VehiclesConnectionTitle | VehiclesConnectionTagLiine | VehiclesConnectionOperations | VehiclesConnectionIcon | VehiclesConnectionLogo | VehiclesConnectionLuggage | VehiclesConnectionMax | VehiclesConnectionOccupancy_Log | VehiclesConnectionPublished_At | CreateVehiclePayload | UpdateVehiclePayload | DeleteVehiclePayload | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileAggregatorSum | UploadFileAggregatorAvg | UploadFileAggregatorMin | UploadFileAggregatorMax | UploadFileGroupBy | UploadFileConnectionId | UploadFileConnectionCreated_At | UploadFileConnectionUpdated_At | UploadFileConnectionName | UploadFileConnectionAlternativeText | UploadFileConnectionCaption | UploadFileConnectionWidth | UploadFileConnectionHeight | UploadFileConnectionFormats | UploadFileConnectionHash | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionPreviewUrl | UploadFileConnectionProvider | UploadFileConnectionProvider_Metadata | DeleteFilePayload | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnectionId | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | CreateRolePayload | UpdateRolePayload | DeleteRolePayload | UsersPermissionsUser | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnectionId | UsersPermissionsUserConnectionCreated_At | UsersPermissionsUserConnectionUpdated_At | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole | UsersPermissionsUserConnectionFirstName | UsersPermissionsUserConnectionLastName | UsersPermissionsUserConnectionPhone | CreateUserPayload | UpdateUserPayload | DeleteUserPayload;
+export type Morph = UsersPermissionsMe | UsersPermissionsMeRole | UsersPermissionsLoginPayload | UserPermissionsPasswordPayload | Airports | AirportsConnection | AirportsAggregator | AirportsGroupBy | AirportsConnectionId | AirportsConnectionCreated_At | AirportsConnectionUpdated_At | AirportsConnectionName | AirportsConnectionLocation | AirportsConnectionCity | AirportsConnectionPublished_At | CreateAirportPayload | UpdateAirportPayload | DeleteAirportPayload | Cities | CitiesConnection | CitiesAggregator | CitiesGroupBy | CitiesConnectionId | CitiesConnectionCreated_At | CitiesConnectionUpdated_At | CitiesConnectionName | CitiesConnectionCmapping | CitiesConnectionLabel | CitiesConnectionLocation | CitiesConnectionCurrency | CitiesConnectionCountry | CitiesConnectionHotel | CitiesConnectionIntercity | CitiesConnectionTours | CitiesConnectionHourly | CitiesConnectionInteroriginpricing | CitiesConnectionInterdestinationpricing | CitiesConnectionHourlypricing | CitiesConnectionPublished_At | CreateCityPayload | UpdateCityPayload | DeleteCityPayload | Country | CountryConnection | CountryAggregator | CountryGroupBy | CountryConnectionId | CountryConnectionCreated_At | CountryConnectionUpdated_At | CountryConnectionName | CountryConnectionCode | CountryConnectionEnabled | CountryConnectionPublished_At | CreateCountryPayload | UpdateCountryPayload | DeleteCountryPayload | Currency | CurrencyConnection | CurrencyAggregator | CurrencyAggregatorSum | CurrencyAggregatorAvg | CurrencyAggregatorMin | CurrencyAggregatorMax | CurrencyGroupBy | CurrencyConnectionId | CurrencyConnectionCreated_At | CurrencyConnectionUpdated_At | CurrencyConnectionName | CurrencyConnectionKey | CurrencyConnectionValue | CurrencyConnectionBase | CurrencyConnectionCountry | CurrencyConnectionUnicode | CurrencyConnectionPublished_At | CreateCurrencyPayload | UpdateCurrencyPayload | DeleteCurrencyPayload | Hotels | HotelsConnection | HotelsAggregator | HotelsGroupBy | HotelsConnectionId | HotelsConnectionCreated_At | HotelsConnectionUpdated_At | HotelsConnectionName | HotelsConnectionPublished_At | CreateHotelPayload | UpdateHotelPayload | DeleteHotelPayload | Locations | LocationsConnection | LocationsAggregator | LocationsGroupBy | LocationsConnectionId | LocationsConnectionCreated_At | LocationsConnectionUpdated_At | LocationsConnectionFomat | LocationsConnectionGeoJson | LocationsConnectionPlaceId | LocationsConnectionCity | LocationsConnectionAirport | LocationsConnectionHotel | LocationsConnectionPublished_At | CreateLocationPayload | UpdateLocationPayload | DeleteLocationPayload | Pricing | PricingConnection | PricingAggregator | PricingAggregatorSum | PricingAggregatorAvg | PricingAggregatorMin | PricingAggregatorMax | PricingGroupBy | PricingConnectionId | PricingConnectionCreated_At | PricingConnectionUpdated_At | PricingConnectionNameSlug | PricingConnectionType | PricingConnectionBase | PricingConnectionTax | PricingConnectionFlat | PricingConnectionToll | PricingConnectionOrigincity | PricingConnectionDestinationcity | PricingConnectionVehicle | PricingConnectionOriginlocation | PricingConnectionDestinationlocation | PricingConnectionHotelcity | PricingConnectionTrip | PricingConnectionHourlycity | PricingConnectionHorulyUnits | PricingConnectionTripJumps | PricingConnectionDistance | PricingConnectionUnitjumps | PricingConnectionAddBase | PricingConnectionDistanceBundle | PricingConnectionMinDuration | PricingConnectionMaxDuration | PricingConnectionPublished_At | CreatePricingPayload | UpdatePricingPayload | DeletePricingPayload | Vehicles | VehiclesConnection | VehiclesAggregator | VehiclesAggregatorSum | VehiclesAggregatorAvg | VehiclesAggregatorMin | VehiclesAggregatorMax | VehiclesGroupBy | VehiclesConnectionId | VehiclesConnectionCreated_At | VehiclesConnectionUpdated_At | VehiclesConnectionVehicleClass | VehiclesConnectionTitle | VehiclesConnectionTagLiine | VehiclesConnectionOperations | VehiclesConnectionIcon | VehiclesConnectionLogo | VehiclesConnectionLuggage | VehiclesConnectionMax | VehiclesConnectionOccupancy_Log | VehiclesConnectionPublished_At | CreateVehiclePayload | UpdateVehiclePayload | DeleteVehiclePayload | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileAggregatorSum | UploadFileAggregatorAvg | UploadFileAggregatorMin | UploadFileAggregatorMax | UploadFileGroupBy | UploadFileConnectionId | UploadFileConnectionCreated_At | UploadFileConnectionUpdated_At | UploadFileConnectionName | UploadFileConnectionAlternativeText | UploadFileConnectionCaption | UploadFileConnectionWidth | UploadFileConnectionHeight | UploadFileConnectionFormats | UploadFileConnectionHash | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionPreviewUrl | UploadFileConnectionProvider | UploadFileConnectionProvider_Metadata | DeleteFilePayload | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnectionId | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | CreateRolePayload | UpdateRolePayload | DeleteRolePayload | UsersPermissionsUser | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnectionId | UsersPermissionsUserConnectionCreated_At | UsersPermissionsUserConnectionUpdated_At | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole | UsersPermissionsUserConnectionFirstName | UsersPermissionsUserConnectionLastName | UsersPermissionsUserConnectionPhone | CreateUserPayload | UpdateUserPayload | DeleteUserPayload;
 
 export type Mutation = {
   __typename?: 'Mutation';
@@ -963,9 +1234,15 @@ export type Mutation = {
   createCurrency?: Maybe<CreateCurrencyPayload>;
   updateCurrency?: Maybe<UpdateCurrencyPayload>;
   deleteCurrency?: Maybe<DeleteCurrencyPayload>;
+  createHotel?: Maybe<CreateHotelPayload>;
+  updateHotel?: Maybe<UpdateHotelPayload>;
+  deleteHotel?: Maybe<DeleteHotelPayload>;
   createLocation?: Maybe<CreateLocationPayload>;
   updateLocation?: Maybe<UpdateLocationPayload>;
   deleteLocation?: Maybe<DeleteLocationPayload>;
+  createPricing?: Maybe<CreatePricingPayload>;
+  updatePricing?: Maybe<UpdatePricingPayload>;
+  deletePricing?: Maybe<DeletePricingPayload>;
   createVehicle?: Maybe<CreateVehiclePayload>;
   updateVehicle?: Maybe<UpdateVehiclePayload>;
   deleteVehicle?: Maybe<DeleteVehiclePayload>;
@@ -1054,6 +1331,21 @@ export type MutationDeleteCurrencyArgs = {
 };
 
 
+export type MutationCreateHotelArgs = {
+  input?: Maybe<CreateHotelInput>;
+};
+
+
+export type MutationUpdateHotelArgs = {
+  input?: Maybe<UpdateHotelInput>;
+};
+
+
+export type MutationDeleteHotelArgs = {
+  input?: Maybe<DeleteHotelInput>;
+};
+
+
 export type MutationCreateLocationArgs = {
   input?: Maybe<CreateLocationInput>;
 };
@@ -1066,6 +1358,21 @@ export type MutationUpdateLocationArgs = {
 
 export type MutationDeleteLocationArgs = {
   input?: Maybe<DeleteLocationInput>;
+};
+
+
+export type MutationCreatePricingArgs = {
+  input?: Maybe<CreatePricingInput>;
+};
+
+
+export type MutationUpdatePricingArgs = {
+  input?: Maybe<UpdatePricingInput>;
+};
+
+
+export type MutationDeletePricingArgs = {
+  input?: Maybe<DeletePricingInput>;
 };
 
 
@@ -1169,6 +1476,323 @@ export type MutationEmailConfirmationArgs = {
   confirmation: Scalars['String'];
 };
 
+export type Pricing = {
+  __typename?: 'Pricing';
+  id: Scalars['ID'];
+  created_at: Scalars['DateTime'];
+  updated_at: Scalars['DateTime'];
+  nameSlug?: Maybe<Scalars['String']>;
+  type?: Maybe<Enum_Pricing_Type>;
+  base?: Maybe<Scalars['Float']>;
+  tax?: Maybe<Scalars['Float']>;
+  flat?: Maybe<Scalars['Float']>;
+  toll?: Maybe<Scalars['Float']>;
+  origincity?: Maybe<Cities>;
+  destinationcity?: Maybe<Cities>;
+  vehicle?: Maybe<Vehicles>;
+  originlocation?: Maybe<Locations>;
+  destinationlocation?: Maybe<Locations>;
+  hotelcity?: Maybe<Cities>;
+  trip?: Maybe<Enum_Pricing_Trip>;
+  hourlycity?: Maybe<Cities>;
+  horulyUnits?: Maybe<Enum_Pricing_Horulyunits>;
+  tripJumps?: Maybe<Scalars['Float']>;
+  distance?: Maybe<Enum_Pricing_Distance>;
+  unitjumps?: Maybe<Scalars['Int']>;
+  addBase?: Maybe<Scalars['Float']>;
+  distanceBundle?: Maybe<Scalars['Int']>;
+  minDuration?: Maybe<Scalars['Int']>;
+  maxDuration?: Maybe<Scalars['Int']>;
+  published_at?: Maybe<Scalars['DateTime']>;
+};
+
+export type PricingAggregator = {
+  __typename?: 'PricingAggregator';
+  count?: Maybe<Scalars['Int']>;
+  totalCount?: Maybe<Scalars['Int']>;
+  sum?: Maybe<PricingAggregatorSum>;
+  avg?: Maybe<PricingAggregatorAvg>;
+  min?: Maybe<PricingAggregatorMin>;
+  max?: Maybe<PricingAggregatorMax>;
+};
+
+export type PricingAggregatorAvg = {
+  __typename?: 'PricingAggregatorAvg';
+  base?: Maybe<Scalars['Float']>;
+  tax?: Maybe<Scalars['Float']>;
+  flat?: Maybe<Scalars['Float']>;
+  toll?: Maybe<Scalars['Float']>;
+  tripJumps?: Maybe<Scalars['Float']>;
+  unitjumps?: Maybe<Scalars['Float']>;
+  addBase?: Maybe<Scalars['Float']>;
+  distanceBundle?: Maybe<Scalars['Float']>;
+  minDuration?: Maybe<Scalars['Float']>;
+  maxDuration?: Maybe<Scalars['Float']>;
+};
+
+export type PricingAggregatorMax = {
+  __typename?: 'PricingAggregatorMax';
+  base?: Maybe<Scalars['Float']>;
+  tax?: Maybe<Scalars['Float']>;
+  flat?: Maybe<Scalars['Float']>;
+  toll?: Maybe<Scalars['Float']>;
+  tripJumps?: Maybe<Scalars['Float']>;
+  unitjumps?: Maybe<Scalars['Float']>;
+  addBase?: Maybe<Scalars['Float']>;
+  distanceBundle?: Maybe<Scalars['Float']>;
+  minDuration?: Maybe<Scalars['Float']>;
+  maxDuration?: Maybe<Scalars['Float']>;
+};
+
+export type PricingAggregatorMin = {
+  __typename?: 'PricingAggregatorMin';
+  base?: Maybe<Scalars['Float']>;
+  tax?: Maybe<Scalars['Float']>;
+  flat?: Maybe<Scalars['Float']>;
+  toll?: Maybe<Scalars['Float']>;
+  tripJumps?: Maybe<Scalars['Float']>;
+  unitjumps?: Maybe<Scalars['Float']>;
+  addBase?: Maybe<Scalars['Float']>;
+  distanceBundle?: Maybe<Scalars['Float']>;
+  minDuration?: Maybe<Scalars['Float']>;
+  maxDuration?: Maybe<Scalars['Float']>;
+};
+
+export type PricingAggregatorSum = {
+  __typename?: 'PricingAggregatorSum';
+  base?: Maybe<Scalars['Float']>;
+  tax?: Maybe<Scalars['Float']>;
+  flat?: Maybe<Scalars['Float']>;
+  toll?: Maybe<Scalars['Float']>;
+  tripJumps?: Maybe<Scalars['Float']>;
+  unitjumps?: Maybe<Scalars['Float']>;
+  addBase?: Maybe<Scalars['Float']>;
+  distanceBundle?: Maybe<Scalars['Float']>;
+  minDuration?: Maybe<Scalars['Float']>;
+  maxDuration?: Maybe<Scalars['Float']>;
+};
+
+export type PricingConnection = {
+  __typename?: 'PricingConnection';
+  values?: Maybe<Array<Maybe<Pricing>>>;
+  groupBy?: Maybe<PricingGroupBy>;
+  aggregate?: Maybe<PricingAggregator>;
+};
+
+export type PricingConnectionAddBase = {
+  __typename?: 'PricingConnectionAddBase';
+  key?: Maybe<Scalars['Float']>;
+  connection?: Maybe<PricingConnection>;
+};
+
+export type PricingConnectionBase = {
+  __typename?: 'PricingConnectionBase';
+  key?: Maybe<Scalars['Float']>;
+  connection?: Maybe<PricingConnection>;
+};
+
+export type PricingConnectionCreated_At = {
+  __typename?: 'PricingConnectionCreated_at';
+  key?: Maybe<Scalars['DateTime']>;
+  connection?: Maybe<PricingConnection>;
+};
+
+export type PricingConnectionDestinationcity = {
+  __typename?: 'PricingConnectionDestinationcity';
+  key?: Maybe<Scalars['ID']>;
+  connection?: Maybe<PricingConnection>;
+};
+
+export type PricingConnectionDestinationlocation = {
+  __typename?: 'PricingConnectionDestinationlocation';
+  key?: Maybe<Scalars['ID']>;
+  connection?: Maybe<PricingConnection>;
+};
+
+export type PricingConnectionDistance = {
+  __typename?: 'PricingConnectionDistance';
+  key?: Maybe<Scalars['String']>;
+  connection?: Maybe<PricingConnection>;
+};
+
+export type PricingConnectionDistanceBundle = {
+  __typename?: 'PricingConnectionDistanceBundle';
+  key?: Maybe<Scalars['Int']>;
+  connection?: Maybe<PricingConnection>;
+};
+
+export type PricingConnectionFlat = {
+  __typename?: 'PricingConnectionFlat';
+  key?: Maybe<Scalars['Float']>;
+  connection?: Maybe<PricingConnection>;
+};
+
+export type PricingConnectionHorulyUnits = {
+  __typename?: 'PricingConnectionHorulyUnits';
+  key?: Maybe<Scalars['String']>;
+  connection?: Maybe<PricingConnection>;
+};
+
+export type PricingConnectionHotelcity = {
+  __typename?: 'PricingConnectionHotelcity';
+  key?: Maybe<Scalars['ID']>;
+  connection?: Maybe<PricingConnection>;
+};
+
+export type PricingConnectionHourlycity = {
+  __typename?: 'PricingConnectionHourlycity';
+  key?: Maybe<Scalars['ID']>;
+  connection?: Maybe<PricingConnection>;
+};
+
+export type PricingConnectionId = {
+  __typename?: 'PricingConnectionId';
+  key?: Maybe<Scalars['ID']>;
+  connection?: Maybe<PricingConnection>;
+};
+
+export type PricingConnectionMaxDuration = {
+  __typename?: 'PricingConnectionMaxDuration';
+  key?: Maybe<Scalars['Int']>;
+  connection?: Maybe<PricingConnection>;
+};
+
+export type PricingConnectionMinDuration = {
+  __typename?: 'PricingConnectionMinDuration';
+  key?: Maybe<Scalars['Int']>;
+  connection?: Maybe<PricingConnection>;
+};
+
+export type PricingConnectionNameSlug = {
+  __typename?: 'PricingConnectionNameSlug';
+  key?: Maybe<Scalars['String']>;
+  connection?: Maybe<PricingConnection>;
+};
+
+export type PricingConnectionOrigincity = {
+  __typename?: 'PricingConnectionOrigincity';
+  key?: Maybe<Scalars['ID']>;
+  connection?: Maybe<PricingConnection>;
+};
+
+export type PricingConnectionOriginlocation = {
+  __typename?: 'PricingConnectionOriginlocation';
+  key?: Maybe<Scalars['ID']>;
+  connection?: Maybe<PricingConnection>;
+};
+
+export type PricingConnectionPublished_At = {
+  __typename?: 'PricingConnectionPublished_at';
+  key?: Maybe<Scalars['DateTime']>;
+  connection?: Maybe<PricingConnection>;
+};
+
+export type PricingConnectionTax = {
+  __typename?: 'PricingConnectionTax';
+  key?: Maybe<Scalars['Float']>;
+  connection?: Maybe<PricingConnection>;
+};
+
+export type PricingConnectionToll = {
+  __typename?: 'PricingConnectionToll';
+  key?: Maybe<Scalars['Float']>;
+  connection?: Maybe<PricingConnection>;
+};
+
+export type PricingConnectionTrip = {
+  __typename?: 'PricingConnectionTrip';
+  key?: Maybe<Scalars['String']>;
+  connection?: Maybe<PricingConnection>;
+};
+
+export type PricingConnectionTripJumps = {
+  __typename?: 'PricingConnectionTripJumps';
+  key?: Maybe<Scalars['Float']>;
+  connection?: Maybe<PricingConnection>;
+};
+
+export type PricingConnectionType = {
+  __typename?: 'PricingConnectionType';
+  key?: Maybe<Scalars['String']>;
+  connection?: Maybe<PricingConnection>;
+};
+
+export type PricingConnectionUnitjumps = {
+  __typename?: 'PricingConnectionUnitjumps';
+  key?: Maybe<Scalars['Int']>;
+  connection?: Maybe<PricingConnection>;
+};
+
+export type PricingConnectionUpdated_At = {
+  __typename?: 'PricingConnectionUpdated_at';
+  key?: Maybe<Scalars['DateTime']>;
+  connection?: Maybe<PricingConnection>;
+};
+
+export type PricingConnectionVehicle = {
+  __typename?: 'PricingConnectionVehicle';
+  key?: Maybe<Scalars['ID']>;
+  connection?: Maybe<PricingConnection>;
+};
+
+export type PricingGroupBy = {
+  __typename?: 'PricingGroupBy';
+  id?: Maybe<Array<Maybe<PricingConnectionId>>>;
+  created_at?: Maybe<Array<Maybe<PricingConnectionCreated_At>>>;
+  updated_at?: Maybe<Array<Maybe<PricingConnectionUpdated_At>>>;
+  nameSlug?: Maybe<Array<Maybe<PricingConnectionNameSlug>>>;
+  type?: Maybe<Array<Maybe<PricingConnectionType>>>;
+  base?: Maybe<Array<Maybe<PricingConnectionBase>>>;
+  tax?: Maybe<Array<Maybe<PricingConnectionTax>>>;
+  flat?: Maybe<Array<Maybe<PricingConnectionFlat>>>;
+  toll?: Maybe<Array<Maybe<PricingConnectionToll>>>;
+  origincity?: Maybe<Array<Maybe<PricingConnectionOrigincity>>>;
+  destinationcity?: Maybe<Array<Maybe<PricingConnectionDestinationcity>>>;
+  vehicle?: Maybe<Array<Maybe<PricingConnectionVehicle>>>;
+  originlocation?: Maybe<Array<Maybe<PricingConnectionOriginlocation>>>;
+  destinationlocation?: Maybe<Array<Maybe<PricingConnectionDestinationlocation>>>;
+  hotelcity?: Maybe<Array<Maybe<PricingConnectionHotelcity>>>;
+  trip?: Maybe<Array<Maybe<PricingConnectionTrip>>>;
+  hourlycity?: Maybe<Array<Maybe<PricingConnectionHourlycity>>>;
+  horulyUnits?: Maybe<Array<Maybe<PricingConnectionHorulyUnits>>>;
+  tripJumps?: Maybe<Array<Maybe<PricingConnectionTripJumps>>>;
+  distance?: Maybe<Array<Maybe<PricingConnectionDistance>>>;
+  unitjumps?: Maybe<Array<Maybe<PricingConnectionUnitjumps>>>;
+  addBase?: Maybe<Array<Maybe<PricingConnectionAddBase>>>;
+  distanceBundle?: Maybe<Array<Maybe<PricingConnectionDistanceBundle>>>;
+  minDuration?: Maybe<Array<Maybe<PricingConnectionMinDuration>>>;
+  maxDuration?: Maybe<Array<Maybe<PricingConnectionMaxDuration>>>;
+  published_at?: Maybe<Array<Maybe<PricingConnectionPublished_At>>>;
+};
+
+export type PricingInput = {
+  nameSlug?: Maybe<Scalars['String']>;
+  type?: Maybe<Enum_Pricing_Type>;
+  base?: Maybe<Scalars['Float']>;
+  tax?: Maybe<Scalars['Float']>;
+  flat?: Maybe<Scalars['Float']>;
+  toll?: Maybe<Scalars['Float']>;
+  origincity?: Maybe<Scalars['ID']>;
+  destinationcity?: Maybe<Scalars['ID']>;
+  vehicle?: Maybe<Scalars['ID']>;
+  originlocation?: Maybe<Scalars['ID']>;
+  destinationlocation?: Maybe<Scalars['ID']>;
+  hotelcity?: Maybe<Scalars['ID']>;
+  trip?: Maybe<Enum_Pricing_Trip>;
+  hourlycity?: Maybe<Scalars['ID']>;
+  horulyUnits?: Maybe<Enum_Pricing_Horulyunits>;
+  tripJumps?: Maybe<Scalars['Float']>;
+  distance?: Maybe<Enum_Pricing_Distance>;
+  unitjumps?: Maybe<Scalars['Int']>;
+  addBase?: Maybe<Scalars['Float']>;
+  distanceBundle?: Maybe<Scalars['Int']>;
+  minDuration?: Maybe<Scalars['Int']>;
+  maxDuration?: Maybe<Scalars['Int']>;
+  published_at?: Maybe<Scalars['DateTime']>;
+  created_by?: Maybe<Scalars['ID']>;
+  updated_by?: Maybe<Scalars['ID']>;
+};
+
 export enum PublicationState {
   Live = 'LIVE',
   Preview = 'PREVIEW'
@@ -1188,9 +1812,15 @@ export type Query = {
   currency?: Maybe<Currency>;
   currencies?: Maybe<Array<Maybe<Currency>>>;
   currenciesConnection?: Maybe<CurrencyConnection>;
+  hotel?: Maybe<Hotels>;
+  hotels?: Maybe<Array<Maybe<Hotels>>>;
+  hotelsConnection?: Maybe<HotelsConnection>;
   location?: Maybe<Locations>;
   locations?: Maybe<Array<Maybe<Locations>>>;
   locationsConnection?: Maybe<LocationsConnection>;
+  pricing?: Maybe<Pricing>;
+  pricings?: Maybe<Array<Maybe<Pricing>>>;
+  pricingsConnection?: Maybe<PricingConnection>;
   vehicle?: Maybe<Vehicles>;
   vehicles?: Maybe<Array<Maybe<Vehicles>>>;
   vehiclesConnection?: Maybe<VehiclesConnection>;
@@ -1299,6 +1929,29 @@ export type QueryCurrenciesConnectionArgs = {
 };
 
 
+export type QueryHotelArgs = {
+  id: Scalars['ID'];
+  publicationState?: Maybe<PublicationState>;
+};
+
+
+export type QueryHotelsArgs = {
+  sort?: Maybe<Scalars['String']>;
+  limit?: Maybe<Scalars['Int']>;
+  start?: Maybe<Scalars['Int']>;
+  where?: Maybe<Scalars['JSON']>;
+  publicationState?: Maybe<PublicationState>;
+};
+
+
+export type QueryHotelsConnectionArgs = {
+  sort?: Maybe<Scalars['String']>;
+  limit?: Maybe<Scalars['Int']>;
+  start?: Maybe<Scalars['Int']>;
+  where?: Maybe<Scalars['JSON']>;
+};
+
+
 export type QueryLocationArgs = {
   id: Scalars['ID'];
   publicationState?: Maybe<PublicationState>;
@@ -1315,6 +1968,29 @@ export type QueryLocationsArgs = {
 
 
 export type QueryLocationsConnectionArgs = {
+  sort?: Maybe<Scalars['String']>;
+  limit?: Maybe<Scalars['Int']>;
+  start?: Maybe<Scalars['Int']>;
+  where?: Maybe<Scalars['JSON']>;
+};
+
+
+export type QueryPricingArgs = {
+  id: Scalars['ID'];
+  publicationState?: Maybe<PublicationState>;
+};
+
+
+export type QueryPricingsArgs = {
+  sort?: Maybe<Scalars['String']>;
+  limit?: Maybe<Scalars['Int']>;
+  start?: Maybe<Scalars['Int']>;
+  where?: Maybe<Scalars['JSON']>;
+  publicationState?: Maybe<PublicationState>;
+};
+
+
+export type QueryPricingsConnectionArgs = {
   sort?: Maybe<Scalars['String']>;
   limit?: Maybe<Scalars['Int']>;
   start?: Maybe<Scalars['Int']>;
@@ -1458,6 +2134,16 @@ export type UpdateCurrencyPayload = {
   currency?: Maybe<Currency>;
 };
 
+export type UpdateHotelInput = {
+  where?: Maybe<InputId>;
+  data?: Maybe<EditHotelInput>;
+};
+
+export type UpdateHotelPayload = {
+  __typename?: 'updateHotelPayload';
+  hotel?: Maybe<Hotels>;
+};
+
 export type UpdateLocationInput = {
   where?: Maybe<InputId>;
   data?: Maybe<EditLocationInput>;
@@ -1466,6 +2152,16 @@ export type UpdateLocationInput = {
 export type UpdateLocationPayload = {
   __typename?: 'updateLocationPayload';
   location?: Maybe<Locations>;
+};
+
+export type UpdatePricingInput = {
+  where?: Maybe<InputId>;
+  data?: Maybe<EditPricingInput>;
+};
+
+export type UpdatePricingPayload = {
+  __typename?: 'updatePricingPayload';
+  pricing?: Maybe<Pricing>;
 };
 
 export type UpdateRoleInput = {
@@ -1964,6 +2660,7 @@ export type VehicleInput = {
   luggage?: Maybe<Scalars['Boolean']>;
   max?: Maybe<Scalars['Int']>;
   occupancy_log?: Maybe<Scalars['String']>;
+  pricings?: Maybe<Array<Maybe<Scalars['ID']>>>;
   published_at?: Maybe<Scalars['DateTime']>;
   created_by?: Maybe<Scalars['ID']>;
   updated_by?: Maybe<Scalars['ID']>;
@@ -1984,6 +2681,15 @@ export type Vehicles = {
   max?: Maybe<Scalars['Int']>;
   occupancy_log?: Maybe<Scalars['String']>;
   published_at?: Maybe<Scalars['DateTime']>;
+  pricings?: Maybe<Array<Maybe<Pricing>>>;
+};
+
+
+export type VehiclesPricingsArgs = {
+  sort?: Maybe<Scalars['String']>;
+  limit?: Maybe<Scalars['Int']>;
+  start?: Maybe<Scalars['Int']>;
+  where?: Maybe<Scalars['JSON']>;
 };
 
 export type VehiclesAggregator = {
@@ -2282,6 +2988,100 @@ export type CreateVehicleMutation = (
   )> }
 );
 
+export type CreateIntercityPricingMutationVariables = Exact<{
+  name?: Maybe<Scalars['String']>;
+  base?: Maybe<Scalars['Float']>;
+  tax?: Maybe<Scalars['Float']>;
+  flat?: Maybe<Scalars['Float']>;
+  toll?: Maybe<Scalars['Float']>;
+  vehicle?: Maybe<Scalars['ID']>;
+  origincity?: Maybe<Scalars['ID']>;
+  destinationcity?: Maybe<Scalars['ID']>;
+}>;
+
+
+export type CreateIntercityPricingMutation = (
+  { __typename?: 'Mutation' }
+  & { createPricing?: Maybe<(
+    { __typename?: 'createPricingPayload' }
+    & { pricing?: Maybe<(
+      { __typename?: 'Pricing' }
+      & Pick<Pricing, 'id'>
+    )> }
+  )> }
+);
+
+export type CreateHotelPricingMutationVariables = Exact<{
+  name?: Maybe<Scalars['String']>;
+  base?: Maybe<Scalars['Float']>;
+  tax?: Maybe<Scalars['Float']>;
+  flat?: Maybe<Scalars['Float']>;
+  toll?: Maybe<Scalars['Float']>;
+  vehicle?: Maybe<Scalars['ID']>;
+  oloc?: Maybe<Scalars['ID']>;
+  dloc?: Maybe<Scalars['ID']>;
+  hotel?: Maybe<Scalars['ID']>;
+  trip?: Maybe<Enum_Pricing_Trip>;
+}>;
+
+
+export type CreateHotelPricingMutation = (
+  { __typename?: 'Mutation' }
+  & { createPricing?: Maybe<(
+    { __typename?: 'createPricingPayload' }
+    & { pricing?: Maybe<(
+      { __typename?: 'Pricing' }
+      & Pick<Pricing, 'id'>
+    )> }
+  )> }
+);
+
+export type CreateHotelMutationVariables = Exact<{
+  name?: Maybe<Scalars['String']>;
+  location: Array<Scalars['ID']>;
+}>;
+
+
+export type CreateHotelMutation = (
+  { __typename?: 'Mutation' }
+  & { createHotel?: Maybe<(
+    { __typename?: 'createHotelPayload' }
+    & { hotel?: Maybe<(
+      { __typename?: 'Hotels' }
+      & Pick<Hotels, 'id'>
+    )> }
+  )> }
+);
+
+export type CreateHourlyPricingMutationVariables = Exact<{
+  name?: Maybe<Scalars['String']>;
+  base?: Maybe<Scalars['Float']>;
+  tax?: Maybe<Scalars['Float']>;
+  flat?: Maybe<Scalars['Float']>;
+  toll?: Maybe<Scalars['Float']>;
+  addBase?: Maybe<Scalars['Float']>;
+  vehicle?: Maybe<Scalars['ID']>;
+  max?: Maybe<Scalars['Int']>;
+  min?: Maybe<Scalars['Int']>;
+  dbundle?: Maybe<Scalars['Int']>;
+  city?: Maybe<Scalars['ID']>;
+  hunit?: Maybe<Enum_Pricing_Horulyunits>;
+  distance?: Maybe<Enum_Pricing_Distance>;
+  unitJump?: Maybe<Scalars['Int']>;
+}>;
+
+
+export type CreateHourlyPricingMutation = (
+  { __typename?: 'Mutation' }
+  & { createPricing?: Maybe<(
+    { __typename?: 'createPricingPayload' }
+    & { pricing?: Maybe<(
+      { __typename?: 'Pricing' }
+      & Pick<Pricing, 'id'>
+    )> }
+  )> }
+);
+
 export type GetAllCountriesQueryVariables = Exact<{
   limit?: Maybe<Scalars['Int']>;
   start?: Maybe<Scalars['Int']>;
@@ -2402,6 +3202,23 @@ export type GetAllVehiclesQuery = (
   )>>> }
 );
 
+export type SearchLocationByIdQueryVariables = Exact<{
+  id?: Maybe<Scalars['String']>;
+}>;
+
+
+export type SearchLocationByIdQuery = (
+  { __typename?: 'Query' }
+  & { locations?: Maybe<Array<Maybe<(
+    { __typename?: 'Locations' }
+    & Pick<Locations, 'id'>
+    & { hotel?: Maybe<(
+      { __typename?: 'Hotels' }
+      & Pick<Hotels, 'id'>
+    )> }
+  )>>> }
+);
+
 
 export const CreateCountryDocument = gql`
     mutation CreateCountry($code: String, $name: String, $enabled: Boolean) {
@@ -2477,6 +3294,42 @@ export const CreateVehicleDocument = gql`
     mutation CreateVehicle($class: String, $title: String, $tag: String, $operations: String, $icon: ID, $luggage: Boolean, $max: Int, $occ: String) {
   createVehicle(input: {data: {vehicleClass: $class, title: $title, tagLiine: $tag, operations: $operations, icon: $icon, luggage: $luggage, max: $max, occupancy_log: $occ}}) {
     vehicle {
+      id
+    }
+  }
+}
+    `;
+export const CreateIntercityPricingDocument = gql`
+    mutation CreateIntercityPricing($name: String, $base: Float, $tax: Float, $flat: Float, $toll: Float, $vehicle: ID, $origincity: ID, $destinationcity: ID) {
+  createPricing(input: {data: {nameSlug: $name, type: INTER, base: $base, tax: $tax, flat: $flat, toll: $toll, vehicle: $vehicle, origincity: $origincity, destinationcity: $destinationcity}}) {
+    pricing {
+      id
+    }
+  }
+}
+    `;
+export const CreateHotelPricingDocument = gql`
+    mutation CreateHotelPricing($name: String, $base: Float, $tax: Float, $flat: Float, $toll: Float, $vehicle: ID, $oloc: ID, $dloc: ID, $hotel: ID, $trip: ENUM_PRICING_TRIP) {
+  createPricing(input: {data: {nameSlug: $name, type: HOTEL, base: $base, tax: $tax, flat: $flat, toll: $toll, vehicle: $vehicle, originlocation: $oloc, destinationlocation: $dloc, hotelcity: $hotel, trip: $trip}}) {
+    pricing {
+      id
+    }
+  }
+}
+    `;
+export const CreateHotelDocument = gql`
+    mutation CreateHotel($name: String, $location: [ID!]!) {
+  createHotel(input: {data: {name: $name, locations: $location}}) {
+    hotel {
+      id
+    }
+  }
+}
+    `;
+export const CreateHourlyPricingDocument = gql`
+    mutation CreateHourlyPricing($name: String, $base: Float, $tax: Float, $flat: Float, $toll: Float, $addBase: Float, $vehicle: ID, $max: Int, $min: Int, $dbundle: Int, $city: ID, $hunit: ENUM_PRICING_HORULYUNITS, $distance: ENUM_PRICING_DISTANCE, $unitJump: Int) {
+  createPricing(input: {data: {nameSlug: $name, type: HOUR, base: $base, tax: $tax, flat: $flat, toll: $toll, vehicle: $vehicle, addBase: $addBase, minDuration: $max, maxDuration: $min, distanceBundle: $dbundle, hourlycity: $city, horulyUnits: $hunit, distance: $distance, unitjumps: $unitJump}}) {
+    pricing {
       id
     }
   }
@@ -2591,6 +3444,16 @@ export const GetAllVehiclesDocument = gql`
     luggage
     max
     occupancy_log
+  }
+}
+    `;
+export const SearchLocationByIdDocument = gql`
+    query SearchLocationById($id: String) {
+  locations(where: {placeId: $id}) {
+    id
+    hotel {
+      id
+    }
   }
 }
     `;

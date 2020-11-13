@@ -157,3 +157,127 @@ mutation CreateVehicle($class: String, $title: String, $tag: String, $operations
     }
   }
 }
+
+mutation CreateIntercityPricing(
+  $name: String,
+  $base: Float,
+  $tax: Float,
+  $flat: Float,
+  $toll: Float,
+  $vehicle: ID,
+  $origincity: ID,
+  $destinationcity: ID
+){
+  createPricing(
+    input:{
+      data:{
+        nameSlug: $name,
+        type: INTER,
+        base: $base,
+        tax: $tax,
+        flat: $flat,
+        toll: $toll,
+        vehicle: $vehicle,
+        origincity: $origincity,
+        destinationcity: $destinationcity
+      }
+    }
+  ) {
+    pricing {
+      id
+    }
+  }
+}
+
+mutation CreateHotelPricing(
+  $name: String,
+  $base: Float,
+  $tax: Float,
+  $flat: Float,
+  $toll: Float,
+  $vehicle: ID
+  $oloc: ID
+  $dloc: ID,
+  $hotel: ID,
+  $trip: ENUM_PRICING_TRIP
+){
+  createPricing(
+    input:{
+      data:{
+        nameSlug: $name,
+        type: HOTEL,
+        base: $base,
+        tax: $tax,
+        flat: $flat,
+        toll: $toll,
+        vehicle: $vehicle,
+        originlocation: $oloc,
+        destinationlocation: $dloc,
+        hotelcity: $hotel,
+        trip: $trip
+      }
+    }
+  ) {
+    pricing {
+      id
+    }
+  }
+}
+
+mutation CreateHotel($name: String, $location: [ID!]!){
+  createHotel(
+    input: {
+      data:{
+        name: $name,
+        locations: $location
+      }
+    }
+  ) {
+    hotel {
+      id
+    }
+  }
+}
+
+mutation CreateHourlyPricing(
+  $name: String,
+  $base: Float,
+  $tax: Float,
+  $flat: Float,
+  $toll: Float,
+  $addBase: Float,
+  $vehicle: ID,
+  $max: Int,
+  $min: Int,
+  $dbundle: Int,
+  $city: ID,
+  $hunit: ENUM_PRICING_HORULYUNITS,
+  $distance: ENUM_PRICING_DISTANCE,
+  $unitJump: Int
+){
+  createPricing(
+    input:{
+      data:{
+        nameSlug: $name,
+        type: HOUR,
+        base: $base,
+        tax: $tax,
+        flat: $flat,
+        toll: $toll,
+        vehicle: $vehicle,
+        addBase: $addBase,
+        minDuration: $max,
+        maxDuration: $min,
+        distanceBundle: $dbundle,
+        hourlycity: $city,
+        horulyUnits: $hunit,
+        distance: $distance,
+        unitjumps: $unitJump,
+      }
+    }
+  ) {
+    pricing {
+      id
+    }
+  }
+}
