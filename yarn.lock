@@ -1027,10 +1027,33 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
+"@ckeditor/ckeditor5-build-classic@^23.1.0":
+  version "23.1.0"
+  resolved "https://registry.yarnpkg.com/@ckeditor/ckeditor5-build-classic/-/ckeditor5-build-classic-23.1.0.tgz#b358bd9c266727cd1504d16fb069ada43694e2e5"
+  integrity sha512-wqJZ6yuqm48NoiciRcfs+t73YOfIKovJIiLSHf0yB2I3Mc+bL6iNhwwyJ3b6D/22IgYEXTpc6PiwsYFbGFnq2Q==
+
+"@ckeditor/ckeditor5-build-decoupled-document@^23.1.0":
+  version "23.1.0"
+  resolved "https://registry.yarnpkg.com/@ckeditor/ckeditor5-build-decoupled-document/-/ckeditor5-build-decoupled-document-23.1.0.tgz#074046de8411239577c23e1c58f85a338e342938"
+  integrity sha512-dn8/Cw3wf75ZybMLfmPy1ZtitObi6YTHPeavkyu0TVDbJhefpBL+gKWRrTptpvNk3Txw40zWU5MYq0225FpPkA==
+
+"@ckeditor/ckeditor5-vue@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@ckeditor/ckeditor5-vue/-/ckeditor5-vue-1.0.3.tgz#b73babe217e222614f0567bf858de8152c2071b2"
+  integrity sha512-8pYcWkOSUTZ4KD6nT2JbD4rQycvhCaoOAJeOiaSrjWb3X/xRWoDEOOJzXC6VRk9AeNE1UYY9wKBAsq3VoR5V9w==
+
 "@csstools/convert-colors@^1.4.0":
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/@csstools/convert-colors/-/convert-colors-1.4.0.tgz#ad495dc41b12e75d588c6db8b9834f08fa131eb7"
   integrity sha512-5a6wqoJV/xEdbRNKVo6I4hO3VjyDq//8q2f9I6PBAvMesJHFauXDorcNCsr9RzvsZnaWi5NYCcfyqP1QeFHFbw==
+
+"@editorjs/editorjs@^2.18.0":
+  version "2.19.0"
+  resolved "https://registry.yarnpkg.com/@editorjs/editorjs/-/editorjs-2.19.0.tgz#ac98f7b1e627c89b51c4430f6aa325e873ade7fc"
+  integrity sha512-8PUVaBZx69IrG8dNrE+FZbHSiRTR8ql8L/cmEi1mOdEdTqnOLq5Wv9dgemK00mBWEgNoavMAjtGQpItGknAa8A==
+  dependencies:
+    codex-notifier "^1.1.2"
+    codex-tooltip "^1.0.1"
 
 "@endemolshinegroup/cosmiconfig-typescript-loader@^1.0.0":
   version "1.0.2"
@@ -2186,6 +2209,11 @@
   dependencies:
     defer-to-connect "^1.0.1"
 
+"@tinymce/tinymce-vue@^3.2.2":
+  version "3.2.6"
+  resolved "https://registry.yarnpkg.com/@tinymce/tinymce-vue/-/tinymce-vue-3.2.6.tgz#66bf3c1d338348e9ec9da16f98b980eecb698603"
+  integrity sha512-MOzYtjvzzjY2ziiK3a9Mbv/Yl4KptAqQD1l51OVjme4CF1RapEevSgnKHTzsu61F8iHfRjFogdCWy2QG6HATNg==
+
 "@tootallnate/once@1":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@tootallnate/once/-/once-1.1.2.tgz#ccb91445360179a04e7fe6aff78c00ffc1eeaf82"
@@ -2870,6 +2898,13 @@
     vue-template-es2015-compiler "^1.9.0"
   optionalDependencies:
     prettier "^1.18.2"
+
+"@vue/composition-api@^0.5.0":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@vue/composition-api/-/composition-api-0.5.0.tgz#2dbaa02a5d1f5d0d407d53d5529fe444aa8362f3"
+  integrity sha512-9QDFWq7q839G1CTTaxeruPOTrrVOPSaVipJ2TxxK9QAruePNTHOGbOOFRpc8WLl4YPsu1/c29yBhMVmrXz8BZw==
+  dependencies:
+    tslib "^1.9.3"
 
 "@vue/composition-api@^1.0.0-beta.18":
   version "1.0.0-beta.18"
@@ -4851,6 +4886,16 @@ code-point-at@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/code-point-at/-/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"
   integrity sha1-DQcLTQQ6W+ozovGkDi7bPZpMz3c=
+
+codex-notifier@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/codex-notifier/-/codex-notifier-1.1.2.tgz#a733079185f4c927fa296f1d71eb8753fe080895"
+  integrity sha512-DCp6xe/LGueJ1N5sXEwcBc3r3PyVkEEDNWCVigfvywAkeXcZMk9K41a31tkEFBW0Ptlwji6/JlAb49E3Yrxbtg==
+
+codex-tooltip@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/codex-tooltip/-/codex-tooltip-1.0.1.tgz#f6e4f39d81507f9c455b667f1287746d14ee8056"
+  integrity sha512-1xLb1NZbxguNtf02xBRhDphq/EXvMMeEbY0ievjQTHqf8UjXsD41evGk9rqcbjpl+JOjNgtwnp1OaU/X/h6fhQ==
 
 collapse-white-space@^1.0.2:
   version "1.0.6"
@@ -12339,10 +12384,10 @@ slice-ansi@^2.1.0:
     astral-regex "^1.0.0"
     is-fullwidth-code-point "^2.0.0"
 
-slugify@^1.4.5:
-  version "1.4.5"
-  resolved "https://registry.yarnpkg.com/slugify/-/slugify-1.4.5.tgz#a7517acf5f4c02a4df41e735354b660a4ed1efcf"
-  integrity sha512-WpECLAgYaxHoEAJ8Q1Lo8HOs1ngn7LN7QjXgOLbmmfkcWvosyk4ZTXkTzKyhngK640USTZUlgoQJfED1kz5fnQ==
+slugify@^1.4.6:
+  version "1.4.6"
+  resolved "https://registry.yarnpkg.com/slugify/-/slugify-1.4.6.tgz#ef288d920a47fb01c2be56b3487b6722f5e34ace"
+  integrity sha512-ZdJIgv9gdrYwhXqxsH9pv7nXxjUEyQ6nqhngRxoAAOlmMGA28FDq5O4/5US4G2/Nod7d1ovNcgURQJ7kHq50KQ==
 
 snake-case@^3.0.3:
   version "3.0.3"
@@ -12987,6 +13032,11 @@ tinycolor2@^1.4.1:
   version "1.4.2"
   resolved "https://registry.yarnpkg.com/tinycolor2/-/tinycolor2-1.4.2.tgz#3f6a4d1071ad07676d7fa472e1fac40a719d8803"
   integrity sha512-vJhccZPs965sV/L2sU4oRQVAos0pQXwsvTLkWYdqJ+a8Q5kPFzJTuOFwy7UniPli44NKQGAglksjvOcpo95aZA==
+
+tinymce@^5.3.1:
+  version "5.6.0"
+  resolved "https://registry.yarnpkg.com/tinymce/-/tinymce-5.6.0.tgz#b5eda4888e1a607ddd545619cfaa137d59de14b4"
+  integrity sha512-f8LsyT80j8hD4wrL8Sac0DWDG5k10cDyykL/qkJ6kexn1KMt7w1ByrGlUm53XCYDqtavBA5snTU7odioMwSXSQ==
 
 tmp@^0.0.33:
   version "0.0.33"
@@ -13794,6 +13844,14 @@ vue-demi@^0.4.0:
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/vue-demi/-/vue-demi-0.4.1.tgz#2261b8afe57b99ef4a6ee82a7bd2e6fe471bdcde"
   integrity sha512-3xxnqY426eMKhmYdNygYwOvuaJlrgP+aSZLiD5GdCF7cBsMNmUZM7g3RL0NqIuY19WB5CCzuFbi/xW1Nd053xw==
+
+vue-editor-js@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/vue-editor-js/-/vue-editor-js-2.0.1.tgz#da222ff3b1601b1a4eef63649ee59672890100fa"
+  integrity sha512-vr+o7gy9uKd7eVGtzPM56qbQkDdDEEaolbXygnPGYE28Yh+k2KXRyTr/9ivLVzVo5x3ttqFENy8Kd+CSdTMmfw==
+  dependencies:
+    "@editorjs/editorjs" "^2.18.0"
+    "@vue/composition-api" "^0.5.0"
 
 vue-eslint-parser@^7.0.0:
   version "7.1.1"

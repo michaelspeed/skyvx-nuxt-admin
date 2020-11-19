@@ -281,3 +281,105 @@ mutation CreateHourlyPricing(
     }
   }
 }
+
+mutation CreateCategory($name: String, $icon: String){
+  createTourCategory(
+    input: {
+      data: {
+        name: $name,
+        icon: $icon
+      }
+    }
+  ) {
+    tourCategory {
+      id
+    }
+  }
+}
+
+mutation CreateTour($title: String, $youtube: String, $basic: String, $cats: [ID], $allMedia: [ID], $master: ID, $city: ID, $slug: String){
+  createTour(
+    input: {
+      data: {
+        title: $title,
+        youtube: $youtube,
+        basic: $basic,
+        tour_categories: $cats,
+        allmedia: $allMedia,
+        mater: $master,
+        city: $city,
+        slug: $slug
+      }
+    }
+  ) {
+    tour {
+      id
+    }
+  }
+}
+
+mutation UpdateTour($title: String, $youtube: String, $basic: String, $cats: [ID], $allMedia: [ID], $master: ID, $city: ID, $id: ID!, $slug: String){
+  updateTour(
+    input: {
+      where: {
+        id: $id
+      },
+      data: {
+        title: $title,
+        youtube: $youtube,
+        basic: $basic,
+        tour_categories: $cats,
+        allmedia: $allMedia,
+        mater: $master,
+        city: $city,
+        slug: $slug
+      }
+    }
+  ) {
+    tour {
+      id
+    }
+  }
+}
+
+mutation CreatePromo($code: String, $type: ENUM_PROMO_TYPE, $applicable: ENUM_PROMO_APPLICABLE, $value: Int, $max: Int, $min: Int){
+  createPromo(
+    input: {
+      data:{
+        code: $code,
+        type: $type,
+        applicable: $applicable,
+        value: $value,
+        max: $max,
+        min: $min
+      }
+    }
+  ) {
+    promo {
+      id
+    }
+  }
+}
+
+mutation UpdatePromo($code: String, $type: ENUM_PROMO_TYPE, $applicable: ENUM_PROMO_APPLICABLE, $value: Int, $max: Int, $min: Int, $id: ID!, $enabled: Boolean){
+  updatePromo(
+    input: {
+      where: {
+        id: $id
+      },
+      data:{
+        code: $code,
+        type: $type,
+        applicable: $applicable,
+        value: $value,
+        max: $max,
+        min: $min,
+        enabled: $enabled
+      }
+    }
+  ) {
+    promo {
+      id
+    }
+  }
+}

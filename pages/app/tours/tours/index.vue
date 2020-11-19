@@ -6,7 +6,7 @@
         <div class="d-flex align-items-center flex-wrap mr-2">
 
           <!--begin::Title-->
-          <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Dashboard</h5>
+          <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Tours</h5>
           <!--end::Title-->
 
           <!--begin::Separator-->
@@ -25,10 +25,43 @@
           <!--end::Button-->
 
           <!--begin::Button-->
-          <a href="custom/apps/projects/add-project.html" class="btn btn-light-primary font-weight-bold ml-2">Add Project</a>
+          <a href="javascript:;" @click="$router.push('/app/tours/builder')" class="btn btn-light-primary font-weight-bold ml-2">Add Tour</a>
           <!--end::Button-->
         </div>
         <!--end::Toolbar-->
+      </div>
+    </div>
+    <div class="d-flex flex-column-fluid">
+      <div class=" container ">
+        <v-progress-linear
+          v-if="$apollo.queries.tours.loading"
+          color="lime"
+          indeterminate
+          reverse
+        ></v-progress-linear>
+        <v-card elevation="1">
+          <v-card-title>
+            <h2 class="text-primary">Tours</h2>
+            <v-spacer></v-spacer>
+            <v-text-field
+              v-model="search"
+              append-icon="mdi-magnify"
+              label="Search"
+              single-line
+              hide-details
+            ></v-text-field>
+          </v-card-title>
+          <v-data-table
+            v-if="!$apollo.queries.tours.loading"
+            :headers="headers"
+            :items="tours"
+            hide-default-footer
+          >
+            <template v-slot:item.action="{ item }">
+              <a href="javascript:;" @click="$router.push(`/app/tours/${item.id}`)" class="btn btn-sm btn-light-primary font-weight-bold ml-2">View Tour</a>
+            </template>
+          </v-data-table>
+        </v-card>
       </div>
     </div>
   </div>
@@ -37,9 +70,59 @@
 <script lang="ts">
 
 import {Component, Vue} from "nuxt-property-decorator";
+import {GetAllToursDocument, Tours} from "~/gql";
 
 @Component({
-  layout: 'console'
+  layout: 'console',
+  apollo: {
+    tours: {
+      query: GetAllToursDocument,
+      variables() {
+        return {
+          limit: 10,
+          start: (this.page - 1) * 10,
+          search: this.search !== '' ? this.search : undefined
+        }
+      },
+      pollInterval: 3000
+    }
+  }
 })
-export default class Tours extends Vue {}
+export default class ToursMain extends Vue {
+  private page = 1
+  private search = ''
+
+  private tours: Tours[]
+
+  private headers = [
+    {
+      text: 'Id',
+      align: 'start',
+      sortable: false,
+      value: 'id'
+    },
+    {
+      text: 'Name',
+      align: 'start',
+      sortable: false,
+      value: 'title'
+    },
+    {
+      text: 'Slug',
+      align: 'start',
+      sortable: false,
+      value: 'slug'
+    },
+    {
+      text: 'City',
+      align: 'start',
+      sortable: false,
+      value: 'city.name'
+    },
+    {
+      text: 'Action',
+      value: 'action'
+    }
+  ]
+}
 </script>

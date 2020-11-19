@@ -139,3 +139,119 @@ query SearchLocationById($id: String){
     }
   }
 }
+
+query GetAllPricing($limit: Int, $start: Int, $search: String){
+  pricings(
+    limit: $limit,
+    start: $start,
+    where: {
+      nameSlug_contains: $search
+    }
+  ) {
+    id
+    nameSlug
+    base
+    tax
+    type
+  }
+}
+
+query GetAllTours($limit: Int, $start: Int, $search: String){
+  tours(
+    limit: $limit,
+    start: $start,
+    where: {
+      title_contains: $search
+    }
+  ) {
+    id
+    title
+    slug
+    mater {
+      id
+      url
+    }
+    youtube
+    basic
+    city {
+      id
+      name
+    }
+    tour_categories {
+      id
+      name
+      icon
+    }
+  }
+}
+
+query GetAllPromos($limit: Int, $start: Int, $search: String){
+  promos (
+    limit: $limit,
+    start: $start,
+    where: {
+      code_contains: $search
+    }
+  ){
+    id
+    code
+    type
+    applicable
+    value
+    max
+    min
+    enabled
+  }
+}
+
+query AllCities{
+  cities(
+    where: {
+      tours: true
+    }
+  ) {
+    id
+    name
+    cmapping
+    label
+    hotel
+    intercity
+    tours
+    hourly
+  }
+}
+
+query GetAllTourCategories{
+  tourCategories {
+    id
+    name
+    icon
+  }
+}
+
+query GetSingleTour($id: ID!){
+  tour(id: $id) {
+    id
+    title
+    slug
+    allmedia {
+      id
+      url
+    }
+    mater {
+      id
+      url
+    }
+    youtube
+    basic
+    city {
+      id
+      name
+    }
+    tour_categories {
+      id
+      name
+      icon
+    }
+  }
+}

@@ -6,7 +6,7 @@
         <div class="d-flex align-items-center flex-wrap mr-2">
 
           <!--begin::Title-->
-          <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Tour Builder</h5>
+          <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Tours Edit / View</h5>
           <!--end::Title-->
 
           <!--begin::Separator-->
@@ -31,7 +31,14 @@
       </div>
     </div>
     <div class="d-flex flex-column-fluid">
-      <div class=" container ">
+      <div class=" container" v-if="$apollo.queries.tour.loading">
+        <v-progress-linear
+          color="lime"
+          indeterminate
+          reverse
+        ></v-progress-linear>
+      </div>
+      <div class=" container" v-if="!$apollo.queries.tour.loading">
         <div class="row">
           <div class="col-md-12">
             <v-text-field
@@ -113,7 +120,16 @@
                 contain
                 max-height="150"
                 max-width="250"
-                :src="this.topimagerender"
+                :src="topimagerender"
+              ></v-img>
+            </div>
+            <div>
+              <v-img
+                v-if="topExisting && topimagerender === null"
+                contain
+                max-height="150"
+                max-width="250"
+                :src="getAssetURl(topExisting.url)"
               ></v-img>
             </div>
           </div>
@@ -138,6 +154,29 @@
                 max-height="150"
                 :src="rds"
               ></v-img>
+            </div>
+            <div class="row">
+              <div class="col-md-3" v-for="(rds, index) of allExisting" :key="index">
+                <v-img
+                  contain
+                  max-height="150"
+                  :src="getAssetURl(rds.url)"
+                ></v-img>
+                <div class="d-flex justify-content-center align-items-center mt-3">
+                  <v-btn
+                    dark
+                    small
+                    color="red"
+                    tile
+                    @click="onDeleteImage(index)"
+                  >
+                    <v-icon dark>
+                      mdi-delete-variant
+                    </v-icon>
+                    Delete
+                  </v-btn>
+                </div>
+              </div>
             </div>
           </div>
           <div class="col-md-12">
@@ -172,105 +211,29 @@
                 color="primary"
                 @click="onCreateNewTour"
               >
-                Save
+                Update
               </v-btn>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <v-dialog
-      v-model="cats"
-      persistent
-      max-width="600px"
-    >
-      <v-card>
-        <v-card-title style="background: #0BB783">
-          <span class="headline text-white">Add Category</span>
-        </v-card-title>
-        <v-card-text>
-          <v-container>
-            <v-row>
-              <v-col
-                cols="12"
-                sm="6"
-                md="6"
-              >
-                <v-text-field
-                  label="Category Name"
-                  required
-                  v-model="catname"
-                ></v-text-field>
-              </v-col>
-              <v-col
-                cols="12"
-                sm="6"
-                md="6"
-              >
-                <v-select
-                  :items="loadicons"
-                  label="Category Icon"
-                  v-model="caticon"
-                >
-                  <template v-slot:item="{item}">
-                    <div>
-                      <v-icon
-                        large
-                        color="primary"
-                      >
-                        mdi-{{item}}
-                      </v-icon>
-                      <span style="margin-left: 10px">{{item}}</span>
-                    </div>
-                  </template>
-                </v-select>
-              </v-col>
-            </v-row>
-          </v-container>
-        </v-card-text>
-        <v-progress-linear
-          color="lime"
-          indeterminate
-          reverse
-          v-if="loading"
-        ></v-progress-linear>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn
-            color="red"
-            text
-            @click="cats = false"
-          >
-            Close
-          </v-btn>
-          <v-btn
-            color="primary"
-            text
-            @click="onCreateNewCategory"
-          >
-            Save
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
   </div>
 </template>
 
 <script lang="ts">
-
 import {Component, Vue, Watch} from "nuxt-property-decorator";
 import {
   AllCitiesDocument,
   Cities,
   CreateCategoryDocument,
-  CreateTourDocument,
-  GetAllTourCategoriesDocument,
-  TourCategory
+  GetAllTourCategoriesDocument, GetSingleTourDocument,
+  TourCategory, Tours, UpdateTourDocument
 } from "~/gql";
-import Editor from '@tinymce/tinymce-vue'
 import {MaterialIcons} from "~/utils/material-icons";
-import axios from 'axios';
+import axios from "axios";
 import {mainUrl} from "~/utils/global";
+import Editor from "@tinymce/tinymce-vue";
 import slugify from "slugify";
 
 @Component({
@@ -286,10 +249,18 @@ import slugify from "slugify";
     tourCategories: {
       query: GetAllTourCategoriesDocument,
       pollInterval: 3000
+    },
+    tour: {
+      query: GetSingleTourDocument,
+      variables() {
+        return {
+          id: this.$route.params.id
+        }
+      }
     }
   }
 })
-export default class Builder extends Vue {
+export default class TourId extends Vue {
   private title = ''
   private cities: Cities[]
   private editorModel: string = ''
@@ -306,15 +277,39 @@ export default class Builder extends Vue {
 
   private tourCategories: TourCategory[]
 
-  private category = []
+  private category: any[] = []
   private city = ''
   private youtube = ''
 
+  private tour: Tours
+
+  private allExisting: any[] = []
+  private topExisting: any = null
+
   private slug = ''
+
+  getAssetURl(url: string) {
+    return `${mainUrl}${url}`
+  }
 
   @Watch('title')
   onChangeName() {
     this.slug = slugify(this.title)
+  }
+
+  @Watch('tour')
+  onLoadTour() {
+    console.log(this.tour)
+    if (this.tour) {
+      this.title = this.tour.title!
+      this.city = this.tour.city!.id
+      this.category = this.tour.tour_categories!.map(item => item!.id)
+      this.youtube = this.tour.youtube!
+      this.editorModel = this.tour.basic!
+      this.allExisting = this.tour.allmedia!
+      this.topExisting = this.tour.mater!
+      this.slug = this.tour.slug!
+    }
   }
 
   filePickerCallBack(callback, value, meta) {
@@ -355,6 +350,10 @@ export default class Builder extends Vue {
     }
   }
 
+  onDeleteImage(index) {
+    this.allExisting.splice(index, 1)
+  }
+
   onCreateNewCategory() {
     this.loading = true
     this.$apollo.mutate({
@@ -364,15 +363,15 @@ export default class Builder extends Vue {
         icon: this.caticon
       }
     })
-    .then(value => {
-      this.cats = false
-      this.loading = false
-      this.$message.success('Category Added')
-    })
-    .catch(e => {
-      this.loading = false
-      this.$message.error(e.message)
-    })
+      .then(value => {
+        this.cats = false
+        this.loading = false
+        this.$message.success('Category Added')
+      })
+      .catch(e => {
+        this.loading = false
+        this.$message.error(e.message)
+      })
   }
 
   async onCreateNewTour() {
@@ -393,31 +392,40 @@ export default class Builder extends Vue {
       return
     }
     this.loading = true
-    console.log(this.$apolloHelpers.getToken())
     let topImage
-    let allImages: any[] = []
-    const formData = new FormData();
-    formData.append('files', this.topimage!, this.topimage!.name)
-    const uploadTopImage = await axios.post(`${mainUrl}/upload`, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        Authorization : `Bearer ${this.$apolloHelpers.getToken()}`
-      }
-    })
-    topImage = uploadTopImage.data[0].id
-    const formData1 = new FormData()
-    for (const imgs of this.images) {
-      formData1.append('files', imgs, imgs.name)
+    if (this.topExisting) {
+      topImage = this.topExisting.id
     }
-    const uploadAllImage = await axios.post(`${mainUrl}/upload`, formData1, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        Authorization : `Bearer ${this.$apolloHelpers.getToken()}`
+    let allImages: any[] = []
+    if (this.allExisting.length > 0) {
+      allImages = this.allExisting.map(item => item.id)
+    }
+    if (this.topimage !== null) {
+      const formData = new FormData();
+      formData.append('files', this.topimage!, this.topimage!.name)
+      const uploadTopImage = await axios.post(`${mainUrl}/upload`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization : `Bearer ${this.$apolloHelpers.getToken()}`
+        }
+      })
+      topImage = uploadTopImage.data[0].id
+    }
+    if (this.images.length > 0) {
+      const formData1 = new FormData()
+      for (const imgs of this.images) {
+        formData1.append('files', imgs, imgs.name)
       }
-    })
-    allImages = uploadAllImage.data.map(item => item.id)
+      const uploadAllImage = await axios.post(`${mainUrl}/upload`, formData1, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization : `Bearer ${this.$apolloHelpers.getToken()}`
+        }
+      })
+      allImages = uploadAllImage.data.map(item => item.id)
+    }
     this.$apollo.mutate({
-      mutation: CreateTourDocument,
+      mutation: UpdateTourDocument,
       variables: {
         title: this.title,
         youtube: this.youtube,
@@ -425,18 +433,19 @@ export default class Builder extends Vue {
         cats: this.category,
         allMedia: allImages,
         master: topImage,
-        city: this.city
+        city: this.city,
+        id: this.$route.params.id,
+        slug: this.slug
       }
     })
-    .then(value => {
-      this.loading = false
-      this.$message.success('Tour added')
-      this.$router.back()
-    })
-    .catch(e => {
-      this.loading = false
-      this.$message.error(e.message)
-    })
+      .then(value => {
+        this.loading = false
+        this.$message.success('Tour Updated')
+      })
+      .catch(e => {
+        this.loading = false
+        this.$message.error(e.message)
+      })
   }
 }
 </script>

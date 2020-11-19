@@ -143,6 +143,7 @@ export type Cities = {
   airports?: Maybe<Array<Maybe<Airports>>>;
   hotels?: Maybe<Array<Maybe<Hotels>>>;
   hotelpricings?: Maybe<Array<Maybe<Pricing>>>;
+  tours_main?: Maybe<Array<Maybe<Tours>>>;
 };
 
 
@@ -163,6 +164,14 @@ export type CitiesHotelsArgs = {
 
 
 export type CitiesHotelpricingsArgs = {
+  sort?: Maybe<Scalars['String']>;
+  limit?: Maybe<Scalars['Int']>;
+  start?: Maybe<Scalars['Int']>;
+  where?: Maybe<Scalars['JSON']>;
+};
+
+
+export type CitiesTours_MainArgs = {
   sort?: Maybe<Scalars['String']>;
   limit?: Maybe<Scalars['Int']>;
   start?: Maybe<Scalars['Int']>;
@@ -322,6 +331,7 @@ export type CityInput = {
   hotels?: Maybe<Array<Maybe<Scalars['ID']>>>;
   hotelpricings?: Maybe<Array<Maybe<Scalars['ID']>>>;
   hourlypricing?: Maybe<Scalars['ID']>;
+  tours_main?: Maybe<Array<Maybe<Scalars['ID']>>>;
   published_at?: Maybe<Scalars['DateTime']>;
   created_by?: Maybe<Scalars['ID']>;
   updated_by?: Maybe<Scalars['ID']>;
@@ -496,6 +506,15 @@ export type CreatePricingPayload = {
   pricing?: Maybe<Pricing>;
 };
 
+export type CreatePromoInput = {
+  data?: Maybe<PromoInput>;
+};
+
+export type CreatePromoPayload = {
+  __typename?: 'createPromoPayload';
+  promo?: Maybe<Promo>;
+};
+
 export type CreateRoleInput = {
   data?: Maybe<RoleInput>;
 };
@@ -503,6 +522,24 @@ export type CreateRoleInput = {
 export type CreateRolePayload = {
   __typename?: 'createRolePayload';
   role?: Maybe<UsersPermissionsRole>;
+};
+
+export type CreateTourCategoryInput = {
+  data?: Maybe<TourCategoryInput>;
+};
+
+export type CreateTourCategoryPayload = {
+  __typename?: 'createTourCategoryPayload';
+  tourCategory?: Maybe<TourCategory>;
+};
+
+export type CreateTourInput = {
+  data?: Maybe<TourInput>;
+};
+
+export type CreateTourPayload = {
+  __typename?: 'createTourPayload';
+  tour?: Maybe<Tours>;
 };
 
 export type CreateUserInput = {
@@ -744,6 +781,15 @@ export type DeletePricingPayload = {
   pricing?: Maybe<Pricing>;
 };
 
+export type DeletePromoInput = {
+  where?: Maybe<InputId>;
+};
+
+export type DeletePromoPayload = {
+  __typename?: 'deletePromoPayload';
+  promo?: Maybe<Promo>;
+};
+
 export type DeleteRoleInput = {
   where?: Maybe<InputId>;
 };
@@ -751,6 +797,24 @@ export type DeleteRoleInput = {
 export type DeleteRolePayload = {
   __typename?: 'deleteRolePayload';
   role?: Maybe<UsersPermissionsRole>;
+};
+
+export type DeleteTourCategoryInput = {
+  where?: Maybe<InputId>;
+};
+
+export type DeleteTourCategoryPayload = {
+  __typename?: 'deleteTourCategoryPayload';
+  tourCategory?: Maybe<TourCategory>;
+};
+
+export type DeleteTourInput = {
+  where?: Maybe<InputId>;
+};
+
+export type DeleteTourPayload = {
+  __typename?: 'deleteTourPayload';
+  tour?: Maybe<Tours>;
 };
 
 export type DeleteUserInput = {
@@ -797,6 +861,7 @@ export type EditCityInput = {
   hotels?: Maybe<Array<Maybe<Scalars['ID']>>>;
   hotelpricings?: Maybe<Array<Maybe<Scalars['ID']>>>;
   hourlypricing?: Maybe<Scalars['ID']>;
+  tours_main?: Maybe<Array<Maybe<Scalars['ID']>>>;
   published_at?: Maybe<Scalars['DateTime']>;
   created_by?: Maybe<Scalars['ID']>;
   updated_by?: Maybe<Scalars['ID']>;
@@ -892,6 +957,22 @@ export type EditPricingInput = {
   distanceBundle?: Maybe<Scalars['Int']>;
   minDuration?: Maybe<Scalars['Int']>;
   maxDuration?: Maybe<Scalars['Int']>;
+  tour?: Maybe<Scalars['ID']>;
+  adult?: Maybe<Scalars['Boolean']>;
+  adultprice?: Maybe<Scalars['Int']>;
+  published_at?: Maybe<Scalars['DateTime']>;
+  created_by?: Maybe<Scalars['ID']>;
+  updated_by?: Maybe<Scalars['ID']>;
+};
+
+export type EditPromoInput = {
+  code?: Maybe<Scalars['String']>;
+  type?: Maybe<Enum_Promo_Type>;
+  applicable?: Maybe<Enum_Promo_Applicable>;
+  value?: Maybe<Scalars['Int']>;
+  max?: Maybe<Scalars['Int']>;
+  min?: Maybe<Scalars['Int']>;
+  enabled?: Maybe<Scalars['Boolean']>;
   published_at?: Maybe<Scalars['DateTime']>;
   created_by?: Maybe<Scalars['ID']>;
   updated_by?: Maybe<Scalars['ID']>;
@@ -903,6 +984,30 @@ export type EditRoleInput = {
   type?: Maybe<Scalars['String']>;
   permissions?: Maybe<Array<Maybe<Scalars['ID']>>>;
   users?: Maybe<Array<Maybe<Scalars['ID']>>>;
+  created_by?: Maybe<Scalars['ID']>;
+  updated_by?: Maybe<Scalars['ID']>;
+};
+
+export type EditTourCategoryInput = {
+  name?: Maybe<Scalars['String']>;
+  icon?: Maybe<Scalars['String']>;
+  tours?: Maybe<Array<Maybe<Scalars['ID']>>>;
+  published_at?: Maybe<Scalars['DateTime']>;
+  created_by?: Maybe<Scalars['ID']>;
+  updated_by?: Maybe<Scalars['ID']>;
+};
+
+export type EditTourInput = {
+  title?: Maybe<Scalars['String']>;
+  mater?: Maybe<Scalars['ID']>;
+  youtube?: Maybe<Scalars['String']>;
+  basic?: Maybe<Scalars['String']>;
+  tour_categories?: Maybe<Array<Maybe<Scalars['ID']>>>;
+  allmedia?: Maybe<Array<Maybe<Scalars['ID']>>>;
+  city?: Maybe<Scalars['ID']>;
+  pricings?: Maybe<Array<Maybe<Scalars['ID']>>>;
+  slug?: Maybe<Scalars['String']>;
+  published_at?: Maybe<Scalars['DateTime']>;
   created_by?: Maybe<Scalars['ID']>;
   updated_by?: Maybe<Scalars['ID']>;
 };
@@ -963,6 +1068,18 @@ export enum Enum_Pricing_Type {
   Hour = 'HOUR',
   Hotel = 'HOTEL',
   Tour = 'TOUR'
+}
+
+export enum Enum_Promo_Applicable {
+  Hotel = 'HOTEL',
+  Hour = 'HOUR',
+  Tour = 'TOUR',
+  Intercity = 'INTERCITY'
+}
+
+export enum Enum_Promo_Type {
+  Flat = 'FLAT',
+  Percentage = 'PERCENTAGE'
 }
 
 export type FileInfoInput = {
@@ -1218,7 +1335,7 @@ export type LocationsGroupBy = {
 };
 
 
-export type Morph = UsersPermissionsMe | UsersPermissionsMeRole | UsersPermissionsLoginPayload | UserPermissionsPasswordPayload | Airports | AirportsConnection | AirportsAggregator | AirportsGroupBy | AirportsConnectionId | AirportsConnectionCreated_At | AirportsConnectionUpdated_At | AirportsConnectionName | AirportsConnectionLocation | AirportsConnectionCity | AirportsConnectionPublished_At | CreateAirportPayload | UpdateAirportPayload | DeleteAirportPayload | Cities | CitiesConnection | CitiesAggregator | CitiesGroupBy | CitiesConnectionId | CitiesConnectionCreated_At | CitiesConnectionUpdated_At | CitiesConnectionName | CitiesConnectionCmapping | CitiesConnectionLabel | CitiesConnectionLocation | CitiesConnectionCurrency | CitiesConnectionCountry | CitiesConnectionHotel | CitiesConnectionIntercity | CitiesConnectionTours | CitiesConnectionHourly | CitiesConnectionInteroriginpricing | CitiesConnectionInterdestinationpricing | CitiesConnectionHourlypricing | CitiesConnectionPublished_At | CreateCityPayload | UpdateCityPayload | DeleteCityPayload | Country | CountryConnection | CountryAggregator | CountryGroupBy | CountryConnectionId | CountryConnectionCreated_At | CountryConnectionUpdated_At | CountryConnectionName | CountryConnectionCode | CountryConnectionEnabled | CountryConnectionPublished_At | CreateCountryPayload | UpdateCountryPayload | DeleteCountryPayload | Currency | CurrencyConnection | CurrencyAggregator | CurrencyAggregatorSum | CurrencyAggregatorAvg | CurrencyAggregatorMin | CurrencyAggregatorMax | CurrencyGroupBy | CurrencyConnectionId | CurrencyConnectionCreated_At | CurrencyConnectionUpdated_At | CurrencyConnectionName | CurrencyConnectionKey | CurrencyConnectionValue | CurrencyConnectionBase | CurrencyConnectionCountry | CurrencyConnectionUnicode | CurrencyConnectionPublished_At | CreateCurrencyPayload | UpdateCurrencyPayload | DeleteCurrencyPayload | Hotels | HotelsConnection | HotelsAggregator | HotelsGroupBy | HotelsConnectionId | HotelsConnectionCreated_At | HotelsConnectionUpdated_At | HotelsConnectionName | HotelsConnectionPublished_At | CreateHotelPayload | UpdateHotelPayload | DeleteHotelPayload | Locations | LocationsConnection | LocationsAggregator | LocationsGroupBy | LocationsConnectionId | LocationsConnectionCreated_At | LocationsConnectionUpdated_At | LocationsConnectionFomat | LocationsConnectionGeoJson | LocationsConnectionPlaceId | LocationsConnectionCity | LocationsConnectionAirport | LocationsConnectionHotel | LocationsConnectionPublished_At | CreateLocationPayload | UpdateLocationPayload | DeleteLocationPayload | Pricing | PricingConnection | PricingAggregator | PricingAggregatorSum | PricingAggregatorAvg | PricingAggregatorMin | PricingAggregatorMax | PricingGroupBy | PricingConnectionId | PricingConnectionCreated_At | PricingConnectionUpdated_At | PricingConnectionNameSlug | PricingConnectionType | PricingConnectionBase | PricingConnectionTax | PricingConnectionFlat | PricingConnectionToll | PricingConnectionOrigincity | PricingConnectionDestinationcity | PricingConnectionVehicle | PricingConnectionOriginlocation | PricingConnectionDestinationlocation | PricingConnectionHotelcity | PricingConnectionTrip | PricingConnectionHourlycity | PricingConnectionHorulyUnits | PricingConnectionTripJumps | PricingConnectionDistance | PricingConnectionUnitjumps | PricingConnectionAddBase | PricingConnectionDistanceBundle | PricingConnectionMinDuration | PricingConnectionMaxDuration | PricingConnectionPublished_At | CreatePricingPayload | UpdatePricingPayload | DeletePricingPayload | Vehicles | VehiclesConnection | VehiclesAggregator | VehiclesAggregatorSum | VehiclesAggregatorAvg | VehiclesAggregatorMin | VehiclesAggregatorMax | VehiclesGroupBy | VehiclesConnectionId | VehiclesConnectionCreated_At | VehiclesConnectionUpdated_At | VehiclesConnectionVehicleClass | VehiclesConnectionTitle | VehiclesConnectionTagLiine | VehiclesConnectionOperations | VehiclesConnectionIcon | VehiclesConnectionLogo | VehiclesConnectionLuggage | VehiclesConnectionMax | VehiclesConnectionOccupancy_Log | VehiclesConnectionPublished_At | CreateVehiclePayload | UpdateVehiclePayload | DeleteVehiclePayload | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileAggregatorSum | UploadFileAggregatorAvg | UploadFileAggregatorMin | UploadFileAggregatorMax | UploadFileGroupBy | UploadFileConnectionId | UploadFileConnectionCreated_At | UploadFileConnectionUpdated_At | UploadFileConnectionName | UploadFileConnectionAlternativeText | UploadFileConnectionCaption | UploadFileConnectionWidth | UploadFileConnectionHeight | UploadFileConnectionFormats | UploadFileConnectionHash | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionPreviewUrl | UploadFileConnectionProvider | UploadFileConnectionProvider_Metadata | DeleteFilePayload | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnectionId | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | CreateRolePayload | UpdateRolePayload | DeleteRolePayload | UsersPermissionsUser | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnectionId | UsersPermissionsUserConnectionCreated_At | UsersPermissionsUserConnectionUpdated_At | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole | UsersPermissionsUserConnectionFirstName | UsersPermissionsUserConnectionLastName | UsersPermissionsUserConnectionPhone | CreateUserPayload | UpdateUserPayload | DeleteUserPayload;
+export type Morph = UsersPermissionsMe | UsersPermissionsMeRole | UsersPermissionsLoginPayload | UserPermissionsPasswordPayload | Airports | AirportsConnection | AirportsAggregator | AirportsGroupBy | AirportsConnectionId | AirportsConnectionCreated_At | AirportsConnectionUpdated_At | AirportsConnectionName | AirportsConnectionLocation | AirportsConnectionCity | AirportsConnectionPublished_At | CreateAirportPayload | UpdateAirportPayload | DeleteAirportPayload | Cities | CitiesConnection | CitiesAggregator | CitiesGroupBy | CitiesConnectionId | CitiesConnectionCreated_At | CitiesConnectionUpdated_At | CitiesConnectionName | CitiesConnectionCmapping | CitiesConnectionLabel | CitiesConnectionLocation | CitiesConnectionCurrency | CitiesConnectionCountry | CitiesConnectionHotel | CitiesConnectionIntercity | CitiesConnectionTours | CitiesConnectionHourly | CitiesConnectionInteroriginpricing | CitiesConnectionInterdestinationpricing | CitiesConnectionHourlypricing | CitiesConnectionPublished_At | CreateCityPayload | UpdateCityPayload | DeleteCityPayload | Country | CountryConnection | CountryAggregator | CountryGroupBy | CountryConnectionId | CountryConnectionCreated_At | CountryConnectionUpdated_At | CountryConnectionName | CountryConnectionCode | CountryConnectionEnabled | CountryConnectionPublished_At | CreateCountryPayload | UpdateCountryPayload | DeleteCountryPayload | Currency | CurrencyConnection | CurrencyAggregator | CurrencyAggregatorSum | CurrencyAggregatorAvg | CurrencyAggregatorMin | CurrencyAggregatorMax | CurrencyGroupBy | CurrencyConnectionId | CurrencyConnectionCreated_At | CurrencyConnectionUpdated_At | CurrencyConnectionName | CurrencyConnectionKey | CurrencyConnectionValue | CurrencyConnectionBase | CurrencyConnectionCountry | CurrencyConnectionUnicode | CurrencyConnectionPublished_At | CreateCurrencyPayload | UpdateCurrencyPayload | DeleteCurrencyPayload | Hotels | HotelsConnection | HotelsAggregator | HotelsGroupBy | HotelsConnectionId | HotelsConnectionCreated_At | HotelsConnectionUpdated_At | HotelsConnectionName | HotelsConnectionPublished_At | CreateHotelPayload | UpdateHotelPayload | DeleteHotelPayload | Locations | LocationsConnection | LocationsAggregator | LocationsGroupBy | LocationsConnectionId | LocationsConnectionCreated_At | LocationsConnectionUpdated_At | LocationsConnectionFomat | LocationsConnectionGeoJson | LocationsConnectionPlaceId | LocationsConnectionCity | LocationsConnectionAirport | LocationsConnectionHotel | LocationsConnectionPublished_At | CreateLocationPayload | UpdateLocationPayload | DeleteLocationPayload | Pricing | PricingConnection | PricingAggregator | PricingAggregatorSum | PricingAggregatorAvg | PricingAggregatorMin | PricingAggregatorMax | PricingGroupBy | PricingConnectionId | PricingConnectionCreated_At | PricingConnectionUpdated_At | PricingConnectionNameSlug | PricingConnectionType | PricingConnectionBase | PricingConnectionTax | PricingConnectionFlat | PricingConnectionToll | PricingConnectionOrigincity | PricingConnectionDestinationcity | PricingConnectionVehicle | PricingConnectionOriginlocation | PricingConnectionDestinationlocation | PricingConnectionHotelcity | PricingConnectionTrip | PricingConnectionHourlycity | PricingConnectionHorulyUnits | PricingConnectionTripJumps | PricingConnectionDistance | PricingConnectionUnitjumps | PricingConnectionAddBase | PricingConnectionDistanceBundle | PricingConnectionMinDuration | PricingConnectionMaxDuration | PricingConnectionTour | PricingConnectionAdult | PricingConnectionAdultprice | PricingConnectionPublished_At | CreatePricingPayload | UpdatePricingPayload | DeletePricingPayload | Promo | PromoConnection | PromoAggregator | PromoAggregatorSum | PromoAggregatorAvg | PromoAggregatorMin | PromoAggregatorMax | PromoGroupBy | PromoConnectionId | PromoConnectionCreated_At | PromoConnectionUpdated_At | PromoConnectionCode | PromoConnectionType | PromoConnectionApplicable | PromoConnectionValue | PromoConnectionMax | PromoConnectionMin | PromoConnectionEnabled | PromoConnectionPublished_At | CreatePromoPayload | UpdatePromoPayload | DeletePromoPayload | TourCategory | TourCategoryConnection | TourCategoryAggregator | TourCategoryGroupBy | TourCategoryConnectionId | TourCategoryConnectionCreated_At | TourCategoryConnectionUpdated_At | TourCategoryConnectionName | TourCategoryConnectionIcon | TourCategoryConnectionPublished_At | CreateTourCategoryPayload | UpdateTourCategoryPayload | DeleteTourCategoryPayload | Tours | ToursConnection | ToursAggregator | ToursGroupBy | ToursConnectionId | ToursConnectionCreated_At | ToursConnectionUpdated_At | ToursConnectionTitle | ToursConnectionMater | ToursConnectionYoutube | ToursConnectionBasic | ToursConnectionCity | ToursConnectionSlug | ToursConnectionPublished_At | CreateTourPayload | UpdateTourPayload | DeleteTourPayload | Vehicles | VehiclesConnection | VehiclesAggregator | VehiclesAggregatorSum | VehiclesAggregatorAvg | VehiclesAggregatorMin | VehiclesAggregatorMax | VehiclesGroupBy | VehiclesConnectionId | VehiclesConnectionCreated_At | VehiclesConnectionUpdated_At | VehiclesConnectionVehicleClass | VehiclesConnectionTitle | VehiclesConnectionTagLiine | VehiclesConnectionOperations | VehiclesConnectionIcon | VehiclesConnectionLogo | VehiclesConnectionLuggage | VehiclesConnectionMax | VehiclesConnectionOccupancy_Log | VehiclesConnectionPublished_At | CreateVehiclePayload | UpdateVehiclePayload | DeleteVehiclePayload | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileAggregatorSum | UploadFileAggregatorAvg | UploadFileAggregatorMin | UploadFileAggregatorMax | UploadFileGroupBy | UploadFileConnectionId | UploadFileConnectionCreated_At | UploadFileConnectionUpdated_At | UploadFileConnectionName | UploadFileConnectionAlternativeText | UploadFileConnectionCaption | UploadFileConnectionWidth | UploadFileConnectionHeight | UploadFileConnectionFormats | UploadFileConnectionHash | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionPreviewUrl | UploadFileConnectionProvider | UploadFileConnectionProvider_Metadata | DeleteFilePayload | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnectionId | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | CreateRolePayload | UpdateRolePayload | DeleteRolePayload | UsersPermissionsUser | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnectionId | UsersPermissionsUserConnectionCreated_At | UsersPermissionsUserConnectionUpdated_At | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole | UsersPermissionsUserConnectionFirstName | UsersPermissionsUserConnectionLastName | UsersPermissionsUserConnectionPhone | CreateUserPayload | UpdateUserPayload | DeleteUserPayload;
 
 export type Mutation = {
   __typename?: 'Mutation';
@@ -1243,6 +1360,15 @@ export type Mutation = {
   createPricing?: Maybe<CreatePricingPayload>;
   updatePricing?: Maybe<UpdatePricingPayload>;
   deletePricing?: Maybe<DeletePricingPayload>;
+  createPromo?: Maybe<CreatePromoPayload>;
+  updatePromo?: Maybe<UpdatePromoPayload>;
+  deletePromo?: Maybe<DeletePromoPayload>;
+  createTourCategory?: Maybe<CreateTourCategoryPayload>;
+  updateTourCategory?: Maybe<UpdateTourCategoryPayload>;
+  deleteTourCategory?: Maybe<DeleteTourCategoryPayload>;
+  createTour?: Maybe<CreateTourPayload>;
+  updateTour?: Maybe<UpdateTourPayload>;
+  deleteTour?: Maybe<DeleteTourPayload>;
   createVehicle?: Maybe<CreateVehiclePayload>;
   updateVehicle?: Maybe<UpdateVehiclePayload>;
   deleteVehicle?: Maybe<DeleteVehiclePayload>;
@@ -1376,6 +1502,51 @@ export type MutationDeletePricingArgs = {
 };
 
 
+export type MutationCreatePromoArgs = {
+  input?: Maybe<CreatePromoInput>;
+};
+
+
+export type MutationUpdatePromoArgs = {
+  input?: Maybe<UpdatePromoInput>;
+};
+
+
+export type MutationDeletePromoArgs = {
+  input?: Maybe<DeletePromoInput>;
+};
+
+
+export type MutationCreateTourCategoryArgs = {
+  input?: Maybe<CreateTourCategoryInput>;
+};
+
+
+export type MutationUpdateTourCategoryArgs = {
+  input?: Maybe<UpdateTourCategoryInput>;
+};
+
+
+export type MutationDeleteTourCategoryArgs = {
+  input?: Maybe<DeleteTourCategoryInput>;
+};
+
+
+export type MutationCreateTourArgs = {
+  input?: Maybe<CreateTourInput>;
+};
+
+
+export type MutationUpdateTourArgs = {
+  input?: Maybe<UpdateTourInput>;
+};
+
+
+export type MutationDeleteTourArgs = {
+  input?: Maybe<DeleteTourInput>;
+};
+
+
 export type MutationCreateVehicleArgs = {
   input?: Maybe<CreateVehicleInput>;
 };
@@ -1503,6 +1674,9 @@ export type Pricing = {
   distanceBundle?: Maybe<Scalars['Int']>;
   minDuration?: Maybe<Scalars['Int']>;
   maxDuration?: Maybe<Scalars['Int']>;
+  tour?: Maybe<Tours>;
+  adult?: Maybe<Scalars['Boolean']>;
+  adultprice?: Maybe<Scalars['Int']>;
   published_at?: Maybe<Scalars['DateTime']>;
 };
 
@@ -1528,6 +1702,7 @@ export type PricingAggregatorAvg = {
   distanceBundle?: Maybe<Scalars['Float']>;
   minDuration?: Maybe<Scalars['Float']>;
   maxDuration?: Maybe<Scalars['Float']>;
+  adultprice?: Maybe<Scalars['Float']>;
 };
 
 export type PricingAggregatorMax = {
@@ -1542,6 +1717,7 @@ export type PricingAggregatorMax = {
   distanceBundle?: Maybe<Scalars['Float']>;
   minDuration?: Maybe<Scalars['Float']>;
   maxDuration?: Maybe<Scalars['Float']>;
+  adultprice?: Maybe<Scalars['Float']>;
 };
 
 export type PricingAggregatorMin = {
@@ -1556,6 +1732,7 @@ export type PricingAggregatorMin = {
   distanceBundle?: Maybe<Scalars['Float']>;
   minDuration?: Maybe<Scalars['Float']>;
   maxDuration?: Maybe<Scalars['Float']>;
+  adultprice?: Maybe<Scalars['Float']>;
 };
 
 export type PricingAggregatorSum = {
@@ -1570,6 +1747,7 @@ export type PricingAggregatorSum = {
   distanceBundle?: Maybe<Scalars['Float']>;
   minDuration?: Maybe<Scalars['Float']>;
   maxDuration?: Maybe<Scalars['Float']>;
+  adultprice?: Maybe<Scalars['Float']>;
 };
 
 export type PricingConnection = {
@@ -1582,6 +1760,18 @@ export type PricingConnection = {
 export type PricingConnectionAddBase = {
   __typename?: 'PricingConnectionAddBase';
   key?: Maybe<Scalars['Float']>;
+  connection?: Maybe<PricingConnection>;
+};
+
+export type PricingConnectionAdult = {
+  __typename?: 'PricingConnectionAdult';
+  key?: Maybe<Scalars['Boolean']>;
+  connection?: Maybe<PricingConnection>;
+};
+
+export type PricingConnectionAdultprice = {
+  __typename?: 'PricingConnectionAdultprice';
+  key?: Maybe<Scalars['Int']>;
   connection?: Maybe<PricingConnection>;
 };
 
@@ -1699,6 +1889,12 @@ export type PricingConnectionToll = {
   connection?: Maybe<PricingConnection>;
 };
 
+export type PricingConnectionTour = {
+  __typename?: 'PricingConnectionTour';
+  key?: Maybe<Scalars['ID']>;
+  connection?: Maybe<PricingConnection>;
+};
+
 export type PricingConnectionTrip = {
   __typename?: 'PricingConnectionTrip';
   key?: Maybe<Scalars['String']>;
@@ -1762,6 +1958,9 @@ export type PricingGroupBy = {
   distanceBundle?: Maybe<Array<Maybe<PricingConnectionDistanceBundle>>>;
   minDuration?: Maybe<Array<Maybe<PricingConnectionMinDuration>>>;
   maxDuration?: Maybe<Array<Maybe<PricingConnectionMaxDuration>>>;
+  tour?: Maybe<Array<Maybe<PricingConnectionTour>>>;
+  adult?: Maybe<Array<Maybe<PricingConnectionAdult>>>;
+  adultprice?: Maybe<Array<Maybe<PricingConnectionAdultprice>>>;
   published_at?: Maybe<Array<Maybe<PricingConnectionPublished_At>>>;
 };
 
@@ -1788,6 +1987,163 @@ export type PricingInput = {
   distanceBundle?: Maybe<Scalars['Int']>;
   minDuration?: Maybe<Scalars['Int']>;
   maxDuration?: Maybe<Scalars['Int']>;
+  tour?: Maybe<Scalars['ID']>;
+  adult?: Maybe<Scalars['Boolean']>;
+  adultprice?: Maybe<Scalars['Int']>;
+  published_at?: Maybe<Scalars['DateTime']>;
+  created_by?: Maybe<Scalars['ID']>;
+  updated_by?: Maybe<Scalars['ID']>;
+};
+
+export type Promo = {
+  __typename?: 'Promo';
+  id: Scalars['ID'];
+  created_at: Scalars['DateTime'];
+  updated_at: Scalars['DateTime'];
+  code?: Maybe<Scalars['String']>;
+  type?: Maybe<Enum_Promo_Type>;
+  applicable?: Maybe<Enum_Promo_Applicable>;
+  value?: Maybe<Scalars['Int']>;
+  max?: Maybe<Scalars['Int']>;
+  min?: Maybe<Scalars['Int']>;
+  enabled?: Maybe<Scalars['Boolean']>;
+  published_at?: Maybe<Scalars['DateTime']>;
+};
+
+export type PromoAggregator = {
+  __typename?: 'PromoAggregator';
+  count?: Maybe<Scalars['Int']>;
+  totalCount?: Maybe<Scalars['Int']>;
+  sum?: Maybe<PromoAggregatorSum>;
+  avg?: Maybe<PromoAggregatorAvg>;
+  min?: Maybe<PromoAggregatorMin>;
+  max?: Maybe<PromoAggregatorMax>;
+};
+
+export type PromoAggregatorAvg = {
+  __typename?: 'PromoAggregatorAvg';
+  value?: Maybe<Scalars['Float']>;
+  max?: Maybe<Scalars['Float']>;
+  min?: Maybe<Scalars['Float']>;
+};
+
+export type PromoAggregatorMax = {
+  __typename?: 'PromoAggregatorMax';
+  value?: Maybe<Scalars['Float']>;
+  max?: Maybe<Scalars['Float']>;
+  min?: Maybe<Scalars['Float']>;
+};
+
+export type PromoAggregatorMin = {
+  __typename?: 'PromoAggregatorMin';
+  value?: Maybe<Scalars['Float']>;
+  max?: Maybe<Scalars['Float']>;
+  min?: Maybe<Scalars['Float']>;
+};
+
+export type PromoAggregatorSum = {
+  __typename?: 'PromoAggregatorSum';
+  value?: Maybe<Scalars['Float']>;
+  max?: Maybe<Scalars['Float']>;
+  min?: Maybe<Scalars['Float']>;
+};
+
+export type PromoConnection = {
+  __typename?: 'PromoConnection';
+  values?: Maybe<Array<Maybe<Promo>>>;
+  groupBy?: Maybe<PromoGroupBy>;
+  aggregate?: Maybe<PromoAggregator>;
+};
+
+export type PromoConnectionApplicable = {
+  __typename?: 'PromoConnectionApplicable';
+  key?: Maybe<Scalars['String']>;
+  connection?: Maybe<PromoConnection>;
+};
+
+export type PromoConnectionCode = {
+  __typename?: 'PromoConnectionCode';
+  key?: Maybe<Scalars['String']>;
+  connection?: Maybe<PromoConnection>;
+};
+
+export type PromoConnectionCreated_At = {
+  __typename?: 'PromoConnectionCreated_at';
+  key?: Maybe<Scalars['DateTime']>;
+  connection?: Maybe<PromoConnection>;
+};
+
+export type PromoConnectionEnabled = {
+  __typename?: 'PromoConnectionEnabled';
+  key?: Maybe<Scalars['Boolean']>;
+  connection?: Maybe<PromoConnection>;
+};
+
+export type PromoConnectionId = {
+  __typename?: 'PromoConnectionId';
+  key?: Maybe<Scalars['ID']>;
+  connection?: Maybe<PromoConnection>;
+};
+
+export type PromoConnectionMax = {
+  __typename?: 'PromoConnectionMax';
+  key?: Maybe<Scalars['Int']>;
+  connection?: Maybe<PromoConnection>;
+};
+
+export type PromoConnectionMin = {
+  __typename?: 'PromoConnectionMin';
+  key?: Maybe<Scalars['Int']>;
+  connection?: Maybe<PromoConnection>;
+};
+
+export type PromoConnectionPublished_At = {
+  __typename?: 'PromoConnectionPublished_at';
+  key?: Maybe<Scalars['DateTime']>;
+  connection?: Maybe<PromoConnection>;
+};
+
+export type PromoConnectionType = {
+  __typename?: 'PromoConnectionType';
+  key?: Maybe<Scalars['String']>;
+  connection?: Maybe<PromoConnection>;
+};
+
+export type PromoConnectionUpdated_At = {
+  __typename?: 'PromoConnectionUpdated_at';
+  key?: Maybe<Scalars['DateTime']>;
+  connection?: Maybe<PromoConnection>;
+};
+
+export type PromoConnectionValue = {
+  __typename?: 'PromoConnectionValue';
+  key?: Maybe<Scalars['Int']>;
+  connection?: Maybe<PromoConnection>;
+};
+
+export type PromoGroupBy = {
+  __typename?: 'PromoGroupBy';
+  id?: Maybe<Array<Maybe<PromoConnectionId>>>;
+  created_at?: Maybe<Array<Maybe<PromoConnectionCreated_At>>>;
+  updated_at?: Maybe<Array<Maybe<PromoConnectionUpdated_At>>>;
+  code?: Maybe<Array<Maybe<PromoConnectionCode>>>;
+  type?: Maybe<Array<Maybe<PromoConnectionType>>>;
+  applicable?: Maybe<Array<Maybe<PromoConnectionApplicable>>>;
+  value?: Maybe<Array<Maybe<PromoConnectionValue>>>;
+  max?: Maybe<Array<Maybe<PromoConnectionMax>>>;
+  min?: Maybe<Array<Maybe<PromoConnectionMin>>>;
+  enabled?: Maybe<Array<Maybe<PromoConnectionEnabled>>>;
+  published_at?: Maybe<Array<Maybe<PromoConnectionPublished_At>>>;
+};
+
+export type PromoInput = {
+  code?: Maybe<Scalars['String']>;
+  type?: Maybe<Enum_Promo_Type>;
+  applicable?: Maybe<Enum_Promo_Applicable>;
+  value?: Maybe<Scalars['Int']>;
+  max?: Maybe<Scalars['Int']>;
+  min?: Maybe<Scalars['Int']>;
+  enabled?: Maybe<Scalars['Boolean']>;
   published_at?: Maybe<Scalars['DateTime']>;
   created_by?: Maybe<Scalars['ID']>;
   updated_by?: Maybe<Scalars['ID']>;
@@ -1821,6 +2177,15 @@ export type Query = {
   pricing?: Maybe<Pricing>;
   pricings?: Maybe<Array<Maybe<Pricing>>>;
   pricingsConnection?: Maybe<PricingConnection>;
+  promo?: Maybe<Promo>;
+  promos?: Maybe<Array<Maybe<Promo>>>;
+  promosConnection?: Maybe<PromoConnection>;
+  tourCategory?: Maybe<TourCategory>;
+  tourCategories?: Maybe<Array<Maybe<TourCategory>>>;
+  tourCategoriesConnection?: Maybe<TourCategoryConnection>;
+  tour?: Maybe<Tours>;
+  tours?: Maybe<Array<Maybe<Tours>>>;
+  toursConnection?: Maybe<ToursConnection>;
   vehicle?: Maybe<Vehicles>;
   vehicles?: Maybe<Array<Maybe<Vehicles>>>;
   vehiclesConnection?: Maybe<VehiclesConnection>;
@@ -1998,6 +2363,75 @@ export type QueryPricingsConnectionArgs = {
 };
 
 
+export type QueryPromoArgs = {
+  id: Scalars['ID'];
+  publicationState?: Maybe<PublicationState>;
+};
+
+
+export type QueryPromosArgs = {
+  sort?: Maybe<Scalars['String']>;
+  limit?: Maybe<Scalars['Int']>;
+  start?: Maybe<Scalars['Int']>;
+  where?: Maybe<Scalars['JSON']>;
+  publicationState?: Maybe<PublicationState>;
+};
+
+
+export type QueryPromosConnectionArgs = {
+  sort?: Maybe<Scalars['String']>;
+  limit?: Maybe<Scalars['Int']>;
+  start?: Maybe<Scalars['Int']>;
+  where?: Maybe<Scalars['JSON']>;
+};
+
+
+export type QueryTourCategoryArgs = {
+  id: Scalars['ID'];
+  publicationState?: Maybe<PublicationState>;
+};
+
+
+export type QueryTourCategoriesArgs = {
+  sort?: Maybe<Scalars['String']>;
+  limit?: Maybe<Scalars['Int']>;
+  start?: Maybe<Scalars['Int']>;
+  where?: Maybe<Scalars['JSON']>;
+  publicationState?: Maybe<PublicationState>;
+};
+
+
+export type QueryTourCategoriesConnectionArgs = {
+  sort?: Maybe<Scalars['String']>;
+  limit?: Maybe<Scalars['Int']>;
+  start?: Maybe<Scalars['Int']>;
+  where?: Maybe<Scalars['JSON']>;
+};
+
+
+export type QueryTourArgs = {
+  id: Scalars['ID'];
+  publicationState?: Maybe<PublicationState>;
+};
+
+
+export type QueryToursArgs = {
+  sort?: Maybe<Scalars['String']>;
+  limit?: Maybe<Scalars['Int']>;
+  start?: Maybe<Scalars['Int']>;
+  where?: Maybe<Scalars['JSON']>;
+  publicationState?: Maybe<PublicationState>;
+};
+
+
+export type QueryToursConnectionArgs = {
+  sort?: Maybe<Scalars['String']>;
+  limit?: Maybe<Scalars['Int']>;
+  start?: Maybe<Scalars['Int']>;
+  where?: Maybe<Scalars['JSON']>;
+};
+
+
 export type QueryVehicleArgs = {
   id: Scalars['ID'];
   publicationState?: Maybe<PublicationState>;
@@ -2094,6 +2528,236 @@ export type RoleInput = {
 };
 
 
+export type TourCategory = {
+  __typename?: 'TourCategory';
+  id: Scalars['ID'];
+  created_at: Scalars['DateTime'];
+  updated_at: Scalars['DateTime'];
+  name?: Maybe<Scalars['String']>;
+  icon?: Maybe<Scalars['String']>;
+  published_at?: Maybe<Scalars['DateTime']>;
+  tours?: Maybe<Array<Maybe<Tours>>>;
+};
+
+
+export type TourCategoryToursArgs = {
+  sort?: Maybe<Scalars['String']>;
+  limit?: Maybe<Scalars['Int']>;
+  start?: Maybe<Scalars['Int']>;
+  where?: Maybe<Scalars['JSON']>;
+};
+
+export type TourCategoryAggregator = {
+  __typename?: 'TourCategoryAggregator';
+  count?: Maybe<Scalars['Int']>;
+  totalCount?: Maybe<Scalars['Int']>;
+};
+
+export type TourCategoryConnection = {
+  __typename?: 'TourCategoryConnection';
+  values?: Maybe<Array<Maybe<TourCategory>>>;
+  groupBy?: Maybe<TourCategoryGroupBy>;
+  aggregate?: Maybe<TourCategoryAggregator>;
+};
+
+export type TourCategoryConnectionCreated_At = {
+  __typename?: 'TourCategoryConnectionCreated_at';
+  key?: Maybe<Scalars['DateTime']>;
+  connection?: Maybe<TourCategoryConnection>;
+};
+
+export type TourCategoryConnectionIcon = {
+  __typename?: 'TourCategoryConnectionIcon';
+  key?: Maybe<Scalars['String']>;
+  connection?: Maybe<TourCategoryConnection>;
+};
+
+export type TourCategoryConnectionId = {
+  __typename?: 'TourCategoryConnectionId';
+  key?: Maybe<Scalars['ID']>;
+  connection?: Maybe<TourCategoryConnection>;
+};
+
+export type TourCategoryConnectionName = {
+  __typename?: 'TourCategoryConnectionName';
+  key?: Maybe<Scalars['String']>;
+  connection?: Maybe<TourCategoryConnection>;
+};
+
+export type TourCategoryConnectionPublished_At = {
+  __typename?: 'TourCategoryConnectionPublished_at';
+  key?: Maybe<Scalars['DateTime']>;
+  connection?: Maybe<TourCategoryConnection>;
+};
+
+export type TourCategoryConnectionUpdated_At = {
+  __typename?: 'TourCategoryConnectionUpdated_at';
+  key?: Maybe<Scalars['DateTime']>;
+  connection?: Maybe<TourCategoryConnection>;
+};
+
+export type TourCategoryGroupBy = {
+  __typename?: 'TourCategoryGroupBy';
+  id?: Maybe<Array<Maybe<TourCategoryConnectionId>>>;
+  created_at?: Maybe<Array<Maybe<TourCategoryConnectionCreated_At>>>;
+  updated_at?: Maybe<Array<Maybe<TourCategoryConnectionUpdated_At>>>;
+  name?: Maybe<Array<Maybe<TourCategoryConnectionName>>>;
+  icon?: Maybe<Array<Maybe<TourCategoryConnectionIcon>>>;
+  published_at?: Maybe<Array<Maybe<TourCategoryConnectionPublished_At>>>;
+};
+
+export type TourCategoryInput = {
+  name?: Maybe<Scalars['String']>;
+  icon?: Maybe<Scalars['String']>;
+  tours?: Maybe<Array<Maybe<Scalars['ID']>>>;
+  published_at?: Maybe<Scalars['DateTime']>;
+  created_by?: Maybe<Scalars['ID']>;
+  updated_by?: Maybe<Scalars['ID']>;
+};
+
+export type TourInput = {
+  title?: Maybe<Scalars['String']>;
+  mater?: Maybe<Scalars['ID']>;
+  youtube?: Maybe<Scalars['String']>;
+  basic?: Maybe<Scalars['String']>;
+  tour_categories?: Maybe<Array<Maybe<Scalars['ID']>>>;
+  allmedia?: Maybe<Array<Maybe<Scalars['ID']>>>;
+  city?: Maybe<Scalars['ID']>;
+  pricings?: Maybe<Array<Maybe<Scalars['ID']>>>;
+  slug?: Maybe<Scalars['String']>;
+  published_at?: Maybe<Scalars['DateTime']>;
+  created_by?: Maybe<Scalars['ID']>;
+  updated_by?: Maybe<Scalars['ID']>;
+};
+
+export type Tours = {
+  __typename?: 'Tours';
+  id: Scalars['ID'];
+  created_at: Scalars['DateTime'];
+  updated_at: Scalars['DateTime'];
+  title?: Maybe<Scalars['String']>;
+  mater?: Maybe<UploadFile>;
+  youtube?: Maybe<Scalars['String']>;
+  basic?: Maybe<Scalars['String']>;
+  city?: Maybe<Cities>;
+  slug?: Maybe<Scalars['String']>;
+  published_at?: Maybe<Scalars['DateTime']>;
+  tour_categories?: Maybe<Array<Maybe<TourCategory>>>;
+  allmedia?: Maybe<Array<Maybe<UploadFile>>>;
+  pricings?: Maybe<Array<Maybe<Pricing>>>;
+};
+
+
+export type ToursTour_CategoriesArgs = {
+  sort?: Maybe<Scalars['String']>;
+  limit?: Maybe<Scalars['Int']>;
+  start?: Maybe<Scalars['Int']>;
+  where?: Maybe<Scalars['JSON']>;
+};
+
+
+export type ToursAllmediaArgs = {
+  sort?: Maybe<Scalars['String']>;
+  limit?: Maybe<Scalars['Int']>;
+  start?: Maybe<Scalars['Int']>;
+  where?: Maybe<Scalars['JSON']>;
+};
+
+
+export type ToursPricingsArgs = {
+  sort?: Maybe<Scalars['String']>;
+  limit?: Maybe<Scalars['Int']>;
+  start?: Maybe<Scalars['Int']>;
+  where?: Maybe<Scalars['JSON']>;
+};
+
+export type ToursAggregator = {
+  __typename?: 'ToursAggregator';
+  count?: Maybe<Scalars['Int']>;
+  totalCount?: Maybe<Scalars['Int']>;
+};
+
+export type ToursConnection = {
+  __typename?: 'ToursConnection';
+  values?: Maybe<Array<Maybe<Tours>>>;
+  groupBy?: Maybe<ToursGroupBy>;
+  aggregate?: Maybe<ToursAggregator>;
+};
+
+export type ToursConnectionBasic = {
+  __typename?: 'ToursConnectionBasic';
+  key?: Maybe<Scalars['String']>;
+  connection?: Maybe<ToursConnection>;
+};
+
+export type ToursConnectionCity = {
+  __typename?: 'ToursConnectionCity';
+  key?: Maybe<Scalars['ID']>;
+  connection?: Maybe<ToursConnection>;
+};
+
+export type ToursConnectionCreated_At = {
+  __typename?: 'ToursConnectionCreated_at';
+  key?: Maybe<Scalars['DateTime']>;
+  connection?: Maybe<ToursConnection>;
+};
+
+export type ToursConnectionId = {
+  __typename?: 'ToursConnectionId';
+  key?: Maybe<Scalars['ID']>;
+  connection?: Maybe<ToursConnection>;
+};
+
+export type ToursConnectionMater = {
+  __typename?: 'ToursConnectionMater';
+  key?: Maybe<Scalars['ID']>;
+  connection?: Maybe<ToursConnection>;
+};
+
+export type ToursConnectionPublished_At = {
+  __typename?: 'ToursConnectionPublished_at';
+  key?: Maybe<Scalars['DateTime']>;
+  connection?: Maybe<ToursConnection>;
+};
+
+export type ToursConnectionSlug = {
+  __typename?: 'ToursConnectionSlug';
+  key?: Maybe<Scalars['String']>;
+  connection?: Maybe<ToursConnection>;
+};
+
+export type ToursConnectionTitle = {
+  __typename?: 'ToursConnectionTitle';
+  key?: Maybe<Scalars['String']>;
+  connection?: Maybe<ToursConnection>;
+};
+
+export type ToursConnectionUpdated_At = {
+  __typename?: 'ToursConnectionUpdated_at';
+  key?: Maybe<Scalars['DateTime']>;
+  connection?: Maybe<ToursConnection>;
+};
+
+export type ToursConnectionYoutube = {
+  __typename?: 'ToursConnectionYoutube';
+  key?: Maybe<Scalars['String']>;
+  connection?: Maybe<ToursConnection>;
+};
+
+export type ToursGroupBy = {
+  __typename?: 'ToursGroupBy';
+  id?: Maybe<Array<Maybe<ToursConnectionId>>>;
+  created_at?: Maybe<Array<Maybe<ToursConnectionCreated_At>>>;
+  updated_at?: Maybe<Array<Maybe<ToursConnectionUpdated_At>>>;
+  title?: Maybe<Array<Maybe<ToursConnectionTitle>>>;
+  mater?: Maybe<Array<Maybe<ToursConnectionMater>>>;
+  youtube?: Maybe<Array<Maybe<ToursConnectionYoutube>>>;
+  basic?: Maybe<Array<Maybe<ToursConnectionBasic>>>;
+  city?: Maybe<Array<Maybe<ToursConnectionCity>>>;
+  slug?: Maybe<Array<Maybe<ToursConnectionSlug>>>;
+  published_at?: Maybe<Array<Maybe<ToursConnectionPublished_At>>>;
+};
+
 export type UpdateAirportInput = {
   where?: Maybe<InputId>;
   data?: Maybe<EditAirportInput>;
@@ -2164,6 +2828,16 @@ export type UpdatePricingPayload = {
   pricing?: Maybe<Pricing>;
 };
 
+export type UpdatePromoInput = {
+  where?: Maybe<InputId>;
+  data?: Maybe<EditPromoInput>;
+};
+
+export type UpdatePromoPayload = {
+  __typename?: 'updatePromoPayload';
+  promo?: Maybe<Promo>;
+};
+
 export type UpdateRoleInput = {
   where?: Maybe<InputId>;
   data?: Maybe<EditRoleInput>;
@@ -2172,6 +2846,26 @@ export type UpdateRoleInput = {
 export type UpdateRolePayload = {
   __typename?: 'updateRolePayload';
   role?: Maybe<UsersPermissionsRole>;
+};
+
+export type UpdateTourCategoryInput = {
+  where?: Maybe<InputId>;
+  data?: Maybe<EditTourCategoryInput>;
+};
+
+export type UpdateTourCategoryPayload = {
+  __typename?: 'updateTourCategoryPayload';
+  tourCategory?: Maybe<TourCategory>;
+};
+
+export type UpdateTourInput = {
+  where?: Maybe<InputId>;
+  data?: Maybe<EditTourInput>;
+};
+
+export type UpdateTourPayload = {
+  __typename?: 'updateTourPayload';
+  tour?: Maybe<Tours>;
 };
 
 export type UpdateUserInput = {
@@ -3082,6 +3776,114 @@ export type CreateHourlyPricingMutation = (
   )> }
 );
 
+export type CreateCategoryMutationVariables = Exact<{
+  name?: Maybe<Scalars['String']>;
+  icon?: Maybe<Scalars['String']>;
+}>;
+
+
+export type CreateCategoryMutation = (
+  { __typename?: 'Mutation' }
+  & { createTourCategory?: Maybe<(
+    { __typename?: 'createTourCategoryPayload' }
+    & { tourCategory?: Maybe<(
+      { __typename?: 'TourCategory' }
+      & Pick<TourCategory, 'id'>
+    )> }
+  )> }
+);
+
+export type CreateTourMutationVariables = Exact<{
+  title?: Maybe<Scalars['String']>;
+  youtube?: Maybe<Scalars['String']>;
+  basic?: Maybe<Scalars['String']>;
+  cats?: Maybe<Array<Maybe<Scalars['ID']>>>;
+  allMedia?: Maybe<Array<Maybe<Scalars['ID']>>>;
+  master?: Maybe<Scalars['ID']>;
+  city?: Maybe<Scalars['ID']>;
+  slug?: Maybe<Scalars['String']>;
+}>;
+
+
+export type CreateTourMutation = (
+  { __typename?: 'Mutation' }
+  & { createTour?: Maybe<(
+    { __typename?: 'createTourPayload' }
+    & { tour?: Maybe<(
+      { __typename?: 'Tours' }
+      & Pick<Tours, 'id'>
+    )> }
+  )> }
+);
+
+export type UpdateTourMutationVariables = Exact<{
+  title?: Maybe<Scalars['String']>;
+  youtube?: Maybe<Scalars['String']>;
+  basic?: Maybe<Scalars['String']>;
+  cats?: Maybe<Array<Maybe<Scalars['ID']>>>;
+  allMedia?: Maybe<Array<Maybe<Scalars['ID']>>>;
+  master?: Maybe<Scalars['ID']>;
+  city?: Maybe<Scalars['ID']>;
+  id: Scalars['ID'];
+  slug?: Maybe<Scalars['String']>;
+}>;
+
+
+export type UpdateTourMutation = (
+  { __typename?: 'Mutation' }
+  & { updateTour?: Maybe<(
+    { __typename?: 'updateTourPayload' }
+    & { tour?: Maybe<(
+      { __typename?: 'Tours' }
+      & Pick<Tours, 'id'>
+    )> }
+  )> }
+);
+
+export type CreatePromoMutationVariables = Exact<{
+  code?: Maybe<Scalars['String']>;
+  type?: Maybe<Enum_Promo_Type>;
+  applicable?: Maybe<Enum_Promo_Applicable>;
+  value?: Maybe<Scalars['Int']>;
+  max?: Maybe<Scalars['Int']>;
+  min?: Maybe<Scalars['Int']>;
+}>;
+
+
+export type CreatePromoMutation = (
+  { __typename?: 'Mutation' }
+  & { createPromo?: Maybe<(
+    { __typename?: 'createPromoPayload' }
+    & { promo?: Maybe<(
+      { __typename?: 'Promo' }
+      & Pick<Promo, 'id'>
+    )> }
+  )> }
+);
+
+export type UpdatePromoMutationVariables = Exact<{
+  code?: Maybe<Scalars['String']>;
+  type?: Maybe<Enum_Promo_Type>;
+  applicable?: Maybe<Enum_Promo_Applicable>;
+  value?: Maybe<Scalars['Int']>;
+  max?: Maybe<Scalars['Int']>;
+  min?: Maybe<Scalars['Int']>;
+  id: Scalars['ID'];
+  enabled?: Maybe<Scalars['Boolean']>;
+}>;
+
+
+export type UpdatePromoMutation = (
+  { __typename?: 'Mutation' }
+  & { updatePromo?: Maybe<(
+    { __typename?: 'updatePromoPayload' }
+    & { promo?: Maybe<(
+      { __typename?: 'Promo' }
+      & Pick<Promo, 'id'>
+    )> }
+  )> }
+);
+
 export type GetAllCountriesQueryVariables = Exact<{
   limit?: Maybe<Scalars['Int']>;
   start?: Maybe<Scalars['Int']>;
@@ -3219,6 +4021,109 @@ export type SearchLocationByIdQuery = (
   )>>> }
 );
 
+export type GetAllPricingQueryVariables = Exact<{
+  limit?: Maybe<Scalars['Int']>;
+  start?: Maybe<Scalars['Int']>;
+  search?: Maybe<Scalars['String']>;
+}>;
+
+
+export type GetAllPricingQuery = (
+  { __typename?: 'Query' }
+  & { pricings?: Maybe<Array<Maybe<(
+    { __typename?: 'Pricing' }
+    & Pick<Pricing, 'id' | 'nameSlug' | 'base' | 'tax' | 'type'>
+  )>>> }
+);
+
+export type GetAllToursQueryVariables = Exact<{
+  limit?: Maybe<Scalars['Int']>;
+  start?: Maybe<Scalars['Int']>;
+  search?: Maybe<Scalars['String']>;
+}>;
+
+
+export type GetAllToursQuery = (
+  { __typename?: 'Query' }
+  & { tours?: Maybe<Array<Maybe<(
+    { __typename?: 'Tours' }
+    & Pick<Tours, 'id' | 'title' | 'slug' | 'youtube' | 'basic'>
+    & { mater?: Maybe<(
+      { __typename?: 'UploadFile' }
+      & Pick<UploadFile, 'id' | 'url'>
+    )>, city?: Maybe<(
+      { __typename?: 'Cities' }
+      & Pick<Cities, 'id' | 'name'>
+    )>, tour_categories?: Maybe<Array<Maybe<(
+      { __typename?: 'TourCategory' }
+      & Pick<TourCategory, 'id' | 'name' | 'icon'>
+    )>>> }
+  )>>> }
+);
+
+export type GetAllPromosQueryVariables = Exact<{
+  limit?: Maybe<Scalars['Int']>;
+  start?: Maybe<Scalars['Int']>;
+  search?: Maybe<Scalars['String']>;
+}>;
+
+
+export type GetAllPromosQuery = (
+  { __typename?: 'Query' }
+  & { promos?: Maybe<Array<Maybe<(
+    { __typename?: 'Promo' }
+    & Pick<Promo, 'id' | 'code' | 'type' | 'applicable' | 'value' | 'max' | 'min' | 'enabled'>
+  )>>> }
+);
+
+export type AllCitiesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type AllCitiesQuery = (
+  { __typename?: 'Query' }
+  & { cities?: Maybe<Array<Maybe<(
+    { __typename?: 'Cities' }
+    & Pick<Cities, 'id' | 'name' | 'cmapping' | 'label' | 'hotel' | 'intercity' | 'tours' | 'hourly'>
+  )>>> }
+);
+
+export type GetAllTourCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllTourCategoriesQuery = (
+  { __typename?: 'Query' }
+  & { tourCategories?: Maybe<Array<Maybe<(
+    { __typename?: 'TourCategory' }
+    & Pick<TourCategory, 'id' | 'name' | 'icon'>
+  )>>> }
+);
+
+export type GetSingleTourQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type GetSingleTourQuery = (
+  { __typename?: 'Query' }
+  & { tour?: Maybe<(
+    { __typename?: 'Tours' }
+    & Pick<Tours, 'id' | 'title' | 'slug' | 'youtube' | 'basic'>
+    & { allmedia?: Maybe<Array<Maybe<(
+      { __typename?: 'UploadFile' }
+      & Pick<UploadFile, 'id' | 'url'>
+    )>>>, mater?: Maybe<(
+      { __typename?: 'UploadFile' }
+      & Pick<UploadFile, 'id' | 'url'>
+    )>, city?: Maybe<(
+      { __typename?: 'Cities' }
+      & Pick<Cities, 'id' | 'name'>
+    )>, tour_categories?: Maybe<Array<Maybe<(
+      { __typename?: 'TourCategory' }
+      & Pick<TourCategory, 'id' | 'name' | 'icon'>
+    )>>> }
+  )> }
+);
+
 
 export const CreateCountryDocument = gql`
     mutation CreateCountry($code: String, $name: String, $enabled: Boolean) {
@@ -3330,6 +4235,51 @@ export const CreateHourlyPricingDocument = gql`
     mutation CreateHourlyPricing($name: String, $base: Float, $tax: Float, $flat: Float, $toll: Float, $addBase: Float, $vehicle: ID, $max: Int, $min: Int, $dbundle: Int, $city: ID, $hunit: ENUM_PRICING_HORULYUNITS, $distance: ENUM_PRICING_DISTANCE, $unitJump: Int) {
   createPricing(input: {data: {nameSlug: $name, type: HOUR, base: $base, tax: $tax, flat: $flat, toll: $toll, vehicle: $vehicle, addBase: $addBase, minDuration: $max, maxDuration: $min, distanceBundle: $dbundle, hourlycity: $city, horulyUnits: $hunit, distance: $distance, unitjumps: $unitJump}}) {
     pricing {
+      id
+    }
+  }
+}
+    `;
+export const CreateCategoryDocument = gql`
+    mutation CreateCategory($name: String, $icon: String) {
+  createTourCategory(input: {data: {name: $name, icon: $icon}}) {
+    tourCategory {
+      id
+    }
+  }
+}
+    `;
+export const CreateTourDocument = gql`
+    mutation CreateTour($title: String, $youtube: String, $basic: String, $cats: [ID], $allMedia: [ID], $master: ID, $city: ID, $slug: String) {
+  createTour(input: {data: {title: $title, youtube: $youtube, basic: $basic, tour_categories: $cats, allmedia: $allMedia, mater: $master, city: $city, slug: $slug}}) {
+    tour {
+      id
+    }
+  }
+}
+    `;
+export const UpdateTourDocument = gql`
+    mutation UpdateTour($title: String, $youtube: String, $basic: String, $cats: [ID], $allMedia: [ID], $master: ID, $city: ID, $id: ID!, $slug: String) {
+  updateTour(input: {where: {id: $id}, data: {title: $title, youtube: $youtube, basic: $basic, tour_categories: $cats, allmedia: $allMedia, mater: $master, city: $city, slug: $slug}}) {
+    tour {
+      id
+    }
+  }
+}
+    `;
+export const CreatePromoDocument = gql`
+    mutation CreatePromo($code: String, $type: ENUM_PROMO_TYPE, $applicable: ENUM_PROMO_APPLICABLE, $value: Int, $max: Int, $min: Int) {
+  createPromo(input: {data: {code: $code, type: $type, applicable: $applicable, value: $value, max: $max, min: $min}}) {
+    promo {
+      id
+    }
+  }
+}
+    `;
+export const UpdatePromoDocument = gql`
+    mutation UpdatePromo($code: String, $type: ENUM_PROMO_TYPE, $applicable: ENUM_PROMO_APPLICABLE, $value: Int, $max: Int, $min: Int, $id: ID!, $enabled: Boolean) {
+  updatePromo(input: {where: {id: $id}, data: {code: $code, type: $type, applicable: $applicable, value: $value, max: $max, min: $min, enabled: $enabled}}) {
+    promo {
       id
     }
   }
@@ -3453,6 +4403,106 @@ export const SearchLocationByIdDocument = gql`
     id
     hotel {
       id
+    }
+  }
+}
+    `;
+export const GetAllPricingDocument = gql`
+    query GetAllPricing($limit: Int, $start: Int, $search: String) {
+  pricings(limit: $limit, start: $start, where: {nameSlug_contains: $search}) {
+    id
+    nameSlug
+    base
+    tax
+    type
+  }
+}
+    `;
+export const GetAllToursDocument = gql`
+    query GetAllTours($limit: Int, $start: Int, $search: String) {
+  tours(limit: $limit, start: $start, where: {title_contains: $search}) {
+    id
+    title
+    slug
+    mater {
+      id
+      url
+    }
+    youtube
+    basic
+    city {
+      id
+      name
+    }
+    tour_categories {
+      id
+      name
+      icon
+    }
+  }
+}
+    `;
+export const GetAllPromosDocument = gql`
+    query GetAllPromos($limit: Int, $start: Int, $search: String) {
+  promos(limit: $limit, start: $start, where: {code_contains: $search}) {
+    id
+    code
+    type
+    applicable
+    value
+    max
+    min
+    enabled
+  }
+}
+    `;
+export const AllCitiesDocument = gql`
+    query AllCities {
+  cities(where: {tours: true}) {
+    id
+    name
+    cmapping
+    label
+    hotel
+    intercity
+    tours
+    hourly
+  }
+}
+    `;
+export const GetAllTourCategoriesDocument = gql`
+    query GetAllTourCategories {
+  tourCategories {
+    id
+    name
+    icon
+  }
+}
+    `;
+export const GetSingleTourDocument = gql`
+    query GetSingleTour($id: ID!) {
+  tour(id: $id) {
+    id
+    title
+    slug
+    allmedia {
+      id
+      url
+    }
+    mater {
+      id
+      url
+    }
+    youtube
+    basic
+    city {
+      id
+      name
+    }
+    tour_categories {
+      id
+      name
+      icon
     }
   }
 }

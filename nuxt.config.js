@@ -45,7 +45,9 @@ export default {
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
-    '~/plugins/antd-vue-plugin.ts'
+    '~/plugins/antd-vue-plugin.ts',
+    {src: '~/plugins/vue-editor.ts', mode: 'client'},
+    {src: '~/plugins/tinymce-vue.ts', mode: 'client', ssr: false},
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
