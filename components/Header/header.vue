@@ -637,11 +637,13 @@
             <div class="btn btn-icon btn-hover-transparent-white w-auto d-flex align-items-center btn-lg px-2"
                  id="kt_quick_user_toggle">
               <div class="d-flex flex-column text-right pr-3">
-                <span class="text-white opacity-50 font-weight-bold font-size-sm d-none d-md-inline">{{getUser().firstName}} {{getUser().lastName}}</span>
+                <span
+                  class="text-white opacity-50 font-weight-bold font-size-sm d-none d-md-inline">{{ getUser().firstName }} {{ getUser().lastName }}</span>
                 <span class="text-white font-weight-bolder font-size-sm d-none d-md-inline">Click To Logout</span>
               </div>
               <span class="symbol symbol-35">
-									<span class="symbol-label font-size-h5 font-weight-bold text-white bg-white-o-30">{{getUser().firstName.substring(0, 1)}}</span>
+									<span
+                    class="symbol-label font-size-h5 font-weight-bold text-white bg-white-o-30">{{ getUser().firstName.substring(0, 1) }}</span>
 								</span>
             </div>
           </div>
@@ -665,13 +667,17 @@
             <ul class="menu-nav ">
               <li
                 class="menu-item  menu-item-open menu-item-here menu-item-submenu menu-item-rel menu-item-open menu-item-here"
-                data-menu-toggle="hover" aria-haspopup="true"><a href="javascript:;" @click="$route.push('/app/dashboard')" class="menu-link menu-toggle"><span
+                data-menu-toggle="hover" aria-haspopup="true"><a href="javascript:;"
+                                                                 @click="$router.push('/app/dashboard')"
+                                                                 class="menu-link menu-toggle"><span
                 class="menu-text">Dashboard</span><span class="menu-desc">Recent Updates & Reports</span><i
                 class="menu-arrow"></i></a>
               </li>
               <li
                 class="menu-item  menu-item-open menu-item-here menu-item-submenu menu-item-rel menu-item-open menu-item-here"
-                data-menu-toggle="hover" aria-haspopup="true"><a href="javascript:;" @click="$route.push('/app/bookings')" class="menu-link menu-toggle"><span
+                data-menu-toggle="hover" aria-haspopup="true"><a href="javascript:;"
+                                                                 @click="$router.push('/app/bookings')"
+                                                                 class="menu-link menu-toggle"><span
                 class="menu-text">Bookings</span><span class="menu-desc">Your Bookings</span><i
                 class="menu-arrow"></i></a>
               </li>
@@ -703,7 +709,8 @@
                 </template>
                 <li
                   class="menu-item  menu-item-open menu-item-here menu-item-submenu menu-item-rel menu-item-open menu-item-here"
-                  data-menu-toggle="hover" aria-haspopup="true"><a href="javascript:;" class="menu-link menu-toggle"><span
+                  data-menu-toggle="hover" aria-haspopup="true"><a href="javascript:;"
+                                                                   class="menu-link menu-toggle"><span
                   class="menu-text">Pricing</span><span class="menu-desc">Your Pricing</span><i
                   class="menu-arrow"></i></a>
                 </li>
@@ -736,7 +743,8 @@
                 </template>
                 <li
                   class="menu-item  menu-item-open menu-item-here menu-item-submenu menu-item-rel menu-item-open menu-item-here"
-                  data-menu-toggle="hover" aria-haspopup="true"><a href="javascript:;" class="menu-link menu-toggle"><span
+                  data-menu-toggle="hover" aria-haspopup="true"><a href="javascript:;"
+                                                                   class="menu-link menu-toggle"><span
                   class="menu-text">Tours</span><span class="menu-desc">Your Tours</span><i
                   class="menu-arrow"></i></a>
                 </li>
@@ -803,7 +811,8 @@
                 </template>
                 <li
                   class="menu-item  menu-item-open menu-item-here menu-item-submenu menu-item-rel menu-item-open menu-item-here"
-                  data-menu-toggle="hover" aria-haspopup="true"><a href="javascript:;" class="menu-link menu-toggle"><span
+                  data-menu-toggle="hover" aria-haspopup="true"><a href="javascript:;"
+                                                                   class="menu-link menu-toggle"><span
                   class="menu-text">Vehicles & Drivers</span><span class="menu-desc">Available Vehicles</span><i
                   class="menu-arrow"></i></a>
                 </li>
@@ -836,7 +845,8 @@
                 </template>
                 <li
                   class="menu-item  menu-item-open menu-item-here menu-item-submenu menu-item-rel menu-item-open menu-item-here"
-                  data-menu-toggle="hover" aria-haspopup="true"><a href="javascript:;" class="menu-link menu-toggle"><span
+                  data-menu-toggle="hover" aria-haspopup="true"><a href="javascript:;"
+                                                                   class="menu-link menu-toggle"><span
                   class="menu-text">More</span><span class="menu-desc">More settings</span><i
                   class="menu-arrow"></i></a>
                 </li>

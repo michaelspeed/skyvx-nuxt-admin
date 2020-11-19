@@ -6,7 +6,7 @@
         <div class="d-flex align-items-center flex-wrap mr-2">
 
           <!--begin::Title-->
-          <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Dashboard</h5>
+          <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Bookings</h5>
           <!--end::Title-->
 
           <!--begin::Separator-->
@@ -25,7 +25,7 @@
           <!--end::Button-->
 
           <!--begin::Button-->
-          <a href="custom/apps/projects/add-project.html" class="btn btn-light-primary font-weight-bold ml-2">Add Project</a>
+          <a href="javascript:;" class="btn btn-light-primary font-weight-bold ml-2">Add Booking</a>
           <!--end::Button-->
         </div>
         <!--end::Toolbar-->

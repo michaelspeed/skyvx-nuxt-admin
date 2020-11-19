@@ -204,6 +204,20 @@ query GetAllPromos($limit: Int, $start: Int, $search: String){
   }
 }
 
+query GetAllDrivers($limit: Int, $start: Int, $search: String){
+  drivers (
+    limit: $limit,
+    start: $start,
+    where: {
+      name_contains: $search
+    }
+  ){
+    id
+    name
+    number
+  }
+}
+
 query AllCities{
   cities(
     where: {

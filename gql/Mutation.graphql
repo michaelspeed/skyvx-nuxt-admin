@@ -383,3 +383,36 @@ mutation UpdatePromo($code: String, $type: ENUM_PROMO_TYPE, $applicable: ENUM_PR
     }
   }
 }
+
+mutation CreateDriver($name: String, $number: String){
+  createDriver(
+    input:{
+      data: {
+        name: $name,
+        number: $number
+      }
+    }
+  ) {
+    driver {
+      id
+    }
+  }
+}
+
+mutation UpdateDriver($name: String, $number: String, $id: ID!){
+  updateDriver(
+    input:{
+      where: {
+        id: $id
+      }
+      data: {
+        name: $name,
+        number: $number
+      }
+    }
+  ) {
+    driver {
+      id
+    }
+  }
+}
