@@ -877,7 +877,8 @@ import {GetSingleUserDocument} from "~/gql";
         return {
           id: this.$store.state.user.user
         }
-      }
+      },
+      pollInterval: 3000
     }
   }
 })
@@ -887,6 +888,12 @@ export default class Header extends Vue {
 
   @Watch('user')
   onChangeUser() {
+    if (this.user) {
+      this.$store.dispatch('user/setUserData', this.user)
+    }
+  }
+
+  mounted() {
     if (this.user) {
       this.$store.dispatch('user/setUserData', this.user)
     }

@@ -96,9 +96,7 @@
               </v-chip>
             </template>
             <template v-slot:item.actions="{ item }">
-              <v-btn text color="primary" small>
-                View / Edit
-              </v-btn>
+              <PricingActions :pricing="item"/>
             </template>
           </v-data-table>
         </v-card>
@@ -109,12 +107,13 @@
 
 <script lang="ts">
 
-import {Component, Vue} from "nuxt-property-decorator";
+import {Component, Vue, Watch} from "nuxt-property-decorator";
 import CreatePricing from "~/components/pricing/CreatePricing.vue";
 import {GetAllPricingDocument, Pricing} from "~/gql";
+import PricingActions from "~/components/pricing/PricingActions.vue";
 
 @Component({
-  components: {CreatePricing},
+  components: {PricingActions, CreatePricing},
   layout: 'console',
   apollo: {
     pricings: {
@@ -176,5 +175,10 @@ export default class PricingList extends Vue {
       value: 'actions'
     }
   ]
+
+  @Watch('pricings')
+  onChangePricing() {
+    console.log(this.pricings)
+  }
 }
 </script>

@@ -152,6 +152,12 @@ query GetAllPricing($limit: Int, $start: Int, $search: String){
     nameSlug
     base
     tax
+    flat
+    toll
+    addBase
+    minDuration
+    maxDuration
+    distanceBundle
     type
   }
 }

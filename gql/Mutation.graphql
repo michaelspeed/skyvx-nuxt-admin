@@ -282,6 +282,40 @@ mutation CreateHourlyPricing(
   }
 }
 
+mutation UpdatePricing(
+  $base: Float,
+  $tax: Float,
+  $flat: Float,
+  $toll: Float,
+  $addBase: Float,
+  $max: Int,
+  $min: Int,
+  $dbundle: Int,
+  $id: ID!
+){
+  updatePricing(
+    input:{
+      where: {
+        id: $id
+      },
+      data:{
+        base: $base,
+        tax: $tax,
+        flat: $flat,
+        toll: $toll,
+        addBase: $addBase,
+        minDuration: $min,
+        maxDuration: $max,
+        distanceBundle: $dbundle
+      }
+    }
+  ) {
+    pricing {
+      id
+    }
+  }
+}
+
 mutation CreateCategory($name: String, $icon: String){
   createTourCategory(
     input: {

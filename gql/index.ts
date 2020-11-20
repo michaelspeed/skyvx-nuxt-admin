@@ -772,6 +772,11 @@ export type DeleteFilePayload = {
   file?: Maybe<UploadFile>;
 };
 
+export type DeleteHomepagePayload = {
+  __typename?: 'deleteHomepagePayload';
+  homepage?: Maybe<Homepage>;
+};
+
 export type DeleteHotelInput = {
   where?: Maybe<InputId>;
 };
@@ -1014,6 +1019,13 @@ export type EditFileInput = {
   updated_by?: Maybe<Scalars['ID']>;
 };
 
+export type EditHomepageInput = {
+  tours?: Maybe<Array<Maybe<Scalars['ID']>>>;
+  published_at?: Maybe<Scalars['DateTime']>;
+  created_by?: Maybe<Scalars['ID']>;
+  updated_by?: Maybe<Scalars['ID']>;
+};
+
 export type EditHotelInput = {
   name?: Maybe<Scalars['String']>;
   locations?: Maybe<Array<Maybe<Scalars['ID']>>>;
@@ -1207,6 +1219,30 @@ export type FileInput = {
   provider: Scalars['String'];
   provider_metadata?: Maybe<Scalars['JSON']>;
   related?: Maybe<Array<Maybe<Scalars['ID']>>>;
+  created_by?: Maybe<Scalars['ID']>;
+  updated_by?: Maybe<Scalars['ID']>;
+};
+
+export type Homepage = {
+  __typename?: 'Homepage';
+  id: Scalars['ID'];
+  created_at: Scalars['DateTime'];
+  updated_at: Scalars['DateTime'];
+  published_at?: Maybe<Scalars['DateTime']>;
+  tours?: Maybe<Array<Maybe<Tours>>>;
+};
+
+
+export type HomepageToursArgs = {
+  sort?: Maybe<Scalars['String']>;
+  limit?: Maybe<Scalars['Int']>;
+  start?: Maybe<Scalars['Int']>;
+  where?: Maybe<Scalars['JSON']>;
+};
+
+export type HomepageInput = {
+  tours?: Maybe<Array<Maybe<Scalars['ID']>>>;
+  published_at?: Maybe<Scalars['DateTime']>;
   created_by?: Maybe<Scalars['ID']>;
   updated_by?: Maybe<Scalars['ID']>;
 };
@@ -1438,7 +1474,7 @@ export type LocationsGroupBy = {
 };
 
 
-export type Morph = UsersPermissionsMe | UsersPermissionsMeRole | UsersPermissionsLoginPayload | UserPermissionsPasswordPayload | Airports | AirportsConnection | AirportsAggregator | AirportsGroupBy | AirportsConnectionId | AirportsConnectionCreated_At | AirportsConnectionUpdated_At | AirportsConnectionName | AirportsConnectionLocation | AirportsConnectionCity | AirportsConnectionPublished_At | CreateAirportPayload | UpdateAirportPayload | DeleteAirportPayload | Cities | CitiesConnection | CitiesAggregator | CitiesGroupBy | CitiesConnectionId | CitiesConnectionCreated_At | CitiesConnectionUpdated_At | CitiesConnectionName | CitiesConnectionCmapping | CitiesConnectionLabel | CitiesConnectionLocation | CitiesConnectionCurrency | CitiesConnectionCountry | CitiesConnectionHotel | CitiesConnectionIntercity | CitiesConnectionTours | CitiesConnectionHourly | CitiesConnectionInteroriginpricing | CitiesConnectionInterdestinationpricing | CitiesConnectionHourlypricing | CitiesConnectionPublished_At | CreateCityPayload | UpdateCityPayload | DeleteCityPayload | Country | CountryConnection | CountryAggregator | CountryGroupBy | CountryConnectionId | CountryConnectionCreated_At | CountryConnectionUpdated_At | CountryConnectionName | CountryConnectionCode | CountryConnectionEnabled | CountryConnectionPublished_At | CreateCountryPayload | UpdateCountryPayload | DeleteCountryPayload | Currency | CurrencyConnection | CurrencyAggregator | CurrencyAggregatorSum | CurrencyAggregatorAvg | CurrencyAggregatorMin | CurrencyAggregatorMax | CurrencyGroupBy | CurrencyConnectionId | CurrencyConnectionCreated_At | CurrencyConnectionUpdated_At | CurrencyConnectionName | CurrencyConnectionKey | CurrencyConnectionValue | CurrencyConnectionBase | CurrencyConnectionCountry | CurrencyConnectionUnicode | CurrencyConnectionPublished_At | CreateCurrencyPayload | UpdateCurrencyPayload | DeleteCurrencyPayload | Drivers | DriversConnection | DriversAggregator | DriversGroupBy | DriversConnectionId | DriversConnectionCreated_At | DriversConnectionUpdated_At | DriversConnectionName | DriversConnectionNumber | DriversConnectionPublished_At | CreateDriverPayload | UpdateDriverPayload | DeleteDriverPayload | Hotels | HotelsConnection | HotelsAggregator | HotelsGroupBy | HotelsConnectionId | HotelsConnectionCreated_At | HotelsConnectionUpdated_At | HotelsConnectionName | HotelsConnectionPublished_At | CreateHotelPayload | UpdateHotelPayload | DeleteHotelPayload | Locations | LocationsConnection | LocationsAggregator | LocationsGroupBy | LocationsConnectionId | LocationsConnectionCreated_At | LocationsConnectionUpdated_At | LocationsConnectionFomat | LocationsConnectionGeoJson | LocationsConnectionPlaceId | LocationsConnectionCity | LocationsConnectionAirport | LocationsConnectionHotel | LocationsConnectionPublished_At | CreateLocationPayload | UpdateLocationPayload | DeleteLocationPayload | Pricing | PricingConnection | PricingAggregator | PricingAggregatorSum | PricingAggregatorAvg | PricingAggregatorMin | PricingAggregatorMax | PricingGroupBy | PricingConnectionId | PricingConnectionCreated_At | PricingConnectionUpdated_At | PricingConnectionNameSlug | PricingConnectionType | PricingConnectionBase | PricingConnectionTax | PricingConnectionFlat | PricingConnectionToll | PricingConnectionOrigincity | PricingConnectionDestinationcity | PricingConnectionVehicle | PricingConnectionOriginlocation | PricingConnectionDestinationlocation | PricingConnectionHotelcity | PricingConnectionTrip | PricingConnectionHourlycity | PricingConnectionHorulyUnits | PricingConnectionTripJumps | PricingConnectionDistance | PricingConnectionUnitjumps | PricingConnectionAddBase | PricingConnectionDistanceBundle | PricingConnectionMinDuration | PricingConnectionMaxDuration | PricingConnectionTour | PricingConnectionAdult | PricingConnectionAdultprice | PricingConnectionPublished_At | CreatePricingPayload | UpdatePricingPayload | DeletePricingPayload | Promo | PromoConnection | PromoAggregator | PromoAggregatorSum | PromoAggregatorAvg | PromoAggregatorMin | PromoAggregatorMax | PromoGroupBy | PromoConnectionId | PromoConnectionCreated_At | PromoConnectionUpdated_At | PromoConnectionCode | PromoConnectionType | PromoConnectionApplicable | PromoConnectionValue | PromoConnectionMax | PromoConnectionMin | PromoConnectionEnabled | PromoConnectionPublished_At | CreatePromoPayload | UpdatePromoPayload | DeletePromoPayload | TourCategory | TourCategoryConnection | TourCategoryAggregator | TourCategoryGroupBy | TourCategoryConnectionId | TourCategoryConnectionCreated_At | TourCategoryConnectionUpdated_At | TourCategoryConnectionName | TourCategoryConnectionIcon | TourCategoryConnectionPublished_At | CreateTourCategoryPayload | UpdateTourCategoryPayload | DeleteTourCategoryPayload | Tours | ToursConnection | ToursAggregator | ToursGroupBy | ToursConnectionId | ToursConnectionCreated_At | ToursConnectionUpdated_At | ToursConnectionTitle | ToursConnectionMater | ToursConnectionYoutube | ToursConnectionBasic | ToursConnectionCity | ToursConnectionSlug | ToursConnectionPublished_At | CreateTourPayload | UpdateTourPayload | DeleteTourPayload | Vehicles | VehiclesConnection | VehiclesAggregator | VehiclesAggregatorSum | VehiclesAggregatorAvg | VehiclesAggregatorMin | VehiclesAggregatorMax | VehiclesGroupBy | VehiclesConnectionId | VehiclesConnectionCreated_At | VehiclesConnectionUpdated_At | VehiclesConnectionVehicleClass | VehiclesConnectionTitle | VehiclesConnectionTagLiine | VehiclesConnectionOperations | VehiclesConnectionIcon | VehiclesConnectionLogo | VehiclesConnectionLuggage | VehiclesConnectionMax | VehiclesConnectionOccupancy_Log | VehiclesConnectionPublished_At | CreateVehiclePayload | UpdateVehiclePayload | DeleteVehiclePayload | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileAggregatorSum | UploadFileAggregatorAvg | UploadFileAggregatorMin | UploadFileAggregatorMax | UploadFileGroupBy | UploadFileConnectionId | UploadFileConnectionCreated_At | UploadFileConnectionUpdated_At | UploadFileConnectionName | UploadFileConnectionAlternativeText | UploadFileConnectionCaption | UploadFileConnectionWidth | UploadFileConnectionHeight | UploadFileConnectionFormats | UploadFileConnectionHash | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionPreviewUrl | UploadFileConnectionProvider | UploadFileConnectionProvider_Metadata | DeleteFilePayload | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnectionId | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | CreateRolePayload | UpdateRolePayload | DeleteRolePayload | UsersPermissionsUser | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnectionId | UsersPermissionsUserConnectionCreated_At | UsersPermissionsUserConnectionUpdated_At | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole | UsersPermissionsUserConnectionFirstName | UsersPermissionsUserConnectionLastName | UsersPermissionsUserConnectionPhone | CreateUserPayload | UpdateUserPayload | DeleteUserPayload;
+export type Morph = UsersPermissionsMe | UsersPermissionsMeRole | UsersPermissionsLoginPayload | UserPermissionsPasswordPayload | Airports | AirportsConnection | AirportsAggregator | AirportsGroupBy | AirportsConnectionId | AirportsConnectionCreated_At | AirportsConnectionUpdated_At | AirportsConnectionName | AirportsConnectionLocation | AirportsConnectionCity | AirportsConnectionPublished_At | CreateAirportPayload | UpdateAirportPayload | DeleteAirportPayload | Cities | CitiesConnection | CitiesAggregator | CitiesGroupBy | CitiesConnectionId | CitiesConnectionCreated_At | CitiesConnectionUpdated_At | CitiesConnectionName | CitiesConnectionCmapping | CitiesConnectionLabel | CitiesConnectionLocation | CitiesConnectionCurrency | CitiesConnectionCountry | CitiesConnectionHotel | CitiesConnectionIntercity | CitiesConnectionTours | CitiesConnectionHourly | CitiesConnectionInteroriginpricing | CitiesConnectionInterdestinationpricing | CitiesConnectionHourlypricing | CitiesConnectionPublished_At | CreateCityPayload | UpdateCityPayload | DeleteCityPayload | Country | CountryConnection | CountryAggregator | CountryGroupBy | CountryConnectionId | CountryConnectionCreated_At | CountryConnectionUpdated_At | CountryConnectionName | CountryConnectionCode | CountryConnectionEnabled | CountryConnectionPublished_At | CreateCountryPayload | UpdateCountryPayload | DeleteCountryPayload | Currency | CurrencyConnection | CurrencyAggregator | CurrencyAggregatorSum | CurrencyAggregatorAvg | CurrencyAggregatorMin | CurrencyAggregatorMax | CurrencyGroupBy | CurrencyConnectionId | CurrencyConnectionCreated_At | CurrencyConnectionUpdated_At | CurrencyConnectionName | CurrencyConnectionKey | CurrencyConnectionValue | CurrencyConnectionBase | CurrencyConnectionCountry | CurrencyConnectionUnicode | CurrencyConnectionPublished_At | CreateCurrencyPayload | UpdateCurrencyPayload | DeleteCurrencyPayload | Drivers | DriversConnection | DriversAggregator | DriversGroupBy | DriversConnectionId | DriversConnectionCreated_At | DriversConnectionUpdated_At | DriversConnectionName | DriversConnectionNumber | DriversConnectionPublished_At | CreateDriverPayload | UpdateDriverPayload | DeleteDriverPayload | Homepage | UpdateHomepagePayload | DeleteHomepagePayload | Hotels | HotelsConnection | HotelsAggregator | HotelsGroupBy | HotelsConnectionId | HotelsConnectionCreated_At | HotelsConnectionUpdated_At | HotelsConnectionName | HotelsConnectionPublished_At | CreateHotelPayload | UpdateHotelPayload | DeleteHotelPayload | Locations | LocationsConnection | LocationsAggregator | LocationsGroupBy | LocationsConnectionId | LocationsConnectionCreated_At | LocationsConnectionUpdated_At | LocationsConnectionFomat | LocationsConnectionGeoJson | LocationsConnectionPlaceId | LocationsConnectionCity | LocationsConnectionAirport | LocationsConnectionHotel | LocationsConnectionPublished_At | CreateLocationPayload | UpdateLocationPayload | DeleteLocationPayload | Pricing | PricingConnection | PricingAggregator | PricingAggregatorSum | PricingAggregatorAvg | PricingAggregatorMin | PricingAggregatorMax | PricingGroupBy | PricingConnectionId | PricingConnectionCreated_At | PricingConnectionUpdated_At | PricingConnectionNameSlug | PricingConnectionType | PricingConnectionBase | PricingConnectionTax | PricingConnectionFlat | PricingConnectionToll | PricingConnectionOrigincity | PricingConnectionDestinationcity | PricingConnectionVehicle | PricingConnectionOriginlocation | PricingConnectionDestinationlocation | PricingConnectionHotelcity | PricingConnectionTrip | PricingConnectionHourlycity | PricingConnectionHorulyUnits | PricingConnectionTripJumps | PricingConnectionDistance | PricingConnectionUnitjumps | PricingConnectionAddBase | PricingConnectionDistanceBundle | PricingConnectionMinDuration | PricingConnectionMaxDuration | PricingConnectionTour | PricingConnectionAdult | PricingConnectionAdultprice | PricingConnectionPublished_At | CreatePricingPayload | UpdatePricingPayload | DeletePricingPayload | Promo | PromoConnection | PromoAggregator | PromoAggregatorSum | PromoAggregatorAvg | PromoAggregatorMin | PromoAggregatorMax | PromoGroupBy | PromoConnectionId | PromoConnectionCreated_At | PromoConnectionUpdated_At | PromoConnectionCode | PromoConnectionType | PromoConnectionApplicable | PromoConnectionValue | PromoConnectionMax | PromoConnectionMin | PromoConnectionEnabled | PromoConnectionPublished_At | CreatePromoPayload | UpdatePromoPayload | DeletePromoPayload | TourCategory | TourCategoryConnection | TourCategoryAggregator | TourCategoryGroupBy | TourCategoryConnectionId | TourCategoryConnectionCreated_At | TourCategoryConnectionUpdated_At | TourCategoryConnectionName | TourCategoryConnectionIcon | TourCategoryConnectionPublished_At | CreateTourCategoryPayload | UpdateTourCategoryPayload | DeleteTourCategoryPayload | Tours | ToursConnection | ToursAggregator | ToursGroupBy | ToursConnectionId | ToursConnectionCreated_At | ToursConnectionUpdated_At | ToursConnectionTitle | ToursConnectionMater | ToursConnectionYoutube | ToursConnectionBasic | ToursConnectionCity | ToursConnectionSlug | ToursConnectionPublished_At | CreateTourPayload | UpdateTourPayload | DeleteTourPayload | Vehicles | VehiclesConnection | VehiclesAggregator | VehiclesAggregatorSum | VehiclesAggregatorAvg | VehiclesAggregatorMin | VehiclesAggregatorMax | VehiclesGroupBy | VehiclesConnectionId | VehiclesConnectionCreated_At | VehiclesConnectionUpdated_At | VehiclesConnectionVehicleClass | VehiclesConnectionTitle | VehiclesConnectionTagLiine | VehiclesConnectionOperations | VehiclesConnectionIcon | VehiclesConnectionLogo | VehiclesConnectionLuggage | VehiclesConnectionMax | VehiclesConnectionOccupancy_Log | VehiclesConnectionPublished_At | CreateVehiclePayload | UpdateVehiclePayload | DeleteVehiclePayload | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileAggregatorSum | UploadFileAggregatorAvg | UploadFileAggregatorMin | UploadFileAggregatorMax | UploadFileGroupBy | UploadFileConnectionId | UploadFileConnectionCreated_At | UploadFileConnectionUpdated_At | UploadFileConnectionName | UploadFileConnectionAlternativeText | UploadFileConnectionCaption | UploadFileConnectionWidth | UploadFileConnectionHeight | UploadFileConnectionFormats | UploadFileConnectionHash | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionPreviewUrl | UploadFileConnectionProvider | UploadFileConnectionProvider_Metadata | DeleteFilePayload | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnectionId | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | CreateRolePayload | UpdateRolePayload | DeleteRolePayload | UsersPermissionsUser | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnectionId | UsersPermissionsUserConnectionCreated_At | UsersPermissionsUserConnectionUpdated_At | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole | UsersPermissionsUserConnectionFirstName | UsersPermissionsUserConnectionLastName | UsersPermissionsUserConnectionPhone | CreateUserPayload | UpdateUserPayload | DeleteUserPayload;
 
 export type Mutation = {
   __typename?: 'Mutation';
@@ -1457,6 +1493,8 @@ export type Mutation = {
   createDriver?: Maybe<CreateDriverPayload>;
   updateDriver?: Maybe<UpdateDriverPayload>;
   deleteDriver?: Maybe<DeleteDriverPayload>;
+  updateHomepage?: Maybe<UpdateHomepagePayload>;
+  deleteHomepage?: Maybe<DeleteHomepagePayload>;
   createHotel?: Maybe<CreateHotelPayload>;
   updateHotel?: Maybe<UpdateHotelPayload>;
   deleteHotel?: Maybe<DeleteHotelPayload>;
@@ -1575,6 +1613,11 @@ export type MutationUpdateDriverArgs = {
 
 export type MutationDeleteDriverArgs = {
   input?: Maybe<DeleteDriverInput>;
+};
+
+
+export type MutationUpdateHomepageArgs = {
+  input?: Maybe<UpdateHomepageInput>;
 };
 
 
@@ -2292,6 +2335,7 @@ export type Query = {
   driver?: Maybe<Drivers>;
   drivers?: Maybe<Array<Maybe<Drivers>>>;
   driversConnection?: Maybe<DriversConnection>;
+  homepage?: Maybe<Homepage>;
   hotel?: Maybe<Hotels>;
   hotels?: Maybe<Array<Maybe<Hotels>>>;
   hotelsConnection?: Maybe<HotelsConnection>;
@@ -2438,6 +2482,11 @@ export type QueryDriversConnectionArgs = {
   limit?: Maybe<Scalars['Int']>;
   start?: Maybe<Scalars['Int']>;
   where?: Maybe<Scalars['JSON']>;
+};
+
+
+export type QueryHomepageArgs = {
+  publicationState?: Maybe<PublicationState>;
 };
 
 
@@ -2953,6 +3002,15 @@ export type UpdateDriverInput = {
 export type UpdateDriverPayload = {
   __typename?: 'updateDriverPayload';
   driver?: Maybe<Drivers>;
+};
+
+export type UpdateHomepageInput = {
+  data?: Maybe<EditHomepageInput>;
+};
+
+export type UpdateHomepagePayload = {
+  __typename?: 'updateHomepagePayload';
+  homepage?: Maybe<Homepage>;
 };
 
 export type UpdateHotelInput = {
@@ -3933,6 +3991,30 @@ export type CreateHourlyPricingMutation = (
   )> }
 );
 
+export type UpdatePricingMutationVariables = Exact<{
+  base?: Maybe<Scalars['Float']>;
+  tax?: Maybe<Scalars['Float']>;
+  flat?: Maybe<Scalars['Float']>;
+  toll?: Maybe<Scalars['Float']>;
+  addBase?: Maybe<Scalars['Float']>;
+  max?: Maybe<Scalars['Int']>;
+  min?: Maybe<Scalars['Int']>;
+  dbundle?: Maybe<Scalars['Int']>;
+  id: Scalars['ID'];
+}>;
+
+
+export type UpdatePricingMutation = (
+  { __typename?: 'Mutation' }
+  & { updatePricing?: Maybe<(
+    { __typename?: 'updatePricingPayload' }
+    & { pricing?: Maybe<(
+      { __typename?: 'Pricing' }
+      & Pick<Pricing, 'id'>
+    )> }
+  )> }
+);
+
 export type CreateCategoryMutationVariables = Exact<{
   name?: Maybe<Scalars['String']>;
   icon?: Maybe<Scalars['String']>;
@@ -4224,7 +4306,7 @@ export type GetAllPricingQuery = (
   { __typename?: 'Query' }
   & { pricings?: Maybe<Array<Maybe<(
     { __typename?: 'Pricing' }
-    & Pick<Pricing, 'id' | 'nameSlug' | 'base' | 'tax' | 'type'>
+    & Pick<Pricing, 'id' | 'nameSlug' | 'base' | 'tax' | 'flat' | 'toll' | 'addBase' | 'minDuration' | 'maxDuration' | 'distanceBundle' | 'type'>
   )>>> }
 );
 
@@ -4447,6 +4529,15 @@ export const CreateHourlyPricingDocument = gql`
   }
 }
     `;
+export const UpdatePricingDocument = gql`
+    mutation UpdatePricing($base: Float, $tax: Float, $flat: Float, $toll: Float, $addBase: Float, $max: Int, $min: Int, $dbundle: Int, $id: ID!) {
+  updatePricing(input: {where: {id: $id}, data: {base: $base, tax: $tax, flat: $flat, toll: $toll, addBase: $addBase, minDuration: $min, maxDuration: $max, distanceBundle: $dbundle}}) {
+    pricing {
+      id
+    }
+  }
+}
+    `;
 export const CreateCategoryDocument = gql`
     mutation CreateCategory($name: String, $icon: String) {
   createTourCategory(input: {data: {name: $name, icon: $icon}}) {
@@ -4639,6 +4730,12 @@ export const GetAllPricingDocument = gql`
     nameSlug
     base
     tax
+    flat
+    toll
+    addBase
+    minDuration
+    maxDuration
+    distanceBundle
     type
   }
 }
