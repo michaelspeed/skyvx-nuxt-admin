@@ -218,7 +218,7 @@
         </div>
       </div>
     </div>
-    <div class=" container">
+    <div class=" container" v-if="!$apollo.queries.tour.loading">
       <div>
         <div style="display: flex; justify-content: space-between; align-items: center;">
           <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Pricing</h5>
