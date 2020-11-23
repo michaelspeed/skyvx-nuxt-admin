@@ -218,15 +218,130 @@
         </div>
       </div>
     </div>
+    <div class=" container">
+      <div>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Pricing</h5>
+          <v-btn
+            rounded
+            color="primary"
+            @click="add = true"
+          >
+            Add Pricing
+          </v-btn>
+        </div>
+        <hr/>
+        <v-card elevation="1">
+          <v-card-title>
+            <h2 class="text-primary">Pricing</h2>
+          </v-card-title>
+          <v-data-table
+            :headers="headers"
+            :items="tour.pricings"
+            hide-default-footer
+          >
+            <template v-slot:item.actions="{ item }">
+              <v-btn
+                text
+                color="primary"
+                v-if="!item.enabled"
+                @click="updateStatus(true, item.id)"
+              >
+                Enable
+              </v-btn>
+              <v-btn
+                text
+                color="red"
+                v-if="item.enabled"
+                @click="updateStatus(false, item.id)"
+              >
+                Disable
+              </v-btn>
+            </template>
+          </v-data-table>
+        </v-card>
+      </div>
+    </div>
+    <v-dialog
+      v-model="add"
+      width="50vw"
+    >
+      <v-app-bar color="primary">
+        <v-toolbar-title class="text-white font-weight-bold">Add Pricing</v-toolbar-title>
+      </v-app-bar>
+      <v-card-text class="bg-white">
+        <div class="row">
+          <div class="col-md-12">
+            <v-text-field
+              label="Name"
+              placeholder="Pricing Name"
+              filled
+              rounded
+              v-model="pricingname"
+            ></v-text-field>
+          </div>
+          <div class="col-md-6">
+            <div>
+              <v-checkbox
+                label="Adult"
+                v-model="adult"
+              ></v-checkbox>
+            </div>
+            <v-text-field
+              label="Adult"
+              placeholder="Adult"
+              filled
+              rounded
+              :disabled="!adult"
+              v-model="adultValue"
+            ></v-text-field>
+          </div>
+          <div class="col-md-6">
+            <div>
+              <v-checkbox
+                label="Child"
+                v-model="child"
+              ></v-checkbox>
+            </div>
+            <v-text-field
+              label="Child"
+              placeholder="Child"
+              filled
+              rounded
+              :disabled="!child"
+              v-model="childValue"
+            ></v-text-field>
+          </div>
+        </div>
+      </v-card-text>
+      <v-progress-linear
+        color="lime"
+        indeterminate
+        v-if="loading"
+      ></v-progress-linear>
+      <v-card-actions class="bg-white">
+        <v-spacer></v-spacer>
+        <v-btn
+          color="primary"
+          text
+          @click="onCreatePricing"
+        >Add</v-btn>
+        <v-btn
+          color="error"
+          text
+          @click="add = false"
+        >Cancel</v-btn>
+      </v-card-actions>
+    </v-dialog>
   </div>
 </template>
 
 <script lang="ts">
 import {Component, Vue, Watch} from "nuxt-property-decorator";
 import {
-  AllCitiesDocument,
+  AllCitiesDocument, ChangePricingStatusDocument,
   Cities,
-  CreateCategoryDocument,
+  CreateCategoryDocument, CreateTourPricingDocument,
   GetAllTourCategoriesDocument, GetSingleTourDocument,
   TourCategory, Tours, UpdateTourDocument
 } from "~/gql";
@@ -256,7 +371,8 @@ import slugify from "slugify";
         return {
           id: this.$route.params.id
         }
-      }
+      },
+      pollInterval: 3000
     }
   }
 })
@@ -288,6 +404,13 @@ export default class TourId extends Vue {
 
   private slug = ''
 
+  private add = false
+  private adult = false
+  private adultValue = ''
+  private child = false
+  private childValue = ''
+  private pricingname = ''
+
   getAssetURl(url: string) {
     return `${mainUrl}${url}`
   }
@@ -295,6 +418,88 @@ export default class TourId extends Vue {
   @Watch('title')
   onChangeName() {
     this.slug = slugify(this.title)
+  }
+
+  private headers = [
+    {
+      text: 'Id',
+      align: 'start',
+      sortable: false,
+      value: 'id'
+    },
+    {
+      text: 'Name',
+      align: 'start',
+      sortable: false,
+      value: 'nameSlug'
+    },
+    {
+      text: 'Adult',
+      align: 'start',
+      sortable: false,
+      value: 'adultprice'
+    },
+    {
+      text: 'Child',
+      align: 'start',
+      sortable: false,
+      value: 'childprice'
+    },
+    {
+      text: 'Actions',
+      align: 'end',
+      value: 'actions'
+    }
+  ]
+
+  updateStatus(status: boolean, id: string) {
+    this.loading = true
+    this.$apollo.mutate({
+      mutation: ChangePricingStatusDocument,
+      variables: {
+        id,
+        status
+      }
+    })
+      .then(value => {
+        this.$message.success('Updated')
+        this.loading = false
+      })
+    .catch(error => {
+      this.$message.error(error.message)
+      this.loading = false
+    })
+  }
+
+  onCreatePricing() {
+    if (this.adult && this.adultValue === '') {
+      this.$message.error('Adult value is requires')
+      return
+    }
+    if (this.child && this.childValue === '') {
+      this.$message.error('Child value is requires')
+      return
+    }
+    this.loading = true
+    this.$apollo.mutate({
+      mutation: CreateTourPricingDocument,
+      variables: {
+        name: this.pricingname,
+        tourId: this.tour.id,
+        adult: this.adult,
+        child: this.child,
+        adultprice: parseFloat(this.adultValue),
+        childprice: parseFloat(this.childValue)
+      }
+    })
+    .then(value => {
+      this.loading = false
+      this.add = false
+    })
+    .catch(error => {
+      this.loading = false
+      this.$message.error(error.message)
+    })
   }
 
   @Watch('tour')

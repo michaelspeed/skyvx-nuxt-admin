@@ -26,7 +26,8 @@
                 <input class="form-control h-auto text-white bg-white-o-5 rounded-pill border-0 py-4 px-8" type="password" placeholder="Password" name="password" v-model="password"/>
               </div>
               <div class="form-group text-center mt-10">
-                <button class="btn btn-pill btn-primary opacity-90 px-15 py-3" @click="onLogin">Sign In</button>
+                <CircularProgress v-if="loading"/>
+                <button class="btn btn-pill btn-primary opacity-90 px-15 py-3" v-if="!loading" @click="onLogin">Sign In</button>
               </div>
             </div>
           </div>
@@ -42,8 +43,10 @@
 <script lang="ts" >
 import {Component, Vue} from "nuxt-property-decorator";
 import {CreateLoginDocument} from "~/gql";
+import CircularProgress from "~/components/progress/CircularProgress.vue";
 
 @Component({
+  components: {CircularProgress},
   head: {
     script: [
       {src: '/js/pages/custom/login/login-general.js?v=7.0.6', body: true},

@@ -690,12 +690,12 @@
                       >
                         <v-list-item selectable @click="$router.push('/app/pricing/currency')">
                           <v-list-item-content>
-                            <v-list-item-title class="text-primary">Currency</v-list-item-title>
+                            <v-list-item-title class="text-primary" style="font-weight: bold">Currency</v-list-item-title>
                           </v-list-item-content>
                         </v-list-item>
                         <v-list-item selectable @click="$router.push('/app/pricing/pricing')">
                           <v-list-item-content>
-                            <v-list-item-title class="text-primary">Pricing</v-list-item-title>
+                            <v-list-item-title class="text-primary" style="font-weight: bold">Pricing</v-list-item-title>
                           </v-list-item-content>
                         </v-list-item>
                       </v-list-item-group>
@@ -704,7 +704,7 @@
                 </template>
                 <template slot="title">
                   <div class="bg-primary">
-                    <h4 class="text-white">Pricing</h4>
+                    <h4 class="text-white" style="font-weight: bold">Pricing</h4>
                   </div>
                 </template>
                 <li
@@ -724,12 +724,12 @@
                       >
                         <v-list-item selectable @click="$router.push('/app/tours/tours')">
                           <v-list-item-content>
-                            <v-list-item-title class="text-primary">All Tours</v-list-item-title>
+                            <v-list-item-title class="text-primary" style="font-weight: bold">All Tours</v-list-item-title>
                           </v-list-item-content>
                         </v-list-item>
                         <v-list-item selectable @click="$router.push('/app/tours/builder')">
                           <v-list-item-content>
-                            <v-list-item-title class="text-primary">Tours Builder</v-list-item-title>
+                            <v-list-item-title class="text-primary" style="font-weight: bold">Tours Builder</v-list-item-title>
                           </v-list-item-content>
                         </v-list-item>
                       </v-list-item-group>
@@ -738,7 +738,7 @@
                 </template>
                 <template slot="title">
                   <div class="bg-primary">
-                    <h4 class="text-white">Tours</h4>
+                    <h4 class="text-white" style="font-weight: bold">Tours</h4>
                   </div>
                 </template>
                 <li
@@ -758,12 +758,12 @@
                       >
                         <v-list-item selectable @click="$router.push('/app/locations/cities')">
                           <v-list-item-content>
-                            <v-list-item-title class="text-primary">Cities</v-list-item-title>
+                            <v-list-item-title class="text-primary" style="font-weight: bold">Cities</v-list-item-title>
                           </v-list-item-content>
                         </v-list-item>
                         <v-list-item selectable @click="$router.push('/app/locations/countries')">
                           <v-list-item-content>
-                            <v-list-item-title class="text-primary">Countries</v-list-item-title>
+                            <v-list-item-title class="text-primary" style="font-weight: bold">Countries</v-list-item-title>
                           </v-list-item-content>
                         </v-list-item>
                       </v-list-item-group>
@@ -772,7 +772,7 @@
                 </template>
                 <template slot="title">
                   <div class="bg-primary">
-                    <h4 class="text-white">Locations</h4>
+                    <h4 class="text-white" style="font-weight: bold">Locations</h4>
                   </div>
                 </template>
                 <li
@@ -792,12 +792,12 @@
                       >
                         <v-list-item selectable @click="$router.push('/app/vehicles/vehicles')">
                           <v-list-item-content>
-                            <v-list-item-title class="text-primary">Vehicles</v-list-item-title>
+                            <v-list-item-title class="text-primary" style="font-weight: bold">Vehicles</v-list-item-title>
                           </v-list-item-content>
                         </v-list-item>
                         <v-list-item selectable @click="$router.push('/app/vehicles/drivers')">
                           <v-list-item-content>
-                            <v-list-item-title class="text-primary">Drivers</v-list-item-title>
+                            <v-list-item-title class="text-primary" style="font-weight: bold">Drivers</v-list-item-title>
                           </v-list-item-content>
                         </v-list-item>
                       </v-list-item-group>
@@ -806,7 +806,7 @@
                 </template>
                 <template slot="title">
                   <div class="bg-primary">
-                    <h4 class="text-white">Vehicles & Drivers</h4>
+                    <h4 class="text-white" style="font-weight: bold">Vehicles & Drivers</h4>
                   </div>
                 </template>
                 <li
@@ -826,12 +826,12 @@
                       >
                         <v-list-item selectable @click="$router.push('/app/more/promo')">
                           <v-list-item-content>
-                            <v-list-item-title class="text-primary">Promo Codes</v-list-item-title>
+                            <v-list-item-title class="text-primary" style="font-weight: bold">Promo Codes</v-list-item-title>
                           </v-list-item-content>
                         </v-list-item>
                         <v-list-item selectable @click="$router.push('/app/more/user')">
                           <v-list-item-content>
-                            <v-list-item-title class="text-primary">User Management</v-list-item-title>
+                            <v-list-item-title class="text-primary" style="font-weight: bold">User Management</v-list-item-title>
                           </v-list-item-content>
                         </v-list-item>
                       </v-list-item-group>
@@ -840,7 +840,7 @@
                 </template>
                 <template slot="title">
                   <div class="bg-primary">
-                    <h4 class="text-white">More settings</h4>
+                    <h4 class="text-white" style="font-weight: bold">More settings</h4>
                   </div>
                 </template>
                 <li
@@ -867,7 +867,7 @@
 <script lang="ts">
 import {Component, Vue, Watch} from "nuxt-property-decorator";
 import {KTAppSettings} from "~/utils/theme";
-import {GetSingleUserDocument} from "~/gql";
+import {GetMeDocument, GetSingleUserDocument, UsersPermissionsMe} from "~/gql";
 
 @Component({
   apollo: {
@@ -879,12 +879,24 @@ import {GetSingleUserDocument} from "~/gql";
         }
       },
       pollInterval: 3000
+    },
+    me: {
+      query: GetMeDocument,
+      pollInterval: 3000
     }
   }
 })
 export default class Header extends Vue {
   private theme = KTAppSettings
   private user
+  private me: UsersPermissionsMe
+
+  @Watch('me')
+  onChangeMe() {
+    if(this.me) {
+      this.$store.dispatch('user/setLogin', this.me.id)
+    }
+  }
 
   @Watch('user')
   onChangeUser() {
@@ -915,5 +927,9 @@ export default class Header extends Vue {
 <style>
 .ant-popover-title {
   background-color: #0BB783;
+  border-radius: 4px 4px 0px 0px;
+}
+.ant-popover-content {
+  border-radius: 4px;
 }
 </style>

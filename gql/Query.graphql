@@ -262,6 +262,15 @@ query GetSingleTour($id: ID!){
       id
       url
     }
+    pricings {
+      id
+      nameSlug
+      adult
+      adultprice
+      child
+      childprice
+      enabled
+    }
     youtube
     basic
     city {
@@ -273,5 +282,12 @@ query GetSingleTour($id: ID!){
       name
       icon
     }
+  }
+}
+
+query GetMe{
+  me {
+    id
+    email
   }
 }

@@ -12,6 +12,7 @@
         </div>
       </div>
     </div>
+    <Footer/>
   </v-app>
 </template>
 
@@ -19,9 +20,10 @@
 
 import {Component, Vue} from "nuxt-property-decorator";
 import Header from "~/components/Header/header.vue";
+import Footer from "~/components/footer/footer.vue";
 
 @Component({
-  components: {Header},
+  components: {Header, Footer},
   head: {
     bodyAttrs: {
       class: 'header-fixed header-mobile-fixed subheader-enabled page-loading',

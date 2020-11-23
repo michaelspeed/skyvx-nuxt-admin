@@ -450,3 +450,47 @@ mutation UpdateDriver($name: String, $number: String, $id: ID!){
     }
   }
 }
+
+mutation CreateTourPricing(
+  $name: String,
+  $tourId: ID,
+  $adult: Boolean,
+  $child: Boolean,
+  $adultprice: Float,
+  $childprice: Float
+){
+  createPricing(
+    input:{
+      data:{
+        nameSlug: $name,
+        tour: $tourId,
+        adult: $adult,
+        child: $child,
+        adultprice: $adultprice,
+        childprice: $childprice,
+        type: TOUR
+      }
+    }
+  ) {
+    pricing {
+      id
+    }
+  }
+}
+
+mutation ChangePricingStatus($id: ID!, $status: Boolean){
+  updatePricing(
+    input: {
+      where: {
+        id: $id
+      },
+      data: {
+        enabled: $status
+      }
+    }
+  ) {
+    pricing {
+      id
+    }
+  }
+}
