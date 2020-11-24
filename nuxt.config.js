@@ -70,6 +70,25 @@ export default {
     // https://go.nuxtjs.dev/content
     '@nuxt/content',
     '@nuxtjs/apollo',
+    [
+      '@nuxtjs/firebase',
+      {
+        config: {
+          apiKey: "AIzaSyA8yJWsbynv6ZZ5Lyt_K4gCDR2RdtfZOiM",
+          authDomain: "skyvx-ef179.firebaseapp.com",
+          databaseURL: "https://skyvx-ef179.firebaseio.com",
+          projectId: "skyvx-ef179",
+          storageBucket: "skyvx-ef179.appspot.com",
+          messagingSenderId: "89304611648",
+          appId: "1:89304611648:web:697ec7e79e16b8eff858a5"
+        },
+        services: {
+          auth: true, // Just as example. Can be any other service.
+          firestore: true,
+          storage: true
+        }
+      }
+    ]
   ],
 
   apollo: {
@@ -80,7 +99,7 @@ export default {
     authenticationType: 'Bearer',
     clientConfigs: {
       default: {
-        httpEndpoint: 'http://45.118.132.119:9689/graphql'
+        httpEndpoint: 'http://54.151.194.111:9689/graphql'
       }
     },
     defaultOptions: {

@@ -331,7 +331,7 @@ mutation CreateCategory($name: String, $icon: String){
   }
 }
 
-mutation CreateTour($title: String, $youtube: String, $basic: String, $cats: [ID], $allMedia: [ID], $master: ID, $city: ID, $slug: String){
+mutation CreateTour($title: String, $youtube: String, $basic: String, $cats: [ID], $allMedia: [ID], $master: ID, $city: ID, $slug: String, $info: String, $terms: String){
   createTour(
     input: {
       data: {
@@ -342,7 +342,9 @@ mutation CreateTour($title: String, $youtube: String, $basic: String, $cats: [ID
         allmedia: $allMedia,
         mater: $master,
         city: $city,
-        slug: $slug
+        slug: $slug,
+        info: $info,
+        terms: $terms
       }
     }
   ) {
@@ -352,7 +354,7 @@ mutation CreateTour($title: String, $youtube: String, $basic: String, $cats: [ID
   }
 }
 
-mutation UpdateTour($title: String, $youtube: String, $basic: String, $cats: [ID], $allMedia: [ID], $master: ID, $city: ID, $id: ID!, $slug: String){
+mutation UpdateTour($title: String, $youtube: String, $basic: String, $cats: [ID], $allMedia: [ID], $master: ID, $city: ID, $id: ID!, $slug: String, $info: String, $terms: String){
   updateTour(
     input: {
       where: {
@@ -366,7 +368,9 @@ mutation UpdateTour($title: String, $youtube: String, $basic: String, $cats: [ID
         allmedia: $allMedia,
         mater: $master,
         city: $city,
-        slug: $slug
+        slug: $slug,
+        info: $info,
+        terms: $terms
       }
     }
   ) {
@@ -490,6 +494,23 @@ mutation ChangePricingStatus($id: ID!, $status: Boolean){
     }
   ) {
     pricing {
+      id
+    }
+  }
+}
+
+mutation DeleteCity($id: ID!){
+  updateCity(
+    input:{
+      where:{
+        id: $id
+      },
+      data:{
+        delete: true
+      }
+    }
+  ){
+    city {
       id
     }
   }

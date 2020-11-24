@@ -196,6 +196,38 @@
             </client-only>
           </div>
           <div class="col-md-12">
+            <div>
+              <h6 style="margin-top: 20px">Booking Info</h6>
+            </div>
+            <client-only>
+              <editor api-key="no-api-key" :init="{
+                            height: 500,
+                            plugins: ['image', 'preview', 'link', 'advlist', 'autolink', 'lists', 'hr'],
+                            file_picker_callback: filePickerCallBack,
+                            file_picker_types: 'image',
+                            automatic_uploads: true,
+                            images_upload_handler: imageUploadHandler,
+                            branding: false,
+                            content_style: 'body { font-family: Arial; }'}" v-model="infoModel"/>
+            </client-only>
+          </div>
+          <div class="col-md-12">
+            <div>
+              <h6 style="margin-top: 20px">Terms & Conditions</h6>
+            </div>
+            <client-only>
+              <editor api-key="no-api-key" :init="{
+                            height: 500,
+                            plugins: ['image', 'preview', 'link', 'advlist', 'autolink', 'lists', 'hr'],
+                            file_picker_callback: filePickerCallBack,
+                            file_picker_types: 'image',
+                            automatic_uploads: true,
+                            images_upload_handler: imageUploadHandler,
+                            branding: false,
+                            content_style: 'body { font-family: Arial; }'}" v-model="termsModel"/>
+            </client-only>
+          </div>
+          <div class="col-md-12">
             <v-progress-linear
               color="lime"
               indeterminate
@@ -380,6 +412,8 @@ export default class TourId extends Vue {
   private title = ''
   private cities: Cities[]
   private editorModel: string = ''
+  private infoModel: string = ''
+  private termsModel: string = ''
   private loading = false
   private images: any[] = []
   private renderImages: any[] = []
@@ -511,6 +545,8 @@ export default class TourId extends Vue {
       this.category = this.tour.tour_categories!.map(item => item!.id)
       this.youtube = this.tour.youtube!
       this.editorModel = this.tour.basic!
+      this.infoModel = this.tour.info!
+      this.termsModel = this.tour.terms!
       this.allExisting = this.tour.allmedia!
       this.topExisting = this.tour.mater!
       this.slug = this.tour.slug!
@@ -640,7 +676,9 @@ export default class TourId extends Vue {
         master: topImage,
         city: this.city,
         id: this.$route.params.id,
-        slug: this.slug
+        slug: this.slug,
+        info: this.infoModel,
+        terms: this.termsModel
       }
     })
       .then(value => {

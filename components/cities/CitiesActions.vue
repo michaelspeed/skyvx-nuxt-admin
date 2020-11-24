@@ -14,6 +14,51 @@
     >
       <v-icon>mdi-pencil</v-icon>
     </v-btn>
+    <!--<v-menu
+      :close-on-content-click="false"
+      :nudge-width="200"
+      offset-x
+      v-model="menudelete"
+    >
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          icon
+          color="red"
+          v-bind="attrs"
+          v-on="on"
+        >
+          <v-icon>mdi-delete</v-icon>
+        </v-btn>
+      </template>
+
+      <v-card>
+        <v-list>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>Are you sure delete this city?</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+
+          <v-btn
+            text
+            color="red"
+            @click="menudelete = false"
+          >
+            Cancel
+          </v-btn>
+          <v-btn
+            color="primary"
+            text
+            @click="menudelete = false"
+          >
+            Save
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-menu>-->
     <v-dialog
       v-model="airport"
       width="50vw"
@@ -158,7 +203,7 @@
 
 <script lang="ts">
 import {Component, Vue, Prop, Watch} from "nuxt-property-decorator";
-import {Cities, CreateAirportDocument, CreateLocationDocument, UpdateCityDocument} from "~/gql";
+import {Cities, CreateAirportDocument, CreateLocationDocument, DeleteCityDocument, UpdateCityDocument} from "~/gql";
 
 @Component
 export default class CitiesActions extends Vue {
@@ -196,6 +241,7 @@ export default class CitiesActions extends Vue {
 
 
   private edit = false;
+  private menudelete = false;
 
   mounted() {
     this.gplaces = new window.google.maps.places.AutocompleteService()

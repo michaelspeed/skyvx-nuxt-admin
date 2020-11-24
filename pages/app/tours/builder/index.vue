@@ -142,7 +142,7 @@
           </div>
           <div class="col-md-12">
             <div>
-              <h6 style="margin-top: 20px">Info</h6>
+              <h6 style="margin-top: 20px">Basic Info</h6>
             </div>
             <client-only>
               <editor api-key="no-api-key" :init="{
@@ -154,6 +154,38 @@
                             images_upload_handler: imageUploadHandler,
                             branding: false,
                             content_style: 'body { font-family: Arial; }'}" v-model="editorModel"/>
+            </client-only>
+          </div>
+          <div class="col-md-12">
+            <div>
+              <h6 style="margin-top: 20px">Booking Info</h6>
+            </div>
+            <client-only>
+              <editor api-key="no-api-key" :init="{
+                            height: 500,
+                            plugins: ['image', 'preview', 'link', 'advlist', 'autolink', 'lists', 'hr'],
+                            file_picker_callback: filePickerCallBack,
+                            file_picker_types: 'image',
+                            automatic_uploads: true,
+                            images_upload_handler: imageUploadHandler,
+                            branding: false,
+                            content_style: 'body { font-family: Arial; }'}" v-model="infoModel"/>
+            </client-only>
+          </div>
+          <div class="col-md-12">
+            <div>
+              <h6 style="margin-top: 20px">Terms & Conditions</h6>
+            </div>
+            <client-only>
+              <editor api-key="no-api-key" :init="{
+                            height: 500,
+                            plugins: ['image', 'preview', 'link', 'advlist', 'autolink', 'lists', 'hr'],
+                            file_picker_callback: filePickerCallBack,
+                            file_picker_types: 'image',
+                            automatic_uploads: true,
+                            images_upload_handler: imageUploadHandler,
+                            branding: false,
+                            content_style: 'body { font-family: Arial; }'}" v-model="termsModel"/>
             </client-only>
           </div>
           <div class="col-md-12">
@@ -293,6 +325,8 @@ export default class Builder extends Vue {
   private title = ''
   private cities: Cities[]
   private editorModel: string = ''
+  private infoModel: string = ''
+  private termsModel: string = ''
   private loading = false
   private images: any[] = []
   private renderImages: any[] = []
@@ -425,7 +459,9 @@ export default class Builder extends Vue {
         cats: this.category,
         allMedia: allImages,
         master: topImage,
-        city: this.city
+        city: this.city,
+        info: this.infoModel,
+        terms: this.termsModel
       }
     })
     .then(value => {

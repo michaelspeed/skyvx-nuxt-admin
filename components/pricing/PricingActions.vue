@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-btn text color="primary" small @click="edit = true">
+    <v-btn text color="primary" small @click="edit = true" v-if="pricing.type !== 'TOUR'">
       View / Edit
     </v-btn>
     <v-dialog

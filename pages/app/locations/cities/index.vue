@@ -26,6 +26,7 @@
 
           <!--begin::Button-->
           <a href="javascript:;" class="btn btn-light-primary font-weight-bold ml-2" @click="add = true">Add Cities</a>
+          <!--<a href="javascript:;" class="btn btn-light-primary font-weight-bold ml-2" @click="add = true">Import Cities Cities</a>-->
           <!--end::Button-->
         </div>
         <!--end::Toolbar-->
@@ -192,6 +193,7 @@ declare global {
 })
 export default class Cities extends Vue {
   private add = false;
+  private importadd = false;
   private name = ''
   private code = ''
   private ccomon: any = null
