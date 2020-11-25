@@ -293,3 +293,23 @@ query GetMe{
     email
   }
 }
+
+query GetBookingID($id: ID!){
+  booking(id: $id) {
+    type
+    created_at
+    name
+    email
+    number
+    alternate
+    pickup
+    promo {
+      id
+      code
+    }
+    transaction {
+      id
+      transaction_id
+    }
+  }
+}

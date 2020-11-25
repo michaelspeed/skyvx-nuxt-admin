@@ -1,0 +1,8 @@
+.booking-sheet {
+  padding: 20px; min-width: 800px; margin-right: 10px
+}
+
+.booking-sheet-row {
+  margin-left: 10px !important;
+  margin-right: 10px !important;
+}
