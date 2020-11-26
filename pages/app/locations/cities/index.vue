@@ -62,6 +62,13 @@
               <CitiesActions :city="item"/>
             </template>
           </v-data-table>
+          <hr/>
+          <div>
+            <v-pagination
+              v-model="page"
+              :length="length"
+            ></v-pagination>
+          </div>
         </v-card>
       </div>
     </div>
@@ -165,7 +172,14 @@
 <script lang="ts">
 
 import {Component, Vue, Watch} from "nuxt-property-decorator";
-import {CreateCityDocument, CreateLocationDocument, GetAllCitiesDocument} from "~/gql";
+import {
+  BookingConnection, CitiesConnection,
+  CreateCityDocument,
+  CreateLocationDocument,
+  GetAllCitiesConnectionDocument,
+  GetAllCitiesDocument,
+  GetBookingConnectionsDocument
+} from "~/gql";
 import CitiesActions from "~/components/cities/CitiesActions.vue";
 
 declare global {
@@ -180,6 +194,17 @@ declare global {
   apollo: {
     cities: {
       query: GetAllCitiesDocument,
+      variables() {
+        return {
+          limit: 10,
+          start: (this.page - 1) * 10,
+          search: this.search !== '' ? this.search : undefined
+        }
+      },
+      pollInterval: 3000
+    },
+    citiesConnection: {
+      query: GetAllCitiesConnectionDocument,
       variables() {
         return {
           limit: 10,
@@ -212,6 +237,17 @@ export default class Cities extends Vue {
   private search = ''
 
   private cities: Cities[]
+
+  private citiesConnection: CitiesConnection
+
+  private length = 0
+
+  @Watch('citiesConnection')
+  calculateLength() {
+    if (this.citiesConnection) {
+      this.length = Math.ceil(this.citiesConnection.aggregate!.totalCount / 10)
+    }
+  }
 
   private headers = [
     {

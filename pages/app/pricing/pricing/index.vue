@@ -99,6 +99,13 @@
               <PricingActions :pricing="item"/>
             </template>
           </v-data-table>
+          <hr/>
+          <div>
+            <v-pagination
+              v-model="page"
+              :length="length"
+            ></v-pagination>
+          </div>
         </v-card>
       </div>
     </div>
@@ -109,7 +116,13 @@
 
 import {Component, Vue, Watch} from "nuxt-property-decorator";
 import CreatePricing from "~/components/pricing/CreatePricing.vue";
-import {GetAllPricingDocument, Pricing} from "~/gql";
+import {
+  GetAllPricingConnectionsDocument,
+  GetAllPricingDocument,
+  GetBookingConnectionsDocument,
+  Pricing,
+  PricingConnection
+} from "~/gql";
 import PricingActions from "~/components/pricing/PricingActions.vue";
 
 @Component({
@@ -118,6 +131,17 @@ import PricingActions from "~/components/pricing/PricingActions.vue";
   apollo: {
     pricings: {
       query: GetAllPricingDocument,
+      variables() {
+        return {
+          limit: 10,
+          start: (this.page - 1) * 10,
+          search: this.search !== '' ? this.search : undefined
+        }
+      },
+      pollInterval: 3000
+    },
+    pricingsConnection: {
+      query: GetAllPricingConnectionsDocument,
       variables() {
         return {
           limit: 10,
@@ -137,6 +161,16 @@ export default class PricingList extends Vue {
   private search = ''
 
   private pricings: Pricing[]
+  private pricingsConnection: PricingConnection
+
+  private length = 0
+
+  @Watch('pricingsConnection')
+  calculateLength() {
+    if (this.pricingsConnection) {
+      this.length = Math.ceil(this.pricingsConnection.aggregate!.count / 10)
+    }
+  }
 
   private headers = [
     {

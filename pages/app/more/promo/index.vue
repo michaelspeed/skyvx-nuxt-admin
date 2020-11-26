@@ -79,6 +79,13 @@
               <Promocode :promo="item"/>
             </template>
           </v-data-table>
+          <hr/>
+          <div>
+            <v-pagination
+              v-model="page"
+              :length="length"
+            ></v-pagination>
+          </div>
         </v-card>
       </div>
     </div>
@@ -179,8 +186,15 @@
 
 <script lang="ts">
 
-import {Component, Vue} from "nuxt-property-decorator";
-import {CreatePromoDocument, GetAllPromosDocument, Promo} from "~/gql";
+import {Component, Vue, Watch} from "nuxt-property-decorator";
+import {
+  BookingConnection,
+  CreatePromoDocument,
+  GetAllPromosConnectionsDocument,
+  GetAllPromosDocument,
+  GetBookingConnectionsDocument,
+  Promo, PromoConnection
+} from "~/gql";
 import Promocode from "~/components/promo/promocode.vue";
 
 @Component({
@@ -189,6 +203,17 @@ import Promocode from "~/components/promo/promocode.vue";
   apollo: {
     promos: {
       query: GetAllPromosDocument,
+      variables() {
+        return {
+          limit: 10,
+          start: (this.page - 1) * 10,
+          search: this.search !== '' ? this.search : undefined
+        }
+      },
+      pollInterval: 3000
+    },
+    promosConnection: {
+      query: GetAllPromosConnectionsDocument,
       variables() {
         return {
           limit: 10,
@@ -218,6 +243,17 @@ export default class PromoIndex extends Vue {
   private search = ''
 
   private promos: Promo[]
+
+  private promosConnection: PromoConnection
+
+  private length = 0
+
+  @Watch('promosConnection')
+  calculateLength() {
+    if (this.promosConnection) {
+      this.length = Math.ceil(this.promosConnection.aggregate!.totalCount / 10)
+    }
+  }
 
   private headers = [
     {

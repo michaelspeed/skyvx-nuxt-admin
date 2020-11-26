@@ -61,6 +61,13 @@
               <DriverActions :driver="item"/>
             </template>
           </v-data-table>
+          <hr/>
+          <div>
+            <v-pagination
+              v-model="page"
+              :length="length"
+            ></v-pagination>
+          </div>
         </v-card>
       </div>
     </div>
@@ -117,8 +124,15 @@
 
 <script lang="ts">
 
-import {Component, Vue} from "nuxt-property-decorator";
-import {CreateDriverDocument, Drivers, GetAllDriversDocument} from "~/gql";
+import {Component, Vue, Watch} from "nuxt-property-decorator";
+import {
+  BookingConnection,
+  CreateDriverDocument,
+  Drivers, DriversConnection,
+  GetAllDriverConnectionDocument,
+  GetAllDriversDocument,
+  GetBookingConnectionsDocument
+} from "~/gql";
 import DriverActions from "~/components/drivers/DriverActions.vue";
 
 @Component({
@@ -127,6 +141,17 @@ import DriverActions from "~/components/drivers/DriverActions.vue";
   apollo: {
     drivers: {
       query: GetAllDriversDocument,
+      variables() {
+        return {
+          limit: 10,
+          start: (this.page - 1) * 10,
+          search: this.search !== '' ? this.search : undefined
+        }
+      },
+      pollInterval: 3000
+    },
+    driversConnection: {
+      query: GetAllDriverConnectionDocument,
       variables() {
         return {
           limit: 10,
@@ -150,6 +175,17 @@ export default class DriversIndex extends Vue {
   private search = ''
 
   private drivers: Drivers[]
+
+  private driversConnection: DriversConnection
+
+  private length = 0
+
+  @Watch('driversConnection')
+  calculateLength() {
+    if (this.driversConnection) {
+      this.length = Math.ceil(this.driversConnection.aggregate!.totalCount / 10)
+    }
+  }
 
   private headers = [
     {

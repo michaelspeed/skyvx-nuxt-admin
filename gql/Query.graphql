@@ -107,6 +107,22 @@ query GetAllCities($limit: Int, $start: Int, $search: String){
   }
 }
 
+query GetAllCitiesConnection($limit: Int, $start: Int, $search: String){
+  citiesConnection(
+    limit: $limit,
+    start: $start,
+    sort: "created_at:desc"
+    where: {
+      name_contains: $search
+    }
+  )  {
+    aggregate {
+      count
+      totalCount
+    }
+  }
+}
+
 query GetAllVehicles($limit: Int, $start: Int, $search: String){
   vehicles(
     limit: $limit,
@@ -167,6 +183,22 @@ query GetAllPricing($limit: Int, $start: Int, $search: String){
   }
 }
 
+query GetAllPricingConnections($limit: Int, $start: Int, $search: String){
+  pricingsConnection (
+    limit: $limit,
+    start: $start,
+    sort: "created_at:desc"
+    where: {
+      nameSlug_contains: $search
+    }
+  ){
+    aggregate {
+      count
+      totalCount
+    }
+  }
+}
+
 query GetAllTours($limit: Int, $start: Int, $search: String){
   tours(
     limit: $limit,
@@ -197,6 +229,22 @@ query GetAllTours($limit: Int, $start: Int, $search: String){
   }
 }
 
+query GetAllTourConnections($limit: Int, $start: Int, $search: String){
+  toursConnection (
+    limit: $limit,
+    start: $start,
+    sort: "created_at:desc"
+    where: {
+      title_contains: $search
+    }
+  ){
+    aggregate {
+      count
+      totalCount
+    }
+  }
+}
+
 query GetAllPromos($limit: Int, $start: Int, $search: String){
   promos (
     limit: $limit,
@@ -217,6 +265,22 @@ query GetAllPromos($limit: Int, $start: Int, $search: String){
   }
 }
 
+query GetAllPromosConnections($limit: Int, $start: Int, $search: String){
+  promosConnection (
+    limit: $limit,
+    start: $start,
+    sort: "created_at:desc"
+    where: {
+      code_contains: $search
+    }
+  ){
+    aggregate {
+      count
+      totalCount
+    }
+  }
+}
+
 query GetAllDrivers($limit: Int, $start: Int, $search: String){
   drivers (
     limit: $limit,
@@ -229,6 +293,22 @@ query GetAllDrivers($limit: Int, $start: Int, $search: String){
     id
     name
     number
+  }
+}
+
+query GetAllDriverConnection ($limit: Int, $start: Int, $search: String){
+  driversConnection (
+    limit: $limit,
+    start: $start,
+    sort: "created_at:desc"
+    where: {
+      name_contains: $search
+    }
+  ){
+    aggregate {
+      count
+      totalCount
+    }
   }
 }
 
@@ -382,6 +462,22 @@ query GetBookings($limit: Int, $start: Int, $search: String){
     transaction {
       id
       transaction_id
+    }
+  }
+}
+
+query GetBookingConnections($limit: Int, $start: Int, $search: String){
+  bookingsConnection(
+    limit: $limit,
+    start: $start,
+    sort: "created_at:desc"
+    where: {
+      name_contains: $search
+    }
+  ) {
+    aggregate {
+      count
+      totalCount
     }
   }
 }

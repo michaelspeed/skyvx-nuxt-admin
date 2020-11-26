@@ -4935,6 +4935,24 @@ export type GetAllCitiesQuery = (
   )>>> }
 );
 
+export type GetAllCitiesConnectionQueryVariables = Exact<{
+  limit?: Maybe<Scalars['Int']>;
+  start?: Maybe<Scalars['Int']>;
+  search?: Maybe<Scalars['String']>;
+}>;
+
+
+export type GetAllCitiesConnectionQuery = (
+  { __typename?: 'Query' }
+  & { citiesConnection?: Maybe<(
+    { __typename?: 'CitiesConnection' }
+    & { aggregate?: Maybe<(
+      { __typename?: 'CitiesAggregator' }
+      & Pick<CitiesAggregator, 'count' | 'totalCount'>
+    )> }
+  )> }
+);
+
 export type GetAllVehiclesQueryVariables = Exact<{
   limit?: Maybe<Scalars['Int']>;
   start?: Maybe<Scalars['Int']>;
@@ -4986,6 +5004,24 @@ export type GetAllPricingQuery = (
   )>>> }
 );
 
+export type GetAllPricingConnectionsQueryVariables = Exact<{
+  limit?: Maybe<Scalars['Int']>;
+  start?: Maybe<Scalars['Int']>;
+  search?: Maybe<Scalars['String']>;
+}>;
+
+
+export type GetAllPricingConnectionsQuery = (
+  { __typename?: 'Query' }
+  & { pricingsConnection?: Maybe<(
+    { __typename?: 'PricingConnection' }
+    & { aggregate?: Maybe<(
+      { __typename?: 'PricingAggregator' }
+      & Pick<PricingAggregator, 'count' | 'totalCount'>
+    )> }
+  )> }
+);
+
 export type GetAllToursQueryVariables = Exact<{
   limit?: Maybe<Scalars['Int']>;
   start?: Maybe<Scalars['Int']>;
@@ -5011,6 +5047,24 @@ export type GetAllToursQuery = (
   )>>> }
 );
 
+export type GetAllTourConnectionsQueryVariables = Exact<{
+  limit?: Maybe<Scalars['Int']>;
+  start?: Maybe<Scalars['Int']>;
+  search?: Maybe<Scalars['String']>;
+}>;
+
+
+export type GetAllTourConnectionsQuery = (
+  { __typename?: 'Query' }
+  & { toursConnection?: Maybe<(
+    { __typename?: 'ToursConnection' }
+    & { aggregate?: Maybe<(
+      { __typename?: 'ToursAggregator' }
+      & Pick<ToursAggregator, 'count' | 'totalCount'>
+    )> }
+  )> }
+);
+
 export type GetAllPromosQueryVariables = Exact<{
   limit?: Maybe<Scalars['Int']>;
   start?: Maybe<Scalars['Int']>;
@@ -5026,6 +5080,24 @@ export type GetAllPromosQuery = (
   )>>> }
 );
 
+export type GetAllPromosConnectionsQueryVariables = Exact<{
+  limit?: Maybe<Scalars['Int']>;
+  start?: Maybe<Scalars['Int']>;
+  search?: Maybe<Scalars['String']>;
+}>;
+
+
+export type GetAllPromosConnectionsQuery = (
+  { __typename?: 'Query' }
+  & { promosConnection?: Maybe<(
+    { __typename?: 'PromoConnection' }
+    & { aggregate?: Maybe<(
+      { __typename?: 'PromoAggregator' }
+      & Pick<PromoAggregator, 'count' | 'totalCount'>
+    )> }
+  )> }
+);
+
 export type GetAllDriversQueryVariables = Exact<{
   limit?: Maybe<Scalars['Int']>;
   start?: Maybe<Scalars['Int']>;
@@ -5039,6 +5111,24 @@ export type GetAllDriversQuery = (
     { __typename?: 'Drivers' }
     & Pick<Drivers, 'id' | 'name' | 'number'>
   )>>> }
+);
+
+export type GetAllDriverConnectionQueryVariables = Exact<{
+  limit?: Maybe<Scalars['Int']>;
+  start?: Maybe<Scalars['Int']>;
+  search?: Maybe<Scalars['String']>;
+}>;
+
+
+export type GetAllDriverConnectionQuery = (
+  { __typename?: 'Query' }
+  & { driversConnection?: Maybe<(
+    { __typename?: 'DriversConnection' }
+    & { aggregate?: Maybe<(
+      { __typename?: 'DriversAggregator' }
+      & Pick<DriversAggregator, 'count' | 'totalCount'>
+    )> }
+  )> }
 );
 
 export type AllCitiesQueryVariables = Exact<{ [key: string]: never; }>;
@@ -5160,6 +5250,24 @@ export type GetBookingsQuery = (
       & Pick<Transaction, 'id' | 'transaction_id'>
     )> }
   )>>> }
+);
+
+export type GetBookingConnectionsQueryVariables = Exact<{
+  limit?: Maybe<Scalars['Int']>;
+  start?: Maybe<Scalars['Int']>;
+  search?: Maybe<Scalars['String']>;
+}>;
+
+
+export type GetBookingConnectionsQuery = (
+  { __typename?: 'Query' }
+  & { bookingsConnection?: Maybe<(
+    { __typename?: 'BookingConnection' }
+    & { aggregate?: Maybe<(
+      { __typename?: 'BookingAggregator' }
+      & Pick<BookingAggregator, 'count' | 'totalCount'>
+    )> }
+  )> }
 );
 
 
@@ -5489,6 +5597,16 @@ export const GetAllCitiesDocument = gql`
   }
 }
     `;
+export const GetAllCitiesConnectionDocument = gql`
+    query GetAllCitiesConnection($limit: Int, $start: Int, $search: String) {
+  citiesConnection(limit: $limit, start: $start, sort: "created_at:desc", where: {name_contains: $search}) {
+    aggregate {
+      count
+      totalCount
+    }
+  }
+}
+    `;
 export const GetAllVehiclesDocument = gql`
     query GetAllVehicles($limit: Int, $start: Int, $search: String) {
   vehicles(limit: $limit, start: $start, sort: "created_at:desc", where: {title_contains: $search}) {
@@ -5534,6 +5652,16 @@ export const GetAllPricingDocument = gql`
   }
 }
     `;
+export const GetAllPricingConnectionsDocument = gql`
+    query GetAllPricingConnections($limit: Int, $start: Int, $search: String) {
+  pricingsConnection(limit: $limit, start: $start, sort: "created_at:desc", where: {nameSlug_contains: $search}) {
+    aggregate {
+      count
+      totalCount
+    }
+  }
+}
+    `;
 export const GetAllToursDocument = gql`
     query GetAllTours($limit: Int, $start: Int, $search: String) {
   tours(limit: $limit, start: $start, sort: "created_at:desc", where: {title_contains: $search}) {
@@ -5558,6 +5686,16 @@ export const GetAllToursDocument = gql`
   }
 }
     `;
+export const GetAllTourConnectionsDocument = gql`
+    query GetAllTourConnections($limit: Int, $start: Int, $search: String) {
+  toursConnection(limit: $limit, start: $start, sort: "created_at:desc", where: {title_contains: $search}) {
+    aggregate {
+      count
+      totalCount
+    }
+  }
+}
+    `;
 export const GetAllPromosDocument = gql`
     query GetAllPromos($limit: Int, $start: Int, $search: String) {
   promos(limit: $limit, start: $start, sort: "created_at:desc", where: {code_contains: $search}) {
@@ -5572,12 +5710,32 @@ export const GetAllPromosDocument = gql`
   }
 }
     `;
+export const GetAllPromosConnectionsDocument = gql`
+    query GetAllPromosConnections($limit: Int, $start: Int, $search: String) {
+  promosConnection(limit: $limit, start: $start, sort: "created_at:desc", where: {code_contains: $search}) {
+    aggregate {
+      count
+      totalCount
+    }
+  }
+}
+    `;
 export const GetAllDriversDocument = gql`
     query GetAllDrivers($limit: Int, $start: Int, $search: String) {
   drivers(limit: $limit, start: $start, sort: "created_at:desc", where: {name_contains: $search}) {
     id
     name
     number
+  }
+}
+    `;
+export const GetAllDriverConnectionDocument = gql`
+    query GetAllDriverConnection($limit: Int, $start: Int, $search: String) {
+  driversConnection(limit: $limit, start: $start, sort: "created_at:desc", where: {name_contains: $search}) {
+    aggregate {
+      count
+      totalCount
+    }
   }
 }
     `;
@@ -5726,6 +5884,16 @@ export const GetBookingsDocument = gql`
     transaction {
       id
       transaction_id
+    }
+  }
+}
+    `;
+export const GetBookingConnectionsDocument = gql`
+    query GetBookingConnections($limit: Int, $start: Int, $search: String) {
+  bookingsConnection(limit: $limit, start: $start, sort: "created_at:desc", where: {name_contains: $search}) {
+    aggregate {
+      count
+      totalCount
     }
   }
 }

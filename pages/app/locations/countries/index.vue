@@ -69,6 +69,13 @@
               </v-chip>
             </template>
           </v-data-table>
+          <hr/>
+          <div>
+            <v-pagination
+              v-model="page"
+              :length="length"
+            ></v-pagination>
+          </div>
         </v-card>
       </div>
     </div>
@@ -126,7 +133,13 @@
 <script lang="ts">
 
 import {Component, Vue, Watch} from "nuxt-property-decorator";
-import {Country, CreateCountryDocument, GetAllCountriesConnectionDocument, GetAllCountriesDocument} from "~/gql";
+import {
+  BookingConnection,
+  Country, CountryConnection,
+  CreateCountryDocument,
+  GetAllCountriesConnectionDocument,
+  GetAllCountriesDocument
+} from "~/gql";
 
 @Component({
   layout: 'console',
@@ -146,6 +159,13 @@ import {Country, CreateCountryDocument, GetAllCountriesConnectionDocument, GetAl
     },
     countriesConnection: {
       query: GetAllCountriesConnectionDocument,
+      variables() {
+        return {
+          limit: 10,
+          start: (this.page - 1) * 10,
+          search: this.search !== '' ? this.search : undefined
+        }
+      },
       pollInterval: 3000
     }
   }
@@ -158,6 +178,18 @@ export default class Countries extends Vue {
 
   private page = 1
   private search = ''
+
+  private countriesConnection: CountryConnection
+
+  private length = 0
+
+  @Watch('countriesConnection')
+  calculateLength() {
+    if (this.countriesConnection) {
+      this.length = Math.ceil(this.countriesConnection.aggregate!.totalCount / 10)
+    }
+  }
+
   private headers = [
     {
       text: 'Id',

@@ -34,7 +34,7 @@
     <div class="d-flex flex-column-fluid">
       <div class=" container ">
         <v-progress-linear
-          v-if="$apollo.queries.bookings.loading"
+          v-if="$apollo.queries.bookings.loading || $apollo.queries.bookingsConnection.loading"
           color="lime"
           indeterminate
           reverse
@@ -52,7 +52,7 @@
             ></v-text-field>
           </v-card-title>
           <v-data-table
-            v-if="!$apollo.queries.bookings.loading"
+            v-if="!$apollo.queries.bookings.loading || $apollo.queries.bookingsConnection.loading"
             :headers="headers"
             :items="bookings"
             hide-default-footer
@@ -99,6 +99,13 @@
               <BookingActions :items="item"/>
             </template>
           </v-data-table>
+          <hr/>
+          <div>
+            <v-pagination
+              v-model="page"
+              :length="length"
+            ></v-pagination>
+          </div>
         </v-card>
       </div>
     </div>
@@ -107,8 +114,8 @@
 
 <script lang="ts">
 
-import {Component, Vue} from "nuxt-property-decorator";
-import {Booking, GetBookingsDocument} from "~/gql";
+import {Component, Vue, Watch} from "nuxt-property-decorator";
+import {Booking, BookingConnection, GetBookingConnectionsDocument, GetBookingsDocument} from "~/gql";
 import BookingActions from "~/components/bookings/BookingActions.vue";
 
 @Component({
@@ -125,6 +132,17 @@ import BookingActions from "~/components/bookings/BookingActions.vue";
         }
       },
       pollInterval: 3000
+    },
+    bookingsConnection: {
+      query: GetBookingConnectionsDocument,
+      variables() {
+        return {
+          limit: 10,
+          start: (this.page - 1) * 10,
+          search: this.search !== '' ? this.search : undefined
+        }
+      },
+      pollInterval: 3000
     }
   }
 })
@@ -133,6 +151,17 @@ export default class BookingsList extends Vue {
   private search = ''
 
   private bookings: Booking[]
+
+  private bookingsConnection: BookingConnection
+
+  private length = 0
+
+  @Watch('bookingsConnection')
+  calculateLength() {
+    if (this.bookingsConnection) {
+      this.length = Math.ceil(this.bookingsConnection.aggregate!.totalCount / 10)
+    }
+  }
 
   private headers = [
     {

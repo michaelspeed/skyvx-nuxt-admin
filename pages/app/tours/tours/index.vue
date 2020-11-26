@@ -61,6 +61,13 @@
               <a href="javascript:;" @click="$router.push(`/app/tours/${item.id}`)" class="btn btn-sm btn-light-primary font-weight-bold ml-2">View Tour</a>
             </template>
           </v-data-table>
+          <hr/>
+          <div>
+            <v-pagination
+              v-model="page"
+              :length="length"
+            ></v-pagination>
+          </div>
         </v-card>
       </div>
     </div>
@@ -69,14 +76,31 @@
 
 <script lang="ts">
 
-import {Component, Vue} from "nuxt-property-decorator";
-import {GetAllToursDocument, Tours} from "~/gql";
+import {Component, Vue, Watch} from "nuxt-property-decorator";
+import {
+  GetAllTourConnectionsDocument,
+  GetAllToursDocument,
+  GetBookingConnectionsDocument,
+  Tours,
+  ToursConnection
+} from "~/gql";
 
 @Component({
   layout: 'console',
   apollo: {
     tours: {
       query: GetAllToursDocument,
+      variables() {
+        return {
+          limit: 10,
+          start: (this.page - 1) * 10,
+          search: this.search !== '' ? this.search : undefined
+        }
+      },
+      pollInterval: 3000
+    },
+    toursConnection: {
+      query: GetAllTourConnectionsDocument,
       variables() {
         return {
           limit: 10,
@@ -93,6 +117,16 @@ export default class ToursMain extends Vue {
   private search = ''
 
   private tours: Tours[]
+  private toursConnection: ToursConnection
+
+  private length = 0
+
+  @Watch('toursConnection')
+  calculateLength() {
+    if (this.toursConnection) {
+      this.length = Math.ceil(this.toursConnection.aggregate!.totalCount / 10)
+    }
+  }
 
   private headers = [
     {
