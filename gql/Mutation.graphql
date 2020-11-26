@@ -515,3 +515,35 @@ mutation DeleteCity($id: ID!){
     }
   }
 }
+
+mutation UpdateBooking($id: ID!, $number: Long, $alternate: Long, $hours: Int){
+  updateBooking(input:{
+    where: {
+      id: $id
+    },
+    data: {
+      number: $number,
+      alternate: $alternate,
+      hours: $hours
+    }
+  }) {
+    booking {
+      id
+    }
+  }
+}
+
+mutation UpdateBookingStatus($id: ID!, $status: ENUM_BOOKING_STATUS){
+  updateBooking(input:{
+    where: {
+      id: $id
+    },
+    data: {
+      status: $status
+    }
+  }) {
+    booking {
+      id
+    }
+  }
+}

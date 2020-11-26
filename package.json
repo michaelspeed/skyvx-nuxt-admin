@@ -31,6 +31,7 @@
     "firebase": "^8.1.1",
     "less": "^3.12.2",
     "less-loader": "^7.0.2",
+    "moment": "^2.29.1",
     "nuxt": "^2.14.6",
     "nuxt-property-decorator": "^2.8.8",
     "primeicons": "^4.0.0",

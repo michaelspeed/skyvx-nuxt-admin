@@ -2,6 +2,7 @@ query GetAllCountries($limit: Int, $start: Int, $search: String){
   countries(
     limit: $limit,
     start: $start,
+    sort: "created_at:desc"
     where: {
       name_contains: $search
     }
@@ -18,6 +19,7 @@ query GetAllCurrency($limit: Int, $start: Int, $search: String){
   currencies(
     limit: $limit,
     start: $start,
+    sort: "created_at:desc"
     where: {
       name_contains: $search
     }
@@ -73,6 +75,7 @@ query GetAllCities($limit: Int, $start: Int, $search: String){
   cities(
     limit: $limit,
     start: $start,
+    sort: "created_at:desc"
     where: {
       name_contains: $search
     }
@@ -108,6 +111,7 @@ query GetAllVehicles($limit: Int, $start: Int, $search: String){
   vehicles(
     limit: $limit,
     start: $start,
+    sort: "created_at:desc"
     where: {
       title_contains: $search
     }
@@ -144,6 +148,7 @@ query GetAllPricing($limit: Int, $start: Int, $search: String){
   pricings(
     limit: $limit,
     start: $start,
+    sort: "created_at:desc"
     where: {
       nameSlug_contains: $search
     }
@@ -166,6 +171,7 @@ query GetAllTours($limit: Int, $start: Int, $search: String){
   tours(
     limit: $limit,
     start: $start,
+    sort: "created_at:desc"
     where: {
       title_contains: $search
     }
@@ -195,6 +201,7 @@ query GetAllPromos($limit: Int, $start: Int, $search: String){
   promos (
     limit: $limit,
     start: $start,
+    sort: "created_at:desc"
     where: {
       code_contains: $search
     }
@@ -214,6 +221,7 @@ query GetAllDrivers($limit: Int, $start: Int, $search: String){
   drivers (
     limit: $limit,
     start: $start,
+    sort: "created_at:desc"
     where: {
       name_contains: $search
     }
@@ -296,9 +304,73 @@ query GetMe{
 
 query GetBookingID($id: ID!){
   booking(id: $id) {
+    id
     type
     created_at
     name
+    email
+    status
+    number
+    date
+    alternate
+    pickup
+    total
+    hours
+    pricing {
+      id
+      nameSlug
+      base
+      tax
+      flat
+      toll
+      trip
+      type
+      tour {
+        id
+        title
+      }
+      vehicle {
+        id
+        vehicleClass
+        title
+        max
+        icon {
+          id
+          url
+        }
+        logo {
+          id
+          url
+        }
+        luggage
+      }
+    }
+    promo {
+      id
+      code
+    }
+    transaction {
+      id
+      transaction_id
+    }
+  }
+}
+
+query GetBookings($limit: Int, $start: Int, $search: String){
+  bookings(
+    limit: $limit,
+    start: $start,
+    sort: "created_at:desc"
+    where: {
+      name_contains: $search
+    }
+  ) {
+    id
+    type
+    created_at
+    date
+    name
+    status
     email
     number
     alternate
