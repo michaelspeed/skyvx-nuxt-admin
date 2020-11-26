@@ -481,3 +481,24 @@ query GetBookingConnections($limit: Int, $start: Int, $search: String){
     }
   }
 }
+
+query GetGraphData($sdate: DateTime, $edate: DateTime){
+  bookingsConnection(
+    where:{
+      created_at_gte:$sdate,
+      created_at_lte:$edate,
+    }
+  ) {
+    aggregate {
+      sum {
+        total
+      }
+    }
+    values {
+      id
+      type
+      total
+      created_at
+    }
+  }
+}
