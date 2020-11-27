@@ -834,6 +834,11 @@
                             <v-list-item-title class="text-primary" style="font-weight: bold">User Management</v-list-item-title>
                           </v-list-item-content>
                         </v-list-item>
+                        <v-list-item selectable @click="$router.push('/app/more/home')">
+                          <v-list-item-content>
+                            <v-list-item-title class="text-primary" style="font-weight: bold">Home Page</v-list-item-title>
+                          </v-list-item-content>
+                        </v-list-item>
                       </v-list-item-group>
                     </v-list>
                   </div>

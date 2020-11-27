@@ -502,3 +502,16 @@ query GetGraphData($sdate: DateTime, $edate: DateTime){
     }
   }
 }
+
+query GetHomePage{
+  homepage {
+    tours {
+      id
+      title
+    }
+    main_cars_tours {
+      id
+      title
+    }
+  }
+}

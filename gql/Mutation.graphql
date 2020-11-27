@@ -547,3 +547,18 @@ mutation UpdateBookingStatus($id: ID!, $status: ENUM_BOOKING_STATUS){
     }
   }
 }
+
+mutation UpdateHomePage($tours: [ID], $main: [ID]){
+  updateHomepage(
+    input:{
+      data:{
+        tours: $tours,
+        main_cars_tours: $main
+      }
+    }
+  ) {
+    homepage {
+      id
+    }
+  }
+}
