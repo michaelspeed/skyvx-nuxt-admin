@@ -56,7 +56,19 @@
       <v-card-text class="bg-white" v-if="tabs === 1">
         <div class="row">
           <div class="col-md-12">
-            <h6 class="ml-3">Pricing</h6>
+            <div class="d-flex justify-content-between align-items-center flex-row">
+              <h6 class="ml-3">Pricing</h6>
+              <v-btn
+                text
+                color="primary"
+                @click="onCreateSwap"
+              >
+                <v-icon left>
+                  mdi-swap-horizontal-bold
+                </v-icon>
+                Create Swap
+              </v-btn>
+            </div>
           </div>
           <div class="col-md-6">
             <v-text-field
@@ -197,12 +209,32 @@
         >Cancel</v-btn>
       </v-card-actions>
     </v-dialog>
+    <v-dialog
+      v-model="loading"
+      hide-overlay
+      persistent
+      width="300"
+    >
+      <v-card
+        color="primary"
+        dark
+      >
+        <v-card-text>
+          Please stand by
+          <v-progress-linear
+            indeterminate
+            color="white"
+            class="mb-0"
+          ></v-progress-linear>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
 <script lang="ts">
 import {Component, Prop, Vue} from "nuxt-property-decorator";
-import {Cities, Enum_Pricing_Type, Pricing, UpdatePricingDocument, Vehicles} from "~/gql";
+import {Cities, CreateHotelPricingDocument, Enum_Pricing_Type, Pricing, UpdatePricingDocument, Vehicles} from "~/gql";
 
 @Component({
 })
@@ -269,6 +301,7 @@ export default class PricingActions extends Vue {
   private ohourcitysearchItems: any[] = []
 
   mounted() {
+    console.log(this.pricing)
     if (this.pricing) {
       if (this.pricing!.type === Enum_Pricing_Type.Hotel) {
         this.tabs = 1
@@ -285,6 +318,7 @@ export default class PricingActions extends Vue {
       this.max = this.pricing!.maxDuration!
       this.min = this.pricing!.minDuration
       this.distance = this.pricing!.distanceBundle!
+      this.trip = this.pricing!.trip!
     }
   }
 
@@ -384,6 +418,31 @@ export default class PricingActions extends Vue {
           this.$message.error(e.message)
         })
     }
+  }
+
+  onCreateSwap() {
+    this.loading = true
+    this.$apollo.mutate({
+      mutation: CreateHotelPricingDocument,
+      variables: {
+        name: `${this.pricing.destinationlocation!.fomat} - ${this.pricing.originlocation!.fomat} - hotel`,
+        base: parseFloat(this.base),
+        tax: parseFloat(this.tax),
+        flat: parseFloat(this.addFlat),
+        toll: parseFloat(this.addToll),
+        vehicle: this.vehicleId.id,
+        oloc: this.pricing.destinationlocation!.id,
+        dloc: this.pricing.originlocation!.id,
+        trip: this.trip,
+        hotel: this.ocityId.id
+      }
+    })
+      .then(value => {
+        this.$message.success('Hotel Pricing Created ...')
+        this.addinter = false;
+        this.loading = false;
+      })
+      .catch(e => this.$message.error(e.message))
   }
 
 }

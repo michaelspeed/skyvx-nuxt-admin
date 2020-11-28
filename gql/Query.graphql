@@ -175,10 +175,19 @@ query GetAllPricing($limit: Int, $start: Int, $search: String){
     tax
     flat
     toll
+    trip
     addBase
     minDuration
     maxDuration
     distanceBundle
+    originlocation {
+      id
+      fomat
+    }
+    destinationlocation {
+      id
+      fomat
+    }
     type
   }
 }

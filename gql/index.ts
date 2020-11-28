@@ -5070,7 +5070,14 @@ export type GetAllPricingQuery = (
   { __typename?: 'Query' }
   & { pricings?: Maybe<Array<Maybe<(
     { __typename?: 'Pricing' }
-    & Pick<Pricing, 'id' | 'nameSlug' | 'base' | 'tax' | 'flat' | 'toll' | 'addBase' | 'minDuration' | 'maxDuration' | 'distanceBundle' | 'type'>
+    & Pick<Pricing, 'id' | 'nameSlug' | 'base' | 'tax' | 'flat' | 'toll' | 'trip' | 'addBase' | 'minDuration' | 'maxDuration' | 'distanceBundle' | 'type'>
+    & { originlocation?: Maybe<(
+      { __typename?: 'Locations' }
+      & Pick<Locations, 'id' | 'fomat'>
+    )>, destinationlocation?: Maybe<(
+      { __typename?: 'Locations' }
+      & Pick<Locations, 'id' | 'fomat'>
+    )> }
   )>>> }
 );
 
@@ -5763,10 +5770,19 @@ export const GetAllPricingDocument = gql`
     tax
     flat
     toll
+    trip
     addBase
     minDuration
     maxDuration
     distanceBundle
+    originlocation {
+      id
+      fomat
+    }
+    destinationlocation {
+      id
+      fomat
+    }
     type
   }
 }
