@@ -922,9 +922,8 @@ export default class Header extends Vue {
 
   onLogout() {
     this.$store.dispatch('user/logoutUser')
-    this.$apolloHelpers.onLogout().then(value => {
-      this.$router.push('/')
-    })
+    this.$apolloHelpers.onLogout()
+    this.$router.push('/')
   }
 }
 </script>
