@@ -109,7 +109,7 @@
             v-model="tourid"
             active-class=""
           >
-            <v-list-item v-for="item in tours">
+            <v-list-item v-for="item in tours" :key="item.id">
               <template v-slot:default="{ active }">
                 <v-list-item-action>
                   <v-checkbox :input-value="active"></v-checkbox>
