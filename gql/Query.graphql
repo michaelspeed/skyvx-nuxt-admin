@@ -88,6 +88,8 @@ query GetAllCities($limit: Int, $start: Int, $search: String){
     intercity
     tours
     hourly
+    ubase
+    utax
     location {
       id
       fomat

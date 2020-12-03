@@ -127,7 +127,7 @@
       width="50vw"
     >
       <v-app-bar color="primary">
-        <v-toolbar-title class="text-white font-weight-bold">Add City</v-toolbar-title>
+        <v-toolbar-title class="text-white font-weight-bold">Update City</v-toolbar-title>
       </v-app-bar>
       <v-card-text class="bg-white">
         <div class="row">
@@ -147,6 +147,24 @@
               filled
               rounded
               v-model="city.label"
+            ></v-text-field>
+          </div>
+          <div class="col-md-6">
+            <v-text-field
+              label="Base"
+              placeholder="Base Price"
+              filled
+              rounded
+              v-model="city.ubase"
+            ></v-text-field>
+          </div>
+          <div class="col-md-6">
+            <v-text-field
+              label="Tax"
+              placeholder="Base Tax"
+              filled
+              rounded
+              v-model="city.utax"
             ></v-text-field>
           </div>
           <div class="col-md-12">
@@ -301,7 +319,9 @@ export default class CitiesActions extends Vue {
         hotel: this.city.hotel,
         intercity: this.city.intercity,
         tour: this.city.tours,
-        hourly: this.city.hourly
+        hourly: this.city.hourly,
+        utax: parseInt(this.city.utax),
+        ubase: parseInt(this.city.ubase)
       }
     })
     .then(value => {
