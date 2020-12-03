@@ -167,6 +167,15 @@
               v-model="city.utax"
             ></v-text-field>
           </div>
+          <div class="col-md-6">
+            <v-text-field
+              label="Distance"
+              placeholder="Distance Bundle"
+              filled
+              rounded
+              v-model="city.dbundle"
+            ></v-text-field>
+          </div>
           <div class="col-md-12">
             <div class="row">
               <div class="col-md-3">
@@ -321,7 +330,8 @@ export default class CitiesActions extends Vue {
         tour: this.city.tours,
         hourly: this.city.hourly,
         utax: parseInt(this.city.utax),
-        ubase: parseInt(this.city.ubase)
+        ubase: parseInt(this.city.ubase),
+        dbundle: parseInt(this.city.dbundle)
       }
     })
     .then(value => {

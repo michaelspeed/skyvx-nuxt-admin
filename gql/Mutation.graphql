@@ -104,7 +104,8 @@ mutation UpdateCity(
   $tour: Boolean,
   $hourly: Boolean,
   $ubase: Int,
-  $utax: Int
+  $utax: Int,
+  $dbundle: Int
 ){
   updateCity(input:{
     where:{
@@ -118,7 +119,8 @@ mutation UpdateCity(
       tours: $tour,
       hourly:$hourly,
       utax: $utax,
-      ubase: $ubase
+      ubase: $ubase,
+      dbundle: $dbundle
     }
   }) {
     city {

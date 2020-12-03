@@ -90,6 +90,7 @@ query GetAllCities($limit: Int, $start: Int, $search: String){
     hourly
     ubase
     utax
+    dbundle
     location {
       id
       fomat
