@@ -84,6 +84,10 @@
                         <td class="pl-0 pt-7"><h4 class="color-blue">{{booking.name}}</h4><br/>{{booking.email}} <br/> <span class="font-weight-bold">Hotel Transfer:</span> {{booking.pricing.nameSlug}}</td>
                         <td class="color-blue pr-0 pt-7 text-right font-weight-bold">Travel Date: {{booking.date}}</td>
                       </tr>
+                      <tr class="font-weight-boldest" v-if="booking.pricing.type === 'INTER'">
+                        <td class="pl-0 pt-7"><h4 class="color-blue">{{booking.name}}</h4><br/>{{booking.email}} <br/> <span class="font-weight-bold">Intercity Transfer:</span> {{booking.pricing.nameSlug}}</td>
+                        <td class="color-blue pr-0 pt-7 text-right font-weight-bold">Travel Date: {{booking.date}}</td>
+                      </tr>
                       </tbody>
                     </table>
                   </div>
@@ -203,6 +207,10 @@
                       </tr>
                       <tr class="font-weight-boldest" v-if="booking.pricing.type === 'HOTEL'">
                         <td class="pl-0 pt-7"><span class="color-blue">{{booking.name}}</span> <br/> <span class="font-weight-bold">Hotel Transfer:</span> {{booking.pricing.nameSlug}} <br/> Travel Date: {{booking.date}}</td>
+                        <td class="color-blue pr-0 pt-7 text-right">₹ {{booking.total}}</td>
+                      </tr>
+                      <tr class="font-weight-boldest" v-if="booking.pricing.type === 'INTER'">
+                        <td class="pl-0 pt-7"><span class="color-blue">{{booking.name}}</span> <br/> <span class="font-weight-bold">Intercity Transfer:</span> {{booking.pricing.nameSlug}} <br/> Travel Date: {{booking.date}}</td>
                         <td class="color-blue pr-0 pt-7 text-right">₹ {{booking.total}}</td>
                       </tr>
                       </tbody>
