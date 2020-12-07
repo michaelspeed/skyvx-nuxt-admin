@@ -99,7 +99,7 @@ export default {
     authenticationType: 'Bearer',
     clientConfigs: {
       default: {
-        httpEndpoint: 'http://54.151.194.111:9689/graphql'
+        httpEndpoint: 'http://api.skyvx.com/graphql'
       }
     },
     defaultOptions: {
